@@ -16,7 +16,8 @@
         "Supply Fan": "q1401",
         "Communications": "q501",
         "Other": "q401"
-      }
+      },
+      "notes": "SAFETY: Follow site LOTO, electrical PPE, arc-flash, ladder, rotating-equipment, combustion, refrigerant, and life-safety procedures. Never bypass a safety or exceed product ratings. Verify exact model and approved documentation."
     },
     "q2": {
       "question": "What BMS panel component are you troubleshooting?",
@@ -33,14 +34,19 @@
       "answers": {
         "Yes": "q4",
         "No": "r1"
-      }
+      },
+      "notes": "RBravo equipment notes: RB-016",
+      "knowledgeRefs": [
+        "RB-016"
+      ]
     },
     "q4": {
-      "question": "Is 24 VAC control power present?",
+      "question": "Is the specified power supply present and within the voltage range required by the installed power-supply/server hardware?",
       "answers": {
         "Yes": "q5",
         "No": "r2"
-      }
+      },
+      "notes": "Do not assume every installation is 24 VAC only. Verify the exact PS-24V/automation-server hardware and approved documentation before testing."
     },
     "q5": {
       "question": "Are any breakers tripped?",
@@ -69,22 +75,29 @@
       "answers": {
         "Yes": "q9",
         "No": "r6"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-016"
+      ]
     },
     "q9": {
-      "question": "Can you connect locally by USB?",
+      "question": "Can Device Administrator communicate through the AS-P USB device port using a known-good USB data cable?",
       "answers": {
         "Yes": "r7",
         "No": "r8"
-      }
+      },
+      "notes": "The front USB device port is intended for Device Administrator/program download. A charging-only cable will not work.",
+      "knowledgeRefs": [
+        "RB-016"
+      ]
     },
     "r1": {
       "diagnosis": "No panel power",
       "action": "Verify source power, disconnect, breakers, and upstream electrical supply."
     },
     "r2": {
-      "diagnosis": "Low-voltage control power is missing",
-      "action": "Verify transformer primary and secondary voltage, low-voltage breaker, and wiring."
+      "diagnosis": "Automation-server/Central IO supply or backplane power is missing or out of tolerance",
+      "action": "Verify the installed power-supply model, source voltage, protective devices, terminal-base seating, and backplane connection. Do not energize until the source and polarity/type match the product documentation."
     },
     "r3": {
       "diagnosis": "Breaker tripped",
@@ -104,7 +117,10 @@
     },
     "r7": {
       "diagnosis": "Automation Server hardware appears accessible",
-      "action": "Continue with EBO status, application, bindings, and communications checks."
+      "action": "Document controller identity and status in Device Administrator, then verify EBO server association, IP settings, application status, Central IO bus, bindings, and field-bus health.",
+      "knowledgeRefs": [
+        "RB-016"
+      ]
     },
     "r8": {
       "diagnosis": "Automation Server cannot be reached locally",
@@ -121,17 +137,21 @@
       "question": "What kind of input are you troubleshooting?",
       "answers": {
         "Digital Input": "q103",
-        "4-20 mA": "q107",
-        "0-10 VDC": "q114",
+        "Current Input (0-20 mA; commonly 4-20 mA)": "q107",
+        "Voltage Input (0-10 VDC)": "q114",
         "Temperature 10k Type II": "q121"
-      }
+      },
+      "notes": "UI-16 supports digital, counter, supervised, voltage, current, temperature, and resistive inputs. Confirm the configured electrical type before field testing."
     },
     "q103": {
       "question": "Is the digital input contact normally open or normally closed?",
       "answers": {
         "NO": "q104",
         "NC": "q105"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-017"
+      ]
     },
     "q104": {
       "question": "With field wires removed, does jumpering the input change the UI state?",
@@ -155,11 +175,15 @@
       }
     },
     "q107": {
-      "question": "Is the 4-20 mA transmitter two-wire or three/four-wire?",
+      "question": "Is the current transmitter a two-wire loop-powered device or a separately powered three/four-wire device?",
       "answers": {
         "Two-wire loop": "q108",
         "Three/four-wire": "q109"
-      }
+      },
+      "notes": "UI-16 current input supports 0-20 mA. Many HVAC transmitters use a 4-20 mA operating range within that input capability.",
+      "knowledgeRefs": [
+        "RB-008"
+      ]
     },
     "q108": {
       "question": "Is loop DC power present with correct polarity?",
@@ -176,18 +200,20 @@
       }
     },
     "q110": {
-      "question": "Is expected current measured at the controller terminals?",
+      "question": "With the loop intact and the meter connected correctly in series, is the expected current measured at the controller terminals?",
       "answers": {
         "Yes": "q111",
         "No": "q112"
-      }
+      },
+      "notes": "Never place a current meter directly across a powered source. Follow meter and site electrical-safety procedures."
     },
     "q111": {
-      "question": "Does measured mA correspond to the expected engineering value?",
+      "question": "Does measured current correspond to the transmitter range and the actual process value?",
       "answers": {
         "Yes": "r120",
         "No": "r114"
-      }
+      },
+      "notes": "Use the transmitter nameplate/configured range. For a 4-20 mA transmitter, calculate expected mA from the configured lower and upper range values."
     },
     "q112": {
       "question": "Is expected current present at the field device output?",
@@ -197,25 +223,32 @@
       }
     },
     "q114": {
-      "question": "Is correct supply voltage present at the 0-10 VDC device?",
+      "question": "Is the correct device supply present and is the signal common/reference correctly connected?",
       "answers": {
         "Yes": "q115",
         "No": "r113"
-      }
+      },
+      "notes": "Confirm the field device supply requirement separately from the 0-10 V signal. Verify whether signal common is isolated or shared.",
+      "knowledgeRefs": [
+        "RB-008"
+      ]
     },
     "q115": {
       "question": "Is expected signal voltage measured at the controller terminals?",
       "answers": {
         "Yes": "q116",
         "No": "q119"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-008"
+      ]
     },
     "q116": {
-      "question": "Does the voltage also fluctuate on the meter?",
+      "question": "If the displayed value is unstable, does the voltage also fluctuate on a properly connected meter?",
       "answers": {
         "Yes": "r115",
         "No": "r116",
-        "Not fluctuating": "q117"
+        "Display is stable": "q117"
       }
     },
     "q117": {
@@ -223,14 +256,18 @@
       "answers": {
         "Yes": "q118",
         "No": "r117"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-008"
+      ]
     },
     "q118": {
-      "question": "When applying a known-good signal, does the input respond correctly?",
+      "question": "After isolating the field circuit, does a safe known-good 0-10 V test signal make the input respond correctly?",
       "answers": {
         "Yes": "r118",
         "No": "r102"
-      }
+      },
+      "notes": "Use an approved signal source. Do not inject voltage into a circuit that is still connected to an active transmitter."
     },
     "q119": {
       "question": "Is expected voltage present at the field device output?",
@@ -244,14 +281,18 @@
       "answers": {
         "Yes": "r120",
         "No": "r116"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-008"
+      ]
     },
     "q121": {
       "question": "At the sensor, is resistance open/OL?",
       "answers": {
         "Yes": "r121",
         "No": "q122"
-      }
+      },
+      "notes": "RBravo equipment notes: RB-001, RB-008"
     },
     "q122": {
       "question": "At the sensor, is resistance near 0 ohms?",
@@ -261,12 +302,12 @@
       }
     },
     "q123": {
-      "question": "Does sensor resistance match the 10k Type II chart for actual temperature?",
+      "question": "Does sensor resistance match the manufacturer-approved 10k Type II curve at the independently measured temperature?",
       "answers": {
         "Yes": "q124",
         "No": "r123"
       },
-      "notes": "Schneider and BAPI 10k Type II sensors are typical."
+      "notes": "In EBO terminology, verify the configured Type II curve used by the project, commonly shown as 10K CSI / I/NET. Use the exact approved curve for the installed Schneider or BAPI part number."
     },
     "q124": {
       "question": "Does resistance measured at the controller match resistance at the sensor?",
@@ -276,11 +317,12 @@
       }
     },
     "q125": {
-      "question": "Is the input configured as a 10k Type II thermistor in EBO?",
+      "question": "Is the input configured for the exact 10k Type II curve required by the installed sensor?",
       "answers": {
         "Yes": "q126",
         "No": "r125"
-      }
+      },
+      "notes": "Do not select a thermistor curve solely because the sensor is nominally 10 kOhm at 25 C. Different 10 kOhm curves are not interchangeable."
     },
     "q126": {
       "question": "Is displayed temperature within 2 F of a calibrated thermometer?",
@@ -365,8 +407,8 @@
       "action": "Isolate sensor from wiring; locate the short or replace the sensor."
     },
     "r123": {
-      "diagnosis": "10k Type II sensor is out of tolerance",
-      "action": "Confirm with chart and calibrated reference; replace the sensor if required."
+      "diagnosis": "Thermistor, reference measurement, or selected resistance curve does not agree",
+      "action": "Confirm the actual temperature with a calibrated reference, identify the sensor part number, use its approved resistance table, isolate sensor from wiring, and replace only after confirming the mismatch remains."
     },
     "r125": {
       "diagnosis": "Incorrect sensor type configured",
@@ -381,11 +423,15 @@
       "action": "Correct mounting, seal wall penetrations, improve thermal contact, or relocate the sensor."
     },
     "q201": {
-      "question": "Is the DO8 module online and healthy?",
+      "question": "Is the installed digital-output module identified correctly (for example DO-FC-8 Form C or DO-FA-12 Form A), online, and healthy?",
       "answers": {
         "Yes": "q202",
         "No": "r203"
-      }
+      },
+      "notes": "The 8-channel Schneider Central IO digital-output module is DO-FC-8. Form C provides COM/NO/NC relay contacts. DO-FA-12 is a separate 12-channel Form A module.",
+      "knowledgeRefs": [
+        "RB-017"
+      ]
     },
     "q202": {
       "question": "Is the output commanded ON in EBO?",
@@ -395,25 +441,28 @@
       }
     },
     "q203": {
-      "question": "Is the output overridden, forced, or controlled by a higher priority?",
+      "question": "Is the software value overridden/forced, or is an -H module HOA switch in Hand or Off?",
       "answers": {
         "Yes": "r999",
         "No": "q204"
-      }
+      },
+      "notes": "On -H modules, physical Hand-Off-Auto position can override normal software control. Follow current Schneider advisories for the installed manufacturing date."
     },
     "q204": {
-      "question": "Is the DO LED illuminated when commanded ON?",
+      "question": "Does the channel status LED follow the commanded state?",
       "answers": {
         "Yes": "q205",
         "No": "q206"
-      }
+      },
+      "notes": "A channel LED indicates output state, but does not prove external source voltage or load operation."
     },
     "q205": {
-      "question": "Is the expected switched voltage/contact state present at the DO terminals?",
+      "question": "With power isolated as required, does continuity between COM and NO/NC change correctly when the relay is commanded?",
       "answers": {
         "Yes": "q207",
         "No": "r202"
-      }
+      },
+      "notes": "DO-FC-8 is a dry Form C relay output. Test the contact state appropriate to the installed wiring. Do not assume the module supplies voltage."
     },
     "q206": {
       "question": "Can the output be commanded manually after verifying safeties?",
@@ -423,11 +472,12 @@
       }
     },
     "q207": {
-      "question": "Is the expected voltage/contact state present at the field device?",
+      "question": "Is the external control-power source present, correctly rated, and switched through the intended COM/NO/NC conductors to the field device?",
       "answers": {
         "Yes": "q208",
         "No": "r998"
-      }
+      },
+      "notes": "Verify source voltage, common/reference, relay contact selection, load rating, and any interposing relay. Use safe energized testing procedures."
     },
     "q208": {
       "question": "Does the field device operate?",
@@ -441,8 +491,8 @@
       "action": "Investigate enable logic, schedules, safeties, interlocks, operating mode, and setpoints."
     },
     "r202": {
-      "diagnosis": "DO relay/contact is not switching correctly",
-      "action": "Verify wet/dry contact requirements and common wiring; test a known-good output, then repair/replace module."
+      "diagnosis": "Relay contact or channel does not switch as commanded",
+      "action": "Verify correct module type, point type, HOA position, COM/NO/NC terminals, and isolated continuity. Compare with a known-good channel without exceeding relay ratings; replace hardware only after isolation."
     },
     "r203": {
       "diagnosis": "DO8 module or application is not responding",
@@ -450,21 +500,28 @@
     },
     "r204": {
       "diagnosis": "Digital output path operates correctly",
-      "action": "Continue downstream to starter, relay, contactor, VFD, motor, or mechanical equipment."
+      "action": "The EBO command, module indication, relay contact, external source, and field wiring are functioning. Continue downstream to interposing relay, starter, contactor, VFD enable circuit, safeties, motor, or mechanical equipment."
     },
     "q301": {
       "question": "Is the AO8 module online and healthy?",
       "answers": {
         "Yes": "q302",
         "No": "r303"
-      }
+      },
+      "notes": "RBravo equipment notes: RB-004, RB-008, RB-017",
+      "knowledgeRefs": [
+        "RB-004",
+        "RB-008",
+        "RB-017"
+      ]
     },
     "q302": {
-      "question": "What signal type is configured?",
+      "question": "What AO-8 electrical output type is configured?",
       "answers": {
         "0-10 VDC": "q303",
-        "4-20 mA": "q320"
-      }
+        "0-20 mA": "q320"
+      },
+      "notes": "AO-8 supports 0-10 VDC and 0-20 mA. A connected device may be configured to use only the 4-20 mA portion, but the module electrical type remains 0-20 mA."
     },
     "q303": {
       "question": "Is the output command changing as expected in EBO?",
@@ -474,21 +531,28 @@
       }
     },
     "q304": {
-      "question": "Does measured output voltage match the commanded percentage and configured scale?",
+      "question": "Does measured voltage match the commanded value within the AO-8 accuracy and resolution limits?",
       "answers": {
         "Yes": "q305",
         "No": "r301"
-      }
+      },
+      "notes": "AO-8 voltage range is 0-10 VDC; published accuracy is +/-100 mV, resolution 42 mV, and minimum load resistance 5 kohm.",
+      "knowledgeRefs": [
+        "RB-008"
+      ]
     },
     "q305": {
       "question": "Does the same voltage reach the field device?",
       "answers": {
         "Yes": "q306",
         "No": "r998"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-008"
+      ]
     },
     "q306": {
-      "question": "Does the actuator or VFD respond across the command range?",
+      "question": "Does the actuator/VFD respond correctly at low, mid, and high command without exceeding the configured operating range?",
       "answers": {
         "Yes": "r302",
         "No": "r997"
@@ -502,25 +566,28 @@
       }
     },
     "q321": {
-      "question": "Can current be measured safely in series at the output?",
+      "question": "Can output current be measured safely in series with the load using the correct meter range?",
       "answers": {
         "Yes": "q322",
         "No": "r303"
-      }
+      },
+      "notes": "AO-8 current output is 0-20 mA. Published maximum load is 650 ohm. Opening the loop or incorrect meter placement can force an invalid result."
     },
     "q322": {
-      "question": "Does measured current match the commanded percentage and configured scale?",
+      "question": "Does measured current match the commanded value within the AO-8 accuracy and resolution limits?",
       "answers": {
         "Yes": "q323",
         "No": "r304"
-      }
+      },
+      "notes": "Published AO-8 current accuracy is +/-0.2 mA and resolution is 0.1 mA. Compare against the configured output scale, including any 4-20 mA device mapping."
     },
     "q323": {
-      "question": "Does the same current reach the field device and cause a response?",
+      "question": "Does the same current reach the field device, remain within load limits, and produce the expected response?",
       "answers": {
         "Yes": "r302",
         "No": "r998"
-      }
+      },
+      "notes": "Verify polarity, total loop resistance, device input configuration, and whether the receiving device expects 0-20 mA or 4-20 mA."
     },
     "r301": {
       "diagnosis": "0-10 V output does not match command",
@@ -531,12 +598,12 @@
       "action": "Investigate actuator setup, VFD parameters, linkage, sequence, or mechanical equipment."
     },
     "r303": {
-      "diagnosis": "AO8/module or current-loop test issue",
-      "action": "Verify module health, current-output configuration, loop wiring, and correct meter connection."
+      "diagnosis": "AO-8 current-output test cannot establish a valid loop current",
+      "action": "Verify AO-8 module health, 0-20 mA point configuration, closed-loop wiring, polarity, meter placement, and total load at or below the published 650 ohm maximum."
     },
     "r304": {
-      "diagnosis": "4-20 mA output does not match command",
-      "action": "Verify range, loop load, polarity, channel configuration, and test with a known-good device."
+      "diagnosis": "AO-8 current output does not match the commanded value",
+      "action": "Verify 0-20 mA electrical type, output scaling, polarity, loop resistance, receiving-device range, and channel operation. Compare against published +/-0.2 mA accuracy before condemning the module."
     },
     "q401": {
       "question": "This section is reserved for user-defined troubleshooting. Return to the main menu?",
@@ -552,21 +619,44 @@
         "BACnet/IP Device Offline": "q540",
         "Intermittent Communications": "q560",
         "Wrong Data Displayed": "q580"
-      }
+      },
+      "notes": "RBravo equipment notes: RB-004, RB-005, RB-006, RB-007, RB-009, RB-010, RB-011, RB-012, RB-014, RB-015, RB-018",
+      "knowledgeRefs": [
+        "RB-002",
+        "RB-004",
+        "RB-005",
+        "RB-006",
+        "RB-007",
+        "RB-009",
+        "RB-010",
+        "RB-011",
+        "RB-012",
+        "RB-013",
+        "RB-014",
+        "RB-015",
+        "RB-018"
+      ]
     },
     "q502": {
       "question": "Does the controller have correct power and normal status LEDs?",
       "answers": {
         "Yes": "q503",
         "No": "r501"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-018"
+      ]
     },
     "q503": {
-      "question": "Can you connect locally by USB?",
+      "question": "Can Device Administrator communicate locally through the USB device port?",
       "answers": {
         "Yes": "q504",
         "No": "r502"
-      }
+      },
+      "notes": "Use a known-good data cable and verify the correct USB device port. Distinguish USB-local access from Ethernet reachability.",
+      "knowledgeRefs": [
+        "RB-018"
+      ]
     },
     "q504": {
       "question": "Are other controllers on the same Ethernet network reachable?",
@@ -587,77 +677,137 @@
       "answers": {
         "Yes": "q521",
         "No": "r520"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-004",
+        "RB-005",
+        "RB-009",
+        "RB-015"
+      ]
     },
     "q521": {
       "question": "Is the device MAC address unique?",
       "answers": {
         "Yes": "q522",
         "No": "r521"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-005",
+        "RB-009"
+      ]
     },
     "q522": {
-      "question": "Does baud rate match the trunk and is Max Master appropriate?",
+      "question": "Are baud rate, MAC address range, Max Master, and Max Info Frames appropriate for every MS/TP master on the trunk?",
       "answers": {
         "Yes": "q523",
         "No": "r522"
-      }
+      },
+      "notes": "A duplicate MAC or Max Master set below an active master address can prevent token passing. Preserve a consistent supported baud rate across the segment.",
+      "knowledgeRefs": [
+        "RB-005",
+        "RB-009"
+      ]
     },
     "q523": {
-      "question": "Are RS-485 polarity, shield, topology, and end-of-line termination correct?",
+      "question": "Does the RS-485 segment have correct polarity, daisy-chain topology, shield practice, biasing/termination, and no shorts/grounds?",
       "answers": {
         "Yes": "q524",
         "No": "r523"
-      }
+      },
+      "notes": "Do not add termination arbitrarily. Verify the exact trunk design and device instructions; inspect long stubs, star wiring, grounded conductors, and shield grounding at unintended points.",
+      "knowledgeRefs": [
+        "RB-005"
+      ]
     },
     "q524": {
-      "question": "Does disconnecting downstream segments identify a failing segment/device?",
+      "question": "After documenting the trunk, does sectional isolation identify a cable segment or device that disrupts communications?",
       "answers": {
         "Yes": "r524",
         "No": "r525"
-      }
+      },
+      "notes": "De-energize or disconnect only as permitted. Reconnect one segment/device at a time and document changes to avoid creating address or topology errors.",
+      "knowledgeRefs": [
+        "RB-005"
+      ]
     },
     "q540": {
-      "question": "Can the BACnet/IP device be pinged from the appropriate network?",
+      "question": "From an appropriate host on the same routed network, do link status, ARP/IP reachability, and ping results support basic IP connectivity?",
       "answers": {
         "Yes": "q541",
         "No": "r540"
-      }
+      },
+      "notes": "Ping can be blocked and is not proof of BACnet service. Use link/ARP/routing evidence together rather than relying on ping alone.",
+      "knowledgeRefs": [
+        "RB-004",
+        "RB-006",
+        "RB-007",
+        "RB-010",
+        "RB-011",
+        "RB-012",
+        "RB-014",
+        "RB-015"
+      ]
     },
     "q541": {
       "question": "Are IP address, subnet, gateway, and VLAN correct and unique?",
       "answers": {
         "Yes": "q542",
         "No": "r541"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-007",
+        "RB-011",
+        "RB-012"
+      ]
     },
     "q542": {
-      "question": "Can BACnet objects be discovered locally on the same subnet?",
+      "question": "Can the BACnet device be discovered locally using the correct BACnet/IP network and UDP port?",
       "answers": {
         "Yes": "q543",
         "No": "r542"
-      }
+      },
+      "notes": "Verify unique BACnet device instance separately from IP address. Local discovery depends on broadcasts and the configured BACnet/IP network/port.",
+      "knowledgeRefs": [
+        "RB-006",
+        "RB-007",
+        "RB-011",
+        "RB-012",
+        "RB-014"
+      ]
     },
     "q543": {
-      "question": "Does communication cross a subnet or require BBMD/foreign-device registration?",
+      "question": "Is the client/device on another IP subnet or otherwise dependent on BACnet broadcast management/routing?",
       "answers": {
         "Yes": "q544",
         "No": "r543"
-      }
+      },
+      "notes": "BBMD/foreign-device configuration is relevant when BACnet broadcasts must cross IP subnet boundaries; avoid duplicate or unintended broadcast-distribution paths.",
+      "knowledgeRefs": [
+        "RB-007",
+        "RB-011",
+        "RB-012"
+      ]
     },
     "q544": {
       "question": "Are BBMD/BDT/FDT settings and firewall UDP port rules correct?",
       "answers": {
         "Yes": "r544",
         "No": "r545"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-007",
+        "RB-012"
+      ]
     },
     "q560": {
       "question": "Do multiple devices drop offline at the same time?",
       "answers": {
         "Yes": "q561",
         "No": "q563"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-004"
+      ]
     },
     "q561": {
       "question": "Do drops correlate with VFD/motor starts or electrical events?",
@@ -685,22 +835,41 @@
       "answers": {
         "Yes": "q581",
         "No": "r580"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-006",
+        "RB-007",
+        "RB-008",
+        "RB-012",
+        "RB-013",
+        "RB-014"
+      ]
     },
     "q581": {
       "question": "Does the supervisory server/graphic value match the controller value?",
       "answers": {
         "Yes": "r581",
         "No": "r999"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-006",
+        "RB-012",
+        "RB-014"
+      ]
     },
     "r501": {
       "diagnosis": "Controller power or startup issue",
-      "action": "Restore correct power and resolve abnormal LED/startup condition before network troubleshooting."
+      "action": "Restore correct power and resolve abnormal LED/startup condition before network troubleshooting.",
+      "knowledgeRefs": [
+        "RB-018"
+      ]
     },
     "r502": {
       "diagnosis": "Controller is not locally accessible",
-      "action": "Verify USB connection and boot state; perform approved recovery or replace hardware if required."
+      "action": "Verify USB connection and boot state; perform approved recovery or replace hardware if required.",
+      "knowledgeRefs": [
+        "RB-018"
+      ]
     },
     "r503": {
       "diagnosis": "Network-wide Ethernet infrastructure issue",
@@ -795,7 +964,11 @@
         "Damper Not Moving": "q630",
         "Reheat Not Working": "q640",
         "Offline": "q501"
-      }
+      },
+      "notes": "RBravo equipment notes: RB-001",
+      "knowledgeRefs": [
+        "RB-001"
+      ]
     },
     "q602": {
       "question": "Is the space-temperature reading accurate?",
@@ -858,14 +1031,20 @@
       "answers": {
         "Yes": "q621",
         "No": "q107"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-001"
+      ]
     },
     "q621": {
       "question": "Is damper commanded open?",
       "answers": {
         "Yes": "q630",
         "No": "r995"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-001"
+      ]
     },
     "q630": {
       "question": "Is the damper command signal changing?",
@@ -884,7 +1063,10 @@
     },
     "r601": {
       "diagnosis": "VAV controls appear to be responding",
-      "action": "Investigate system supply-air temperature/pressure, balancing, box sizing, duct restrictions, and mechanical condition."
+      "action": "Verify system supply-air temperature and static pressure, upstream AHU availability, box inlet pressure, airflow pickup tubing orientation/condition, damper/linkage travel, design min/max airflow, balancing, duct restrictions, and reheat valve/stage operation. Compare actual field measurements with design values before changing control parameters.",
+      "knowledgeRefs": [
+        "RB-001"
+      ]
     },
     "q701": {
       "question": "What AHU symptom are you troubleshooting?",
@@ -895,14 +1077,22 @@
         "Static Pressure Issue": "q730",
         "Temperature Issue": "q121",
         "Offline": "q501"
-      }
+      },
+      "notes": "RBravo equipment notes: RB-003, RB-013",
+      "knowledgeRefs": [
+        "RB-003",
+        "RB-013"
+      ]
     },
     "q702": {
       "question": "Is the AHU enabled by schedule/occupancy?",
       "answers": {
         "Yes": "q703",
         "No": "r995"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-003"
+      ]
     },
     "q703": {
       "question": "Are all safeties and interlocks normal?",
@@ -923,14 +1113,20 @@
       "answers": {
         "Yes": "q711",
         "No": "q121"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-003"
+      ]
     },
     "q711": {
       "question": "Is cooling enabled and the valve/compressor command increasing?",
       "answers": {
         "Yes": "q712",
         "No": "r995"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-003"
+      ]
     },
     "q712": {
       "question": "What cooling output type is used?",
@@ -944,14 +1140,21 @@
       "answers": {
         "Yes": "q721",
         "No": "q121"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-003",
+        "RB-013"
+      ]
     },
     "q721": {
       "question": "Is heating enabled and command increasing?",
       "answers": {
         "Yes": "q722",
         "No": "r995"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-003"
+      ]
     },
     "q722": {
       "question": "What heating output type is used?",
@@ -976,7 +1179,7 @@
     },
     "r701": {
       "diagnosis": "AHU safety/interlock is preventing operation",
-      "action": "Identify freeze stat, smoke, high static, fire alarm, overload, proof, or other active safety; reset only after cause is corrected."
+      "action": "Identify the exact active permissive or safety, including smoke/fire interface, freeze protection, high static, overload, fan proof, airflow proof, condensate, or local emergency stop. Do not bypass a life-safety or equipment-protection circuit. Correct the initiating cause and follow the approved reset procedure."
     },
     "q801": {
       "question": "What RTU symptom are you troubleshooting?",
@@ -986,14 +1189,26 @@
         "No Heating": "q820",
         "Temperature Issue": "q121",
         "Offline": "q501"
-      }
+      },
+      "notes": "RBravo equipment notes: RB-002, RB-003, RB-005, RB-006, RB-014, RB-015",
+      "knowledgeRefs": [
+        "RB-002",
+        "RB-003",
+        "RB-005",
+        "RB-006",
+        "RB-014",
+        "RB-015"
+      ]
     },
     "q802": {
       "question": "Is the RTU enabled by schedule/occupancy?",
       "answers": {
         "Yes": "q803",
         "No": "r995"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-003"
+      ]
     },
     "q803": {
       "question": "Are safeties and interlocks normal?",
@@ -1014,21 +1229,32 @@
       "answers": {
         "Yes": "q811",
         "No": "q121"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-002",
+        "RB-003"
+      ]
     },
     "q811": {
       "question": "Is a compressor/cooling-stage command present?",
       "answers": {
         "Yes": "q201",
         "No": "r995"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-002"
+      ]
     },
     "q820": {
       "question": "Is temperature accurate and is heating enabled?",
       "answers": {
         "Yes": "q821",
         "No": "q121"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-002",
+        "RB-003"
+      ]
     },
     "q821": {
       "question": "Is a heating-stage or valve command present?",
@@ -1036,11 +1262,14 @@
         "Digital Stage": "q201",
         "Modulating Valve": "q301",
         "No Command": "r995"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-002"
+      ]
     },
     "r801": {
       "diagnosis": "RTU safety/interlock is preventing operation",
-      "action": "Identify smoke, freeze, pressure switch, overload, condensate, proof, or manufacturer lockout; correct cause before reset."
+      "action": "Read the unit controller/manufacturer fault status. Check smoke, freeze, high/low refrigerant pressure, condensate, overload, fan proof, compressor anti-short-cycle, phase/power, and local HOA/service switches. Do not bypass a safety; correct the cause before reset."
     },
     "q901": {
       "question": "What pump symptom are you troubleshooting?",
@@ -1099,11 +1328,14 @@
       "answers": {
         "Yes": "q301",
         "No": "r995"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-004"
+      ]
     },
     "r901": {
       "diagnosis": "Pump interlock/selection is preventing operation",
-      "action": "Verify HOA, lead-lag selection, low-water/flow safeties, VFD fault, and permissives."
+      "action": "Verify HOA/local-remote state, VFD/starter readiness, lead-lag selection, differential-pressure demand, low-water/flow permissives, valve end switches, freeze protection, and motor protection. Do not force a start against a closed valve or unsatisfied safety."
     },
     "r902": {
       "diagnosis": "Pump runs but system flow/DP is inadequate",
@@ -1161,7 +1393,7 @@
     },
     "r1001": {
       "diagnosis": "Boiler safety/permissive is not satisfied",
-      "action": "Identify flow, low-water, gas, vent, temperature, pressure, or manufacturer lockout. Escalate per site procedure."
+      "action": "Identify the boiler-controller lockout and verify flow, low-water cutoff, gas train, combustion-air/vent proving, temperature/pressure limits, flame safeguard, and manufacturer permissives. Do not bypass combustion safeties; use qualified boiler service personnel."
     },
     "r1002": {
       "diagnosis": "BMS enable reaches boiler but boiler does not fire",
@@ -1221,7 +1453,7 @@
     },
     "r1101": {
       "diagnosis": "Chiller permissive is not satisfied",
-      "action": "Verify pump status, flow, condenser-water conditions, safeties, and manufacturer interlocks."
+      "action": "Verify CHW and condenser-water pump status, proven flow, valve positions, entering-water conditions, demand limit, anti-recycle timers, and manufacturer safeties. Do not repeatedly reset a chiller lockout; use qualified chiller service personnel."
     },
     "r1102": {
       "diagnosis": "Chiller receives enable but remains off",
@@ -1243,7 +1475,8 @@
         "Low Temperature/Freeze Risk": "q1220",
         "Basin Level Issue": "q1230",
         "Offline": "q501"
-      }
+      },
+      "notes": "RBravo equipment notes: RB-004"
     },
     "q1202": {
       "question": "Is the tower enabled and staged by sequence?",
@@ -1283,7 +1516,7 @@
     },
     "r1201": {
       "diagnosis": "Tower controls appear to be responding",
-      "action": "Investigate weather conditions, bypass valve, fan capability, freeze-protection hardware, and water flow."
+      "action": "Verify condenser-water flow, fan rotation, gearbox/belt condition, fill condition, nozzles, strainers, bypass valve, ambient wet-bulb conditions, staging, basin heater, freeze protection, and manufacturer limits. Follow site water-treatment and freeze-protection procedures."
     },
     "r1202": {
       "diagnosis": "Basin-level input appears accurate",
@@ -1296,28 +1529,41 @@
         "Status Incorrect": "q1310",
         "Speed/Airflow Issue": "q1320",
         "Offline": "q501"
-      }
+      },
+      "notes": "RBravo equipment notes: RB-017",
+      "knowledgeRefs": [
+        "RB-017"
+      ]
     },
     "q1302": {
       "question": "Is the fan enabled by schedule, occupancy, or interlock?",
       "answers": {
         "Yes": "q1303",
         "No": "r995"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-017"
+      ]
     },
     "q1303": {
       "question": "Is start command ON?",
       "answers": {
         "Yes": "q201",
         "No": "r995"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-017"
+      ]
     },
     "q1310": {
       "question": "Does proof/status change with fan operation?",
       "answers": {
         "Yes": "r1301",
         "No": "q103"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-017"
+      ]
     },
     "q1320": {
       "question": "Is speed command changing?",
@@ -1325,7 +1571,11 @@
         "Yes": "q301",
         "No": "r995",
         "Constant speed": "r1302"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-004",
+        "RB-017"
+      ]
     },
     "r1301": {
       "diagnosis": "Fan status input operates correctly",
@@ -1333,7 +1583,7 @@
     },
     "r1302": {
       "diagnosis": "Controls command path appears normal",
-      "action": "Investigate belts, rotation, dampers, duct restrictions, motor/VFD setup, and mechanical condition."
+      "action": "Verify motor/VFD current and speed, rotation, belts/coupling, backdraft/fire/smoke dampers, duct restrictions, proof-switch pickup, and mechanical condition. Do not bypass fire/smoke interlocks."
     },
     "q1401": {
       "question": "What supply-fan symptom are you troubleshooting?",
@@ -1377,7 +1627,10 @@
       "answers": {
         "Yes": "q301",
         "No": "r995"
-      }
+      },
+      "knowledgeRefs": [
+        "RB-004"
+      ]
     },
     "r1401": {
       "diagnosis": "Supply-fan safety or permissive is not satisfied",
@@ -1389,23 +1642,1062 @@
     },
     "r995": {
       "diagnosis": "Programming / sequence issue",
-      "action": "Verify schedules, occupancy, modes, setpoints, safeties, interlocks, priorities, and application logic."
+      "action": "Verify schedule, occupancy, operating mode, setpoints, enables, safeties, interlocks, priority array/overrides, bindings, and application logic. Trend command, feedback, and key conditions before editing logic; document and approve changes.",
+      "knowledgeRefs": [
+        "RB-003"
+      ]
     },
     "r996": {
       "diagnosis": "Controller hardware issue",
-      "action": "Verify power/status, application, I/O bus, and known-good test signal; replace only after isolation."
+      "action": "Verify specified power, status LEDs, terminal-base seating, I/O bus, firmware/application state, and a safe known-good test. Compare with a known-good channel/module where approved; replace only after power, configuration, wiring, and load are isolated.",
+      "knowledgeRefs": [
+        "RB-018"
+      ]
     },
     "r997": {
       "diagnosis": "Field device failure",
-      "action": "Verify correct power/configuration and mechanical freedom; repair or replace the device."
+      "action": "Verify exact device model, power, input/output range, polarity, setup, local overrides, mechanical freedom, and field condition. Remove power and isolate wiring as required before repair or replacement.",
+      "knowledgeRefs": [
+        "RB-010"
+      ]
     },
     "r998": {
       "diagnosis": "Field wiring issue",
-      "action": "Verify conductor identity, continuity, polarity, shorts/grounds, shield, and terminations."
+      "action": "Verify conductor identity, point-to-point continuity, polarity, shorts to other conductors/ground, shield termination, insulation condition, and terminal torque. Disconnect sensitive electronics before resistance/insulation testing."
     },
     "r999": {
       "diagnosis": "Point configuration issue",
-      "action": "Verify object exists, correct controller/channel, signal type, bindings, download, online state, and overrides/forces."
+      "action": "Verify object exists, correct server/module/channel, electrical type, engineering range, reliability/status, bindings, download, online state, priority array, forced/override state, and graphic reference. Release only authorized overrides and document changes.",
+      "knowledgeRefs": [
+        "RB-016"
+      ]
+    }
+  },
+  "knowledgeBase": {
+    "RB-001": {
+      "equipment": "VAV / Air Balancing",
+      "manufacturerProduct": "Tuttle & Bailey terminal boxes",
+      "topic": "Airflow box factors",
+      "fieldKnowledge": "Box-factor reference recorded in notebook: size 4=209, 5=315, 6=462, 7=612, 8=817, 10=1250, 12=1792, 14=2474, 16=3235, 24=6522. Rebalancing note states to use a new reading/new BMS value.",
+      "expectedUse": "Use only when the installed terminal box is confirmed to match the Tuttle & Bailey factor table and the project airflow equation. Record old and new readings during balancing.",
+      "safetyAccuracyBoundary": "Do not apply a factor based only on nominal inlet size. Verify model, pickup, units, equation, and balancing report.",
+      "sourcePages": "1",
+      "reviewStatus": "Field note - verify against box submittal",
+      "searchTags": [
+        "VAV",
+        "airflow",
+        "balancing",
+        "Tuttle Bailey",
+        "box factor"
+      ]
+    },
+    "RB-002": {
+      "equipment": "Mammoth packaged AC / RTU",
+      "manufacturerProduct": "Mammoth; I/O Pro 812U",
+      "topic": "Controller I/O and BACnet setup",
+      "fieldKnowledge": "Notebook contains multi-page screenshots for the I/O Pro 812U used on Mammoth units, including point/configuration references.",
+      "expectedUse": "Use as model-specific reference after confirming controller model, firmware, wiring diagram, and point list.",
+      "safetyAccuracyBoundary": "OCR from screenshots may be imperfect. Do not change I/O configuration or addresses without current Mammoth documentation and approved backup.",
+      "sourcePages": "2-5",
+      "reviewStatus": "Needs manual/OCR verification",
+      "searchTags": [
+        "Mammoth",
+        "RTU",
+        "I/O Pro 812U",
+        "BACnet",
+        "points"
+      ]
+    },
+    "RB-003": {
+      "equipment": "Packaged unit / AHU / RTU",
+      "manufacturerProduct": "VCCX-454",
+      "topic": "Mode and schedule overrides",
+      "fieldKnowledge": "Recorded control values: HVAC mode override 2=Cooling and 3=Heating; schedule force 1=Occupied and 2=Unoccupied.",
+      "expectedUse": "Use to interpret or test VCCX-454 operating modes when the exact controller revision and point definition are confirmed.",
+      "safetyAccuracyBoundary": "Overrides can defeat normal sequence. Obtain authorization, trend before/after, document the change, and return every override to normal.",
+      "sourcePages": "6",
+      "reviewStatus": "Field note - verify against VCCX manual",
+      "searchTags": [
+        "VCCX-454",
+        "RTU",
+        "AHU",
+        "mode override",
+        "schedule",
+        "occupied"
+      ]
+    },
+    "RB-004": {
+      "equipment": "VFD bypass / Fan / Pump",
+      "manufacturerProduct": "ABB ACH580 E-Clipse bypass",
+      "topic": "BACnet communication and bypass status",
+      "fieldKnowledge": "Notebook contains ABB ACH580 E-Clipse bypass BACnet setup and point information. The bypass panel and drive controller are distinct devices and may expose different control/status data.",
+      "expectedUse": "Use for fan or pump units with an ACH580 E-Clipse bypass after confirming whether BACnet is landed/configured at the bypass controller or drive.",
+      "safetyAccuracyBoundary": "Do not issue start/speed commands until equipment safeties, local/remote state, bypass mode, and mechanical readiness are verified. Use current ABB manual values.",
+      "sourcePages": "7-11",
+      "reviewStatus": "Needs manual/OCR verification",
+      "searchTags": [
+        "ABB",
+        "ACH580",
+        "E-Clipse",
+        "VFD",
+        "bypass",
+        "BACnet",
+        "fan",
+        "pump"
+      ]
+    },
+    "RB-005": {
+      "equipment": "Johnson Controls R-Series units",
+      "manufacturerProduct": "Johnson Controls DCBAS BACnet gateway / DWCR2 thermostat",
+      "topic": "BACnet addressing and control enable",
+      "fieldKnowledge": "Two recorded communication arrangements: separate home runs for paired units to gateway ports, or a common communication loop using DWCR2 thermostats for addressing. Notebook records that controller addressing/control setup is performed from the local interface while the unit is off.",
+      "expectedUse": "Use to plan addressing and gateway topology only after confirming exact R-Series, DCBAS, and thermostat revisions.",
+      "safetyAccuracyBoundary": "Do not reproduce unverified menu-option values from OCR. Prevent duplicate addresses and confirm topology, polarity, baud, and gateway documentation before commissioning.",
+      "sourcePages": "12-13",
+      "reviewStatus": "Field note - OEM verification required",
+      "searchTags": [
+        "Johnson Controls",
+        "R-Series",
+        "DCBAS",
+        "DWCR2",
+        "BACnet",
+        "addressing"
+      ]
+    },
+    "RB-006": {
+      "equipment": "United CoolAir Marvel Plus",
+      "manufacturerProduct": "United CoolAir Marvel Plus",
+      "topic": "BACnet point lists",
+      "fieldKnowledge": "Notebook contains a Marvel Plus BACnet point list identified as MARVPREM_BMS_7_14_23 and supporting screenshots.",
+      "expectedUse": "Use as a candidate point-map reference. Match model, controls revision, firmware, point-list version, BACnet instance, units, and read/write properties.",
+      "safetyAccuracyBoundary": "Do not command writable objects until each object definition and unit is verified against the installed unit.",
+      "sourcePages": "14-23",
+      "reviewStatus": "Point list - verify installed revision",
+      "searchTags": [
+        "United CoolAir",
+        "Marvel Plus",
+        "BACnet",
+        "point list",
+        "RTU"
+      ]
+    },
+    "RB-007": {
+      "equipment": "Vertiv / Liebert equipment",
+      "manufacturerProduct": "Vertiv Liebert Unity Card",
+      "topic": "Card addressing and BMS integration",
+      "fieldKnowledge": "Notebook contains Unity Card addressing/setup references and a support escalation note.",
+      "expectedUse": "Use for Liebert unit communication after identifying the exact Unity card model, firmware, protocol, and parent equipment.",
+      "safetyAccuracyBoundary": "Credentials and private support details are intentionally not copied. Follow current Vertiv cybersecurity and network-change procedures.",
+      "sourcePages": "24",
+      "reviewStatus": "Field note - verify with Vertiv",
+      "searchTags": [
+        "Vertiv",
+        "Liebert",
+        "Unity Card",
+        "BACnet",
+        "Modbus",
+        "addressing"
+      ]
+    },
+    "RB-008": {
+      "equipment": "Room pressure monitor / laboratory pressure",
+      "manufacturerProduct": "Pressura RPM",
+      "topic": "Display, pressure modes, AO2, DPT reference, and EBO COV",
+      "fieldKnowledge": "Recorded setup notes: display measures set to All; pressure modes set to 3 buttons; Interface AO2 set to RPM; AO2 signal range recorded as -1 to +1; an additional DPT input requires an input reference; EBO COV recorded as 0.001; diagnostic output view can be used to observe analog output.",
+      "expectedUse": "Use for Pressura RPM projects after confirming engineering units, configured pressure range, AO electrical range, DPT reference, and EBO point type.",
+      "safetyAccuracyBoundary": "Do not assume -1 to +1 is an electrical voltage range. Confirm whether it is the represented pressure span and verify the actual AO signal type/range in the current manual.",
+      "sourcePages": "25-26",
+      "reviewStatus": "Field note - technical verification required",
+      "searchTags": [
+        "Pressura",
+        "RPM",
+        "room pressure",
+        "DPT",
+        "AO2",
+        "COV",
+        "EBO"
+      ]
+    },
+    "RB-009": {
+      "equipment": "Smart thermostat / unit controller",
+      "manufacturerProduct": "Model not fully identified in export",
+      "topic": "Thermostat addressing",
+      "fieldKnowledge": "Notebook contains a screenshot-based smart thermostat addressing procedure.",
+      "expectedUse": "Use only after identifying manufacturer/model and matching the page to the installed thermostat.",
+      "safetyAccuracyBoundary": "Avoid duplicate network addresses. Screenshot OCR is not sufficient to approve menu values.",
+      "sourcePages": "27",
+      "reviewStatus": "Needs identification and manual verification",
+      "searchTags": [
+        "thermostat",
+        "addressing",
+        "BACnet",
+        "MS/TP"
+      ]
+    },
+    "RB-010": {
+      "equipment": "Industrial HMI",
+      "manufacturerProduct": "Siemens SIMATIC HMI",
+      "topic": "Local HMI reference",
+      "fieldKnowledge": "Notebook contains a Siemens SIMATIC HMI reference page/screenshot.",
+      "expectedUse": "Use as an index to locate model-specific HMI access and diagnostics.",
+      "safetyAccuracyBoundary": "Access credentials are not copied. Do not change PLC/HMI parameters without authorization, backup, and current Siemens documentation.",
+      "sourcePages": "28",
+      "reviewStatus": "Needs model identification",
+      "searchTags": [
+        "Siemens",
+        "SIMATIC",
+        "HMI",
+        "PLC",
+        "interface"
+      ]
+    },
+    "RB-011": {
+      "equipment": "UPS / critical power",
+      "manufacturerProduct": "Vertiv UPS communication",
+      "topic": "IP communication",
+      "fieldKnowledge": "Notebook records a default/link-local access method and a change to site network settings for Vertiv UPS communication.",
+      "expectedUse": "Use as a reminder to identify the card, connect through an approved maintenance network, record current settings, and coordinate the final IP/subnet/gateway with IT.",
+      "safetyAccuracyBoundary": "Exact IP addresses, usernames, and passwords are intentionally redacted. Never reuse notebook credentials; follow current cyber policy.",
+      "sourcePages": "29",
+      "reviewStatus": "Sensitive data redacted - verify with IT/Vertiv",
+      "searchTags": [
+        "Vertiv",
+        "UPS",
+        "IP",
+        "network",
+        "communication"
+      ]
+    },
+    "RB-012": {
+      "equipment": "Vertiv equipment",
+      "manufacturerProduct": "Vertiv embedded communication card / iCOM",
+      "topic": "Embedded card setup and monitoring integration",
+      "fieldKnowledge": "Notebook contains extensive screenshot-based setup information for a Vertiv embedded card/iCOM integration, including navigation and third-party BMS monitoring references.",
+      "expectedUse": "Use as a unit-specific commissioning index after confirming card model, firmware, protocol license, and current Vertiv guide.",
+      "safetyAccuracyBoundary": "Passwords and usernames are intentionally excluded. Do not expose management interfaces or change firmware/network parameters without approved backup and cybersecurity controls.",
+      "sourcePages": "30-49",
+      "reviewStatus": "Needs OCR/manual validation",
+      "searchTags": [
+        "Vertiv",
+        "iCOM",
+        "embedded card",
+        "BMS",
+        "BACnet",
+        "Modbus",
+        "SNMP"
+      ]
+    },
+    "RB-013": {
+      "equipment": "Steam-grid humidifier",
+      "manufacturerProduct": "DriSteem SGH",
+      "topic": "Alarm verification",
+      "fieldKnowledge": "Notebook records a manufacturer-representative-guided alarm test that was verified on one SGH unit and involved the controller-card P4 connection.",
+      "expectedUse": "Treat this only as evidence that an OEM-approved alarm test exists. Contact DriSteem support for the exact unit and obtain an approved test procedure. Verify alarm at local display and EBO, then document restoration.",
+      "safetyAccuracyBoundary": "The original note describes work near energized equipment and removal of a connector. That procedure is not reproduced as a field instruction. Apply LOTO/electrical PPE and use qualified personnel.",
+      "sourcePages": "50-51",
+      "reviewStatus": "Restricted safety procedure - OEM confirmation required",
+      "searchTags": [
+        "DriSteem",
+        "SGH",
+        "humidifier",
+        "alarm",
+        "EBO"
+      ]
+    },
+    "RB-014": {
+      "equipment": "United CoolAir Marvel S",
+      "manufacturerProduct": "United CoolAir Marvel S",
+      "topic": "BACnet point list",
+      "fieldKnowledge": "Notebook contains Marvel S point-list material, including a Marvel Plus version 10.0 reference and a control point list version 11.5 in OCR.",
+      "expectedUse": "Use only after confirming whether the installed product is Marvel S or Marvel Plus and matching the exact point-list version to controls firmware.",
+      "safetyAccuracyBoundary": "Point names, access, units, and write permissions can differ by revision. Treat OCR as index material, not an authoritative command list.",
+      "sourcePages": "52-66",
+      "reviewStatus": "Point list - version reconciliation required",
+      "searchTags": [
+        "United CoolAir",
+        "Marvel S",
+        "Marvel Plus",
+        "BACnet",
+        "point list"
+      ]
+    },
+    "RB-015": {
+      "equipment": "Mammoth AC units",
+      "manufacturerProduct": "Mammoth",
+      "topic": "BACnet setup access",
+      "fieldKnowledge": "Notebook contains a local HMI/BACnet setup note for Mammoth AC units.",
+      "expectedUse": "Use to identify that BACnet setup is available through the unit service interface, then follow the current model-specific Mammoth procedure.",
+      "safetyAccuracyBoundary": "The recorded password is intentionally omitted. Use authorized current credentials and do not leave service access unsecured.",
+      "sourcePages": "67",
+      "reviewStatus": "Sensitive credential redacted",
+      "searchTags": [
+        "Mammoth",
+        "AC",
+        "BACnet",
+        "HMI",
+        "setup"
+      ]
+    },
+    "RB-016": {
+      "equipment": "Automation Server licensing",
+      "manufacturerProduct": "Schneider Electric AS licensing portal/workflow",
+      "topic": "AS license assignment",
+      "fieldKnowledge": "Notebook records a licensing workflow involving the entitlement portal, adding an approved license file, connecting to the server, and assigning a license/demo entitlement.",
+      "expectedUse": "Use as a checklist only with the currently approved Schneider licensing method and authorized entitlement account.",
+      "safetyAccuracyBoundary": "The note says to use HTTP in a particular historical workflow. Do not weaken transport security without current Schneider instructions and an approved isolated maintenance connection.",
+      "sourcePages": "68",
+      "reviewStatus": "Field note - current licensing workflow must be verified",
+      "searchTags": [
+        "Automation Server",
+        "AS",
+        "license",
+        "entitlement",
+        "demo"
+      ]
+    },
+    "RB-017": {
+      "equipment": "Strobic exhaust fan",
+      "manufacturerProduct": "Strobic fan; Yaskawa E7N; Airzone on newer units",
+      "topic": "BMS wiring/interface",
+      "fieldKnowledge": "Notebook contains unit-specific transformer, terminal, CT, relay, annunciation-contact, and VFD interface notes; newer units reportedly use Airzone conversion.",
+      "expectedUse": "Use only to locate the correct site drawing and OEM diagram for the exact Strobic fan generation. Verify BMS command, status, CT proof, annunciation contact, VFD mode, and transformer source.",
+      "safetyAccuracyBoundary": "Exact terminal-to-terminal wiring is intentionally not converted into a generic field instruction. De-energize, apply LOTO, verify voltage/polarity, and follow approved drawings.",
+      "sourcePages": "69",
+      "reviewStatus": "Site-specific wiring - drawing verification required",
+      "searchTags": [
+        "Strobic",
+        "exhaust fan",
+        "Yaskawa E7N",
+        "Airzone",
+        "CT",
+        "relay",
+        "VFD"
+      ]
+    },
+    "RB-018": {
+      "equipment": "RP controller / RPV",
+      "manufacturerProduct": "Schneider Electric RP controller",
+      "topic": "Status LED interpretation",
+      "fieldKnowledge": "Recorded LED meanings: constant green normal; constant blue normal with Bluetooth active; green 3 s/blue 1 s Bluetooth advertising; flashing green restarting; constant red error; flashing red problem requiring attention; red/blue flashing Bluetooth radio firmware upgrade; red/green flashing I/O board software upgrade - do not interrupt power; constant amber boot applet; amber flash restarting/boot applet; amber/green flashing firmware upgrade; transient white starting; constant white firmware not running/contact support.",
+      "expectedUse": "Use before power cycling or replacing an RP controller. Record the exact pattern and duration, allow upgrade/restart to complete, and use Device Administrator/support guidance.",
+      "safetyAccuracyBoundary": "Do not interrupt power during firmware or I/O-board upgrades. Verify the exact RP model and current product-version documentation.",
+      "sourcePages": "70",
+      "reviewStatus": "Field note corroborated by Schneider help link",
+      "searchTags": [
+        "Schneider",
+        "RP",
+        "RPV",
+        "status LED",
+        "Bluetooth",
+        "firmware",
+        "upgrade"
+      ]
+    }
+  },
+  "notebookArchive": [
+    {
+      "Page": 1,
+      "Inferred Topic / Equipment": "VAV / Air Balancing",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Air Balancing Manf.Box factors\n\nFriday, October 18, 2024\n\n4:58PM\n\nTuttle& Bailey\n\n4 273 340 248 \" 200\n5 390 287 426 310 335 392\n6 448 469 458 482 495 433 600 ° 315\n7 667 612 673 668 6 462\n8 904 867 890 898 904 841 1100 7 a\n9 1167 1098 1155 8 817\n10 1436 1353 1487 1439 1487 1355 1700\n12 1891 1802 2141 2086 2170 1976 2500 0 1250\n14 3015 2469 3045 2823 2973 2750 3250 2 1792\n16 3839 3366 4074 3719 4080 3596 4400\n18 2470 14 2474\n19 6377 16 3235\n20 2106\n22 2106 8760\n26 2498 2 6522\n30 3246\n20 7176\n\n9x12 1980\n\n16x38 2106\n\n16x18 5200 6200\n\n16x20 6200\n\n16x24 6358 7785 6475 7200\n\nHood\n\nRebalancing= new reading/new BMS\n\nweedity\n\nOEM Manuals Page 1\n\n207\n315\n\n462\n\nra\n17\n\n1259\n\n(742\n247\n21%\n\n0572",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-001",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 2,
+      "Inferred Topic / Equipment": "Mammoth I/O Pro 812U",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "1/0 Pro 812U (Mammoth unit)\n\nWednesday, May 28,2025 11:51AM\n\nFETTER EY\n\nPREP\n\ning Dot = Rut\nouniead requis\nContr Program Eon\n\nOEM Manuals Page 2",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-002",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 3,
+      "Inferred Topic / Equipment": "Mammoth I/O Pro 812U",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "OEM Manuals Page 3",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-002",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 4,
+      "Inferred Topic / Equipment": "Mammoth I/O Pro 812U",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "OEM Manuals Page 4",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-002",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 5,
+      "Inferred Topic / Equipment": "Mammoth I/O Pro 812U",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "OEM Manuals Page 5",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-002",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 6,
+      "Inferred Topic / Equipment": "VCCX-454",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "VCCX-454 Control Points\n\nMonday, May 12, 2025 1:42 PM\n\nHVAC mode override set to:\n\n2 Cooling\n\n3 Heating\n\nSchedule force=occupied/unoccupied\n1=occupied\n\n2=unoccupied\n\n‘OEM Manuals Page 6",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-003",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 7,
+      "Inferred Topic / Equipment": "ABB ACH580 E-Clipse",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "ABB ACH580 Bypass Communication\n\nMonday, February 24,2025 8:24 AM\n\nABB ACH580 Bypass Communication\n\nOEM Manuals Page 7",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-004",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 8,
+      "Inferred Topic / Equipment": "ABB ACH580 E-Clipse",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Technical Note 067\n\nACH580 E-Clipse bypass with BACnet\nEnabling BACnet MS/TP or IP communication\n\nThe ACH580 E-Clipse bypass can be set up to be controlled and/or monitored from an external system using standard\nBACnet MS/TP or BACnet/IP communication protocols. This document outlines how to configure both BACnet MS/TP\nand BACnet/IP through the E-Clipse control panel. Note that the configuration of communications for E-Clipse\npackages differs from base drive startups. The difference s that all configuration is done through the E-Clipse control\npanel and not the ACH580 control panel.\n\nThe ACH580 E-Clipse can be configured to:\n+ Have only the drive node shown on the BACnet network\n+ Have only the bypass node shown on the BACnet network (not common, BACnet MS/TP only)\n* Have both the drive and bypass node shown on the BACnet network (BACnet MS/TP only)\n+ Be controlled and monitored over BACnet by the building automation system (BAS)\n+ Be setup for monitoring only over BACnet while control is done via hardwire inputs to the drive\n\nBACnet MS/TP startup procedure\nThe following steps summarize the process of using the E-Clipse control panel for enabling and configuring BACnet\nMS/TP on the ACH580 E-Clipse bypass:\n\nVerify wiring (X2:27-29) and correct dip switch settings on the E-Clipse per Figure 1 below.\n\n> ABB ECLIPSE BYPASS RS485: |\nTerminal Block: X2\n\nNSuASHRAE Su 15\n\nH\n4\n\nH\nH\n=\n\n§\nH\n\n2\n2\n3)\n\n]\n\n(&\n\nSEC a Ll\n\nnon Bulding Automaton\n= Controller\n\nFigure 1: Wiring diagram\n\nLVD-EOTKNOG7U-EN REV B\nEffective: 2023.06-14 1\n\nOEM Manuals Page 8",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-004",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 9,
+      "Inferred Topic / Equipment": "ABB ACH580 E-Clipse",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "8.\n\nApply power to the ACH580 E-Clipse bypass.\n9802 - Enables the embedded fieldbus interface and selects the protocol. Select 5 = BACNET.\n\n5803 - Defines the node address (MAC ID) of the drive on the BACnet MS/TP trunk. Note, two address with the\nsame number are not allowed on the same wire. Possible values range from 1-247. Select a node address.\n5804 - Select the baud rate of the BACnet MS/TP trunk. The default value in the E-Clipse is 38.4 kbits /s\n\n5840 & 5899 - These two parameters set the Device object ID. This value has a settable range between 0 to\n4194303. If the Device object ID is a value of less than or equal to 65535, then only parameter 5840 needs to be\nadjusted, and parameter 5899 equals O. If the Device object ID is greater than 65535 then both parameters\n5840 and 5899 need to be adjusted. The right 4 digits (4 least significant digits), of the Device object ID will be\nstored in 5840. The values in the 10 thousand place and greater are stored in parameter 5899. See example\nbelow.\n\n+ Device object =84365\ni. 5840=4365\nii. 5899=8\n\nOnce all changes have been completed in Group 58 a power cycle is required to save all changed\ncommunication parameters.\n\nReference Table 1 below for a summary of the key parameters\n\nTable 1: Changed Parameters\n\nACHS80 E-Clipse\n\nParameter Name Value\n9802 COMM PROT 5= BACNET\n5803 DVMAC ID 1247\n5804 BAUD RATE 384\n5840 DVOBIDL Ex; 4365\n5899 DVOBIDH Ex 8\nLVD-EOTKNOG7U-EN REV B\nEffective: 2023-06-14 2\n\nOEM Manuals Page 9",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-004",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 10,
+      "Inferred Topic / Equipment": "ABB ACH580 E-Clipse",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "BACnet /IP startup procedure\n\nThe following steps summarize the process of using the EClipse control panel for enabling and configuring BACnet/IP\n\non the ACH580 E-Clipse bypass:\n\n1 Install BACnet/IP adapter (FBIP-21) module onto E-Clipse slot 2. See Figure 2 for module information and Figure\n\n3 for where to install on E-Clipse module.\n\n2)(&, | X1] 23] wer]\n\n3 0\nFigure 2: FBIP-21 module\n\n\\ I —\nFigure 3: E-Clipse bypass control unit\n\nLVD-EOTKNOG7U-EN REV B\nEffective: 2023-06-14\n\nOEM Manuals Page 10\n\n(1) Lock\n\n(2) Mounting screw\n\n(3)R3-45 connector [X1]\n\n(4)R3-45 connector [x2] for chaining another adapter module\n(5) Diagnostic LEDs\n\n(6)MAC ID",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-004",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 11,
+      "Inferred Topic / Equipment": "ABB ACH580 E-Clipse",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "14.\n\nConnect the network cable to the R1-45 connector [X1] on the FBIP-21 module\n\nApply power to the ACH580 E-Clipse bypass\n\n9802 - Enables the fieldbus interface and selects the protocol. Select 4 = EXT FBA\n\n5101 - Shows Fieldbus Adapter detected by E-Clipse. BACOH (read-only parameter)\n\n5103 - Sets the commrate of the BACnet/IP. If commrate unknown, leave defaulted value of 0 = Auto.\n5104 - Most applications require a static IP address. Select 0 = Static IP\n\n5105 - First part of IP address - Ex: 192\n\n5106 - Second part of IP address - Ex: 168\n\n5107 - Third part of IP address - Ex: 3\n\n5108 - Fourth part of IP address — Ex: 23\n\n5109 - Sets the subnetwork mask. The subnet that is most commonly used is 255.255.255.0. Enter a value of 24\nif thatis required for the application. Other subnets are available and can be found in the FBIP-21 manual.\n5114 &5115 - These two parameters set the Device object ID. These two parameters allow for a value that has a\nsettable range between 0 to 4194303. If the Device object ID is a value of less than or equal to 9998, then only\nparameter 5114 needs to be adjusted, and parameter 5115 equals 0. If the Device object ID is greater than 9999\nthen both parameters 5114 and 5115 need to be adjusted. Theright 4 digits (4 least significant digits), of the\nDevice object ID will be stored in 5114. The values in the 10 thousand place and greater are stored in parameter\n5115. See example below:\n+ Device object = 95678\n\ni. 5114=5678\n\nfi. su5=9\n5127 - This function saves the communication settings in the E-Clipse. Select 1= Configure and then the\nparameter will automatically revert to 0 = Done. Note that when the parameters are being refreshed the\ncommunication card is completing a restart and will appear to go offline for a brief amount of time. A power\ncycle can also be used as an alternative to using 5127.\n\n15. Reference Table 2 below for a summary of the changed parameters\n\nTable 2: Changed Parameters\n\nACHS580 E-Clipse\n\nParameter Name Value\n\n9802 COMM PROT 4= EXT FBA\n5101 FBA TYPE BACOh\n5103 Commrate 0\n\n5104 IP configuration 0 = Static IP,\n5105 IP address 1 Ex: 192\n5106 IP address 2 Ex: 168\n5107 IP address 3 Ex. 3\n\n5108 IP address 4 Ex. 23\n\n5109 Subnet CIDR 24\n\n5114 Deviceobj IDlo Ex: 5678\n5115 Device obj ID hi Ex. 9\n\n5127 REFRESH 1\n\nThis document is intended as a guide and supplement to the following firmware manuals:\n+ 3AXD50000289554 Rev A - Eclipse and Packaged drives manual\n+ 3AXD50000028468 Rev B~ FBIP-21 BACnet/IP adapter module\n\nLVD-EOTKNOG7U-EN REV B\nEffective: 2023-06-14\n\nOEM Manuals Page 11",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-004",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 12,
+      "Inferred Topic / Equipment": "JCI DCBAS / R-Series",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "DCBAS Bacnet gateway\n\nWednesday, April 30, 2025 1:23PM\n\n2 options for com\n\nOption 1\n2 home runs for 2 units each going to ports A/B\nDoesn’t require DWCR2 thermostat to program address.\n\nIn off state*\nProgram address by pressing function and mode for 5s\n\nSet to BMS control by pressing function and timer for 5s then press mode until you are on option 10. Set\noption 10to 01\n\n‘Service Manual\n\n() Seting method:\nFS. set the aks mode of ihe whed Zone contol Ito central Gentle address mode. The\nsetting method is:\n\n1) Undor off tat ofthe Unt, press Function and Timer butons a the same tm for 55.10 go to\n\nne programming menu. Press Mode button unti “10” i displayed at the coniroler. Pross A or\n\n¥ buton to scroll rough selections:\n\n1) Centratzed controle accress made (LCD displays 00\n< 2 Bulding management contol address moce (LCD dislays 01) >\nGhoose th frst selection an hen press Ener Canceuton to save and ai sin. Now\nhades of eed zn controler set 0 mati he adres fcetrlzsd cooler.\n\nThe unit will memorize this setting situs. The setting value wil be mainained after a power\nfaire. Tho datalod sting is as shown nthe Figure blow:\n\n—]\n\n:\n\npate, Segagig soe and eta\nfrp pn pe\n\nProse & 0 ¥ bon oad\n\nFigure 2-12\n\n2) Address seting ofeach unit When the address made set fo be canta controler\n‘adaress mode. Th ascress sating value range s 01-16 The seting memod is\n\nUnder of stare of th uni, press Function and Modo butons ot the sam timo for Ss 0 enter setting\n\nIntertace of wired zone controller address. LCD displays address sequence. Press & or ¥ bullon to\n\nadjust the address sequence and then press Enter Cancel button o conn, The setting value wil be\nmainainad fer a power aire. The dats satin is a showin the Furs bow:\n\n‘OEM Manuals Page 12",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-005",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 13,
+      "Inferred Topic / Equipment": "JCI DCBAS / R-Series",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Option 2\n1 com loop, requiring DWCR2 thermostats to program address\n\n[LINK REDACTED - see original notebook]\n\nOEM Manuals Page 13",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-005",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 14,
+      "Inferred Topic / Equipment": "United CoolAir Marvel Plus",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "United Cool Air Marvel Plus Bacnet Points list\n\nMARVPREM_BMS_7_14_23\n\nUca\n\nBACNET\n\nFom: WANVPREN 81s 07_14_2025\n\nSm;\nfil IL rare Rand Cy ETH ET) [3 in",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-006",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 15,
+      "Inferred Topic / Equipment": "United CoolAir Marvel Plus",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "o Tempers he hemvuce [onal oo oo | oo |r Ty\nmma ecb ena bese FT Ed ETO) TE SC MTT EY my\nFR Emr an begins TIT EE Ee) MIC WT MTT i\non iin ioe Sn AE 0 i 1 i\nFE Jes rarara ET ETSY FET I METI BE My wr\n5 Porras TTT Fr Ee EF RT EET WT iy\nEN [mre Pe nner TIT Er ITY BECTON BT MT EY i\nor fo re fee i re heaton ITN I MT SEY Ty\nrfp eri {ria CTW WT MSI EY ry\nar | Cer {Er EF CE on\nFh [ees neg re he? pote ric [TW WT ET —r my\ni otc nant Ei one Suk hast ETS I i\ni fren comin vk hao ETFS WE Nn\nifr oro aT fe Fw ror\nFIT CH fic en to TIT Ra IW WT ETT TY Ty\npny nsw ES Sh Go TORRE ait CTS IT NTT CES Ty\ni feces reser ethos or TR 17 ETS ET BN rT Ty\nFI a Earn TITS EET ITY CT WTI ET SE i\nFi Cr ek baum pe ET FT TT ET ITY MET BT ET my\nFl Cre re TIT EET TY ET Br cr i",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-006",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 16,
+      "Inferred Topic / Equipment": "United CoolAir Marvel Plus",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "fre pe AE Ey FE EY CT TI fT 1 ir\nfe fey TF CITES ITE ET Ti To i\nfT rere enemies Fo 7 EE EY MEER TI ET WT 73\niT a ees FETE EY MCT TI Te \"1 x\niE Corr Sr TT TST EE) CT A or\nFT CrmnTREn es po oe Ta Tm Rr re 1 x\nEE CA er ee man Fo TICE BEEFY MCE rT Ee 7s\nEEN ee ip Pe (res £m Ee Bm a rm i\n= Te TS TTR BETH ET fr Te 7",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-006",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 17,
+      "Inferred Topic / Equipment": "United CoolAir Marvel Plus",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "FE ore ie oi =r FTTH REY ET a rm =r i\n\n15 Birr: oh rt gy for Oe fret ie re (I RF MET GN TW\" iy\n\nfrm sy os aoe ees FETT AFEFY MET MT Th MT i\n\nTiflis ore ets a PCIE REET MET SCT BET MT my\n\ni fines Dieses pron shea Over ove LETT REET NEC GOR IT WT i\n\ngi rT rte one en FT AFT NET GT 0 WT nn\n\n+ | Eres he i rn or\n[N (m= orp UD So ravine ims Ty i v\nSie Jee bor ne my my i >\n\n3 focorsine hao i Nn Vivetper firontrrg Vive ies\n5 ora Tig a aie, iy Ty\n\nEn Cone ie ro frre i i\n\nEN Ee ri (=r my my =\n\non Pic ar TG {icin ia Si En\n\nen renee ee rem ery ory es\n\n3 i Srp Tho my i FE\n\nSloane se som Bl aren hos i Wn Tens",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-006",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 18,
+      "Inferred Topic / Equipment": "United CoolAir Marvel Plus",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "ii fine omar ie Soon heaton im Ty\nEN [ee in he hen ou Sean fs my my\nCn EE rie fir Sr En\nfmm ry eerie Fre Sowa fas in i =\n5 Jose fr 1d amin Serr nor Snayvabe | hei on Ey rs\nEmm a = i\nfrre a Tones a ata ravine ims Ty os\nFre TER ER ir 0 on\nFp TAL in ebeerszanee as ater my my a\nFa [Ere hao i Nn =\nFE A aie, iy Ty =m)\n= orp th frre i i at\na roe re (=r my my oe",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-006",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 19,
+      "Inferred Topic / Equipment": "United CoolAir Marvel Plus",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "iy Ji ios Fo Ons Oe heaton im Ty =r)\n\na Fir ait iy Ty\n\nSE vie a forte oe heaton my my fecior fein\nEa rpc ase (EE in i Ce\nsei EE heaton ni iy net\nPpt or oar ron ait iy ry =\n\ni forme TI ever im my er ie\nFu rey ne os Soo Berg ric my my\n\n5 [E—— [r—— wnsse | rose [wn | + | | : i",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-006",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 20,
+      "Inferred Topic / Equipment": "United CoolAir Marvel Plus",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Er\n\nfhesor\n\nwe\n\nER Mm\n\nTr\n\nevs\n\nd\n\nmy\n\nEre\n\n| Ce\n\nree\n\nFong tiaion\n\nTong anton\n\n|",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-006",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 21,
+      "Inferred Topic / Equipment": "United CoolAir Marvel Plus",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "En rpm or rr oo iy\n\nnpc ean Of ie herve Cr my\nen Gin Re Sever Ei i\nfr iE hss T i\nfines ekenti er fi Ty\nfine ETRE heave x my\niti fois cca hears Fi 0\nJi ites vos Seaver Co A\nJiri Sites nse herve Fi nn\nforse ry Ser TT Fi i\nfio oS Ca he Sever oo Ty\nTE Ti Emi Seibert Te om 0\n[es Ste ey om my",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-006",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 22,
+      "Inferred Topic / Equipment": "United CoolAir Marvel Plus",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "ie ar fe FN Ty\nIA ERX ro emmtiie heave FN EC T_T) my\nfroin: ery en sarin E77 NC CH SE WT I\nEa [xe i ir i Si Seaver ER i rr A\nFa ein toneeiireta ao Fite FR iy\nFo) FALATIIEY Te TA oro Cry RI CN ETI TY ry\nor fi Sat [Foi Ror tbr Sever FR NC TR —r) Ty\nFIT (ery oonescasom eta E77 NC CH SE WT my\ni fan 1 te Tene eon Seine i i\nFI Cer te Er iy Ty\nfe Ee = Se a =\nSe TO Poin iy i\n\nFo ein i Tn Serves [RC i —r) my\n\nFo Cn re Tea? Poipnpeiae | fa FT Ni",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-006",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 23,
+      "Inferred Topic / Equipment": "United CoolAir Marvel Plus",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Image-based page. OCR produced no reliable text. Consult the original PDF page and the linked curated note.",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-006",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 24,
+      "Inferred Topic / Equipment": "Vertiv Liebert Unity Card",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Vertiv/Liebert Liberty Unity Card\n\nCoce He 1051722\n- Legg yho unity eS, cons charge Ro iri\n\n-Dofast PP- J69.254. 24.77\n\nPn hele by miece VR\nHt but Se over 0 grew\n\n~ Username: [REDACTED] Likert) Licbeck\n\n~ Rinse Ligh  Lietect Chol eer ia iti rappin Qles\n\n= Make suce network. seitings neches Suman © ConPigurdion= Nehverk Settings + TPVY\n\n= Under Fictacds make sure BACat is cocbled\n— Elec inlonce 7 BACat TD\n= Revhact Unity Gud a suppeet Tos\n\nOEM Manuals Page 24.",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-007",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 25,
+      "Inferred Topic / Equipment": "Pressura RPM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Pressura RPM\n\nTuesday, July 1,2025 8:18 AM\n\nOEM Manuals Page 25",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-008",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 26,
+      "Inferred Topic / Equipment": "Pressura RPM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Configure-display measures- set to all\nPressure modes - set to 3 buttons\nInterface - AO2 - set to RPM\n\nChange AO2 signal range to -1 to 1\n\nIf wired to additional DPT for input, you need an input reference\nIn EBO set COV to 0.001\nTo simulate\n\nDiagnostic - view output\nAnalog output outputs the signal\n\nOEM Manuals Page 26",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-008",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 27,
+      "Inferred Topic / Equipment": "Smart thermostat addressing",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Smart thermostat addressing\n\nTuesday, July 1,2025 12:04 PM\n\n2018 Scanerder Eictrc. Al ight rasarad. Al Fadamarks are own by Schnader Ect Inds\n\nUp to four Smartx Communicating Sensors can be connected\ntothe Sensor Bus\". These sensors must be uniquely addressed\nusing the DIP switches. The default DIP switch setting for the\nSmartX Communicating Sensor is sensor positon 1. If more\nthan one sensor is connected to the Sensor Bus, the DIP switch\n\nsettings for the additional sensors will need to be changed.\n\nSensor Sensors\n\nov on\n\nOFF OFF\n(default seting)\nNeto: Black squares indicate DIP switch positions.\n\nSmartX Base Installation\n\n1. Pull the locking tab outward and swing the circuit board\nopen to expose mounting serew holes on the back of the.\n\nhousing.\n\\\n\nlocking tab\n\n2. ~Resition-the-sensorvertieav-an the wall 1.35 m (4511)\n\niportal2.schneider-glectric.com\n\nOEM Manuals Page 27",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-009",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 28,
+      "Inferred Topic / Equipment": "Siemens SIMATIC HMI",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Siemens simatic HMI\n\nSunday, August 24, 2025 7:15PM\n\nWord Log on Window (Fig. 1-9\nhs Pasoword Logon Wins vil appear when a butions saledd. ries sara wa\ntoed fo socury on ha 14\n\nValue Input Serasn 1 (Fig. 140)\nThe Value Input scroen 1 provid\npoint Vinen tha sppropriate buon is pr\n\nOEM Manuals Page 28",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-010",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 29,
+      "Inferred Topic / Equipment": "Vertiv UPS IP communication",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Vertiv UPS IP communication\n\nWednesday, November 20, 2024 12:22 PM\n\n[IP ADDRESS REDACTED]/get_obj.xml\n[IP ADDRESS REDACTED] - changed to the following:\n\n[IP ADDRESS REDACTED]\n\nSubnet 255.255.255.0\nUsername: [REDACTED]\nPassword: [REDACTED]\n\nFrom <[LINK REDACTED - see original notebook] _obj.xml>\n\n‘OEM Manuals Page 29",
+      "Sensitive or Unsafe Content Handling": "Credentials/network identifiers redacted",
+      "Linked Note IDs": "RB-011",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 30,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Vertiv embedded card\n\nTuesday, January 6,2026 238 PM\n\n2210s the password: [REDACTED] the HMI\n\nGointo service menu\n\nPassword: [REDACTED] username: [REDACTED] be the same, write down the password: [REDACTED] the unit 8 characters.\n\n06 1com2\nEmbedde...\n\nOEM Manuals Page 30",
+      "Sensitive or Unsafe Content Handling": "Credentials/network identifiers redacted",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 31,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "ICOM2 and Embedded Unity Overview\n« The IS-Unity card functionality is built into\nthe iCOM2 control board with all features\n\nincluded.\n\n+ 7\" (16:9) HD display Capacitive touchscreen; highly responsive and\ncan function as a hand-held device when the cooling unit is in service\nmode\n\n2 USB Ports for simple software updates and system backup and\nrestores\n\n2 Ethernet ports for single line connection and integrated open\n\nprotocols, such as BACNet, Modbus, SNMP, SMS and SMTP\nNOTE - Currently Does Not Support YDN23 Protocol or SN-Sensor\nSupport\n\nRS-485 ports to connect into smart devices like EC fans, compressors\nand heat rejection |\nBUSRS8S\n\nThe built-in Unity BMS network supports both Ethernet and RS485\n\nThe iCOM2 control board has an Ethernet port and terminal block ermyork\n\ndedicated to Unity. connections above Embedded Unity\n\nconnections above\n\nICOM2 and Embedded Unity Overview\n\nStill two separate networks\n\n+ The iCOM2 Unit-to-Unit (U2U) network (Teamwork) and the BMS network are separate.\n+ This network separation is still the recommended configuration.\n\n= The same or greater level of security and isolation can be expected between these two\nnetworks when comparing to iCOM1.\n\n+ iCOM2 Embedded Unity uses a special software “container” technology to create\nabsolute separation from the cooling application software that actually controls the data\ncenter climate.\n\n+ This allows the Embedded Unity to be reset without resetting the ICOM.\n\nVERTIV.\n\nOEM Manuals Page 31",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 32,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "+ Embedded Unity\nEthernet Port\n(P74) for IP\nProtocols\n\n+ Embedded Unity\nIsolation Board\nPort (EP1) RS-\n485 for\nExpander Board\n\n- Embedded Unity\nRS-485 Terminal\nBlock (TB3) for\nBACnet or Modbus\nover a Twisted\nPair.\n\n* The Expansion Board\nabove is only needed if\nthere is a requirement to\ndo Velocity 4 to Intellislot\nbased cards and BACnet\nor Modbus RS-485\nsimultaneously.\n\nThe RS485 120-ohm termination (BACnet\nMSTP or MODBUS RTU)\n\nP23 (TB3)\n1-2 is open\n2-3 is 120 Ohm Termination\n\nOEM Manuals Page 32",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 33,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "ICOM2 Embedded Unity Comparison\n+ Embedded Unity does not have YDN23 or SN-Sensor Support\n\nCommunication Protocol\nThird-Party Protacols\nLIFE SN-\nCommunication | Services | Sensor | HTTP/ | Velocity SNMP | BACnet |[MODBUS|\nCard Support | Support | HTTPS |Protocol| Email | SMS v1,v2¢,v3| IP/MSTP [TCP/RTU | YDN23\nNXL,\nEXL-S1&\nIS-UNITY-DP . . . . . . . . . Pex\nIS-UNITY-SNMP . - . . . . . - - -\nEMBEDDED UNITY] . - . . | . . . -\nt1IS-UNITY-LIFE . . . . . . - - z -\nRDU101 . . . . . . . ot ot -\nSN-Sensor - - . . . . . - - -\n\n+ Please note that BACnet MSTP and Modbus RTU require P/N USB485I; a USB to RS-485 adapter\n\n+ The IS-UNITY-LIFE card cannot be ordered. It is provided to customers free of charge as part of a\nRemote Service Delivery contract.\n\nEnable “Embedded” under IntelliSlot Protocols\n“IS V4\" is factory default Monitoring Protocol must be set to “Embedded”.\n\n+ Navigate to: Service Menu > BMS & Teamwork Settings > BMS Setup > IntelliSlot Card\nSettings\n\n= On the header, touch]\n\nThe keypad opens.\n\n= Type the default Service\npassword: [REDACTED] then touch\n\n=\n\nOEM Manuals Page 33",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 34,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "+ Touch “Service’,\nthen “Menu” Icon.\n\n= een [ SEE |» co service\n\nTECHNICAL SUPPORT setpoints\n\nunite biagne\n\n+ Touch “IntelliSlot\nCard Settings”\nchange value of\n“Monitoring Protocol”\nto “Embedded”.\n\n= use\n\nSERVICE\n—\n\nADVANCED\n\nBMS SETUP\n\nCATEGORY\n\n+ Verify “Monitoring\nAddress” is set to\n“3\", this Is the\nFactory Default.\n\nInformation\n\nControl Settings\n+ Touch \"Save &\n\nRestart (Unit Only). Timeout Settings\n\n+ This will cycle power\nto the Air Handler.\n\nPROPERTY\n\nMonitoring Protocol\n\nIntelliSlot Card Settings Monitoring Address\n\n+ Then Touch “BMS & Teamwork,\nthen “BMS Setup”.\n\n© unIT\nBMS & TEAMWORK €\n\n© UNIT 01\n\nINTELLISLOT CARD SETTINGS\n\nVALUE\n\n| Embedded\n\nOEM Manuals Page 34",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 35,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Touch “IntelliSIot © UNIT 01 07 18:51 AM\n\n“Monitoring Protocol” —\npo moedded &Is BMS SETUP INTELLISLOT CARD SETTINGS\n\nCATEGORY PROPERTY VALUE\n\nVerify “Monitoring\nAddress” is set to\n\n*3\", this is the IntelliSlot Card Settings Monitoring Address\nFactory Default.\n\nInformation Monitoring Protocol Embedded &IS V4\n\nControl Settings\n\nTouch “Save & 5\nRestart (Unit Only). Timeout Settings\n\nThis will cycle power\nto the Air Handler. Save & Restart (Unit Only)\n\nERTIV.\n\n| icom2\n\n+ For the support of an IS-Unity-DP Card, for dual- USB-A []\nunity setup, an expansion card is needed for ge TO\nMODBUS RTU or BACnet MSTP to be used (unity Framework 4 useA [|\nsimultaneously. /\n+ Monitoring Protocol must be set to “Embedded & i &\nIS V4\" (Embedded Unity + Unity-DP Card). < £8 Fp\nSG2)* NO) BACnet MSTP\nor\nInteliiSlot |«— RS-485 Wodous RT\nPower\n\nConnection\nBoard 1 or 2 Intellislots\n\nIf the optional RS-485 Expansion Board is purchased, TB1 (above)\n\nN\n\non the Expansion Board is then used for BACnet MSTP or N\nMODBUS RTU and TB3 on the ICOM Board is used to connect Velocity Fo) 8.\ndirectly to the IntelliSlot Cards (Velocity V4). ®  Bacnetip Modbus yiaeng\n\nTe\n\nOEM Manuals Page 35",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 36,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "« If a Sitelink/Sitescan Connection and MODBUS RTU or\nBACnet MSTP is required simultaneously, then the\npurchase of the RS-485 Expansion Board is required\n\n«Monitoring Protocol must be set to “Embedded & IS V4\"\nfor Sitelink & SNMP and BACnet MSTP or MODBUS\nRTU.\n\nIf the optional RS-485 Expansion Board is purchased, TB1 on the Exp.\n\niCOM2\nuseA | |\n( Unity Framework LSB-A [1]\nAe\n¥\ns &F\n& oL\ng 4\np74 [P71 |[ Tea\nmS\n| BACnet MSTP\n- or\n= Modbus RTU\nVelocity V4 Ee\n\nSiteLink-E\n\nthen used for BACnet MSTP or MODBUS RTU and TB3 on the ICOM Board ts used\n\nto connect directly to a Sitelink/Sitescan System. (\n\n.)\n\nTouch “IntelliSlot\nCard Settings”, verify\n“Monitoring Protocol”\nto “Velocity V4”, this\nis the Factory\nDefault.\n\n=  usir SERVICE\n\nADVANCED\n\nBMS SETUP\n\nCATEGORY,\n\nInformation\n\nVerify “Monitoring\n\nAddress” is set to\n“3”, this is the\nFactory Default.\n\nTouch “Save &\nRestart (Unit Only).\n\nThis will cycle power\nto the Air Handler.\n\nIntelliSlot Card Settings\n\nControl Settings\n\nTimeout Settings\n\n© UNIT o1 i z\nINTELLISLOT CARD SETTINGS\n\nPROPERTY VALUE\n\nVelocity V4|\n\nMonitoring Protocol\n\nMonitoring Address\n\nERTIV.\n\nOEM Manuals Page 36",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 37,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Enable “Velocity V4” under IntelliSlot Protocols\n\n+ Support of a SiteLink directly.\n\n+ Monitoring Protocol must be set to “IS V4” for Sitelink\nonly, this is the Factory Default.\n\n+ AVertiv IMT (Infrastructure Management Technician) will\nbe needed to program the Sitelink to work with either\nVertiv Sitescan or 3 Party BMS Monitoring Software.\n\n+ By selecting this protocol, this will disable the Embedded\nUnity Feature.\n\n+ This is the Factory Default Setting.\n\niCOM2\n\nFT\nVelocity V4 i]\n\nSiteLink-E\n\nVERTIV.\n\nI1S-Unity Service Unavailable\n\nYou will receive the message below after “Saving and Restarting”. It will take up to 10 minutes for the\n\nEmbedded Unity card menu to populate.\n\nS-UNITY SETUP\nLL CATEGORY ice is unavailable,\nor] 5 Configuration\n\n> Protocols\n\nStatus\n\nSupport\n\nNOTE: If this continues for\nmore than 10 minute, verify\nthat the “Monitoring\nProtocol’ is set to\n“Embedded” or \"Embedded\n& IS V4\" and “Monitoring\nAddress’ is set to “3” under\nthe “IntelliSlot Card\nSettings’.\n\nVERTIV.\n\nOEM Manuals Page 37",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 38,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "+ Navigate to the Service Menu > BMS & Teamwork Sef\n\ngs > IS-Unity Setup\n+ Touch the door icon.\n\nIS-UNITY SETUP STATUS\nCATEGORY IS-Unity Service requires initialization\n\n> Configuration The card security has been updated to align with\ncurrent best practices.\n\n> Protocols\nPlease tap the icon in the upper right to create an\nadministrator account\n\n+ You will be asked to “Create Administrator Account”.\n\nCREATE ADMINISTRATOR ACCOUNT\n\n+ Create the Administrator Credentials using the\nguidelines below based off SB-327 and CWE-521.\n\nna]\nI\n\n+ When finished, select “Create & Restart\". Bai]\n___\n(Gontm pasos]\n\nCalifornia oT Security Law: SB-327 | User must now configure unique administrator credential to\naccess the card. This was addressed in the 7.8 release.\n\nCWE-521 Minimum of 8 toa maximum of 30 case-sensitive, printable\n\nPassword: [REDACTED] characters\n\n(excluding \\'<>~7#, double quole and space. Also, must\ncontain a combination\n\nof upper and lower case, digit and special characters. The.\npassword: [REDACTED] contain\n\nthe User Name.\n\nOEM Manuals Page 35",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 39,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "+ Touch the JE] door icon.\n\nIS-UNITY SETUP\n\nI5-Unity Service requires authentic\n\n«Service Menu > BMS & Teamwork Settings > IS-Unity Settings + Service Menu > BMS & Teamwork Settings > IS-Unity Setup\n\n« “CCF Login: [REDACTED] will\nappear.\n\nCCF LOGIN: [REDACTED] Enter the Administrator\nCredentials you've\ncreated or obtained\nfrom the customer to\nlogin: [REDACTED]\n\n+ Once entered, select\n“Login: [REDACTED] at the bottom\nright side of the screen.\n\nOEM Manuals Page 39",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 40,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "« If Administrator Credential are\nentered 3 times or more, you\nwill be locked out for 15 The username: [REDACTED] password: [REDACTED] invalid. Please enter a valid username: [REDACTED]\nadditional minutes. password: [REDACTED] FAILURE\n\n+ Please see CVE-2004-0583\nNote below for more details.\n\nCVE-2004-0583 “This vulnerability could allow a brute force ID/Password: [REDACTED] attack. This was addressed in the 7.8 release. The account\n\nlockout time is 15 minutes. If login: [REDACTED] attempted during the\ntimeout period. the timeout period wil restart.\n\n+ Service Menu > BMS & Teamwork Settings > IS-Unity Setup > Configuration > Network > IPv4\n+ IPv4 Address (DHCP is Default)\n\nIS-UNITY SETUP 1PV4 LIEBERT (ADMIN) ©\n\nCATEGORY PROPERTY VALUE\n> Users\nIPv4 Protocol disabled [i@napied\n\n» Authentication\nIP Address Metho Static <\n\n¥ Network\natic IP Address 126.4.203.213\n\nSubnet Mask 255.255.255.0\n\nIPV6\nDefault Gateway 126.4.203.5\n\nDNS Test\n\nDNS Server Address Source  (SNPTIERt]\n\nOEM Manuals Page 40",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 41,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "+ Service Menu > BMS & Teamwork Settings > IS-Unity Setup > Configuration > Users (Users 1 thru 10)\n+ Add/Remove Users (Edit and Create Administrator, General User and No Access Authorization permissions)\n\nIS-UNITY SETUP\n\nCATEGORY\n\n~ Users\n\nUSER 1\nPROPERTY\n\nUser Name\nUser Password: [REDACTED] for User\n\nLIEBERT (ADMIN) B\n\nVALUE\n\nLiebert\n\nrn\n\nAdministrator\n\n+ Service Menu > BMS & Teamwork Settings > IS-Unity Setup > Protocols\n+ Enable/Disable BMS Protocols, i.e. — BACnet, MODBUS, SNMP.\n\nI1S-UNITY SETUP\nCATEGORY\n\n> Configuration\nEv Protocols\n\n> BACnet\n\n> Modbus\n\n> SNMP\n\nStatus\n\nClose\n\nOEM Manuals Page 41\n\nPROTOCOLS\n\nPROPERTY\n\nBACnet Protocol\n\nModbus Protocol\n\nNMP Protocol\n\nLIEBERT (ADMIN) ©\nVALUE\n\nDisabled JERGBIEH\nDisabled JSENGBISE:\n\nDisabled JERGDIES",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 42,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Login: [REDACTED] - What’s Next?\n\n+ Now you can configure the Embedded Unity BACnet, MODBUS and/or SNMP Settings: IS-UNITY SETUP\n+ Service Menu > BMS & Teamwork Settings > IS-Unity Setup > Protocols\n\n+ Please see the ICOM Embedded User Manual for the BACnet, MODBUS and/or SNMP Protocols: |RSS\n[LINK REDACTED - see original notebook] » Configuration\n8211 BACnet Protocdl Setup\n8211 BAChet Protocol Setup v Protocols\n2.8 > BACnet\n\n> Modbus\n8212 Modbus Protocol Set > SNMP\n\n8212 Modbus Protocol Setup\n\n8213 SNMP Protocol Setup .......... i a\n\nLogin: [REDACTED] - What's Next?\n\n+ Now you can view the Embedded Unity Status:\n+ Service Menu > BMS & Teamwork Settings > IS-Unity Setup > Status\n+ View Embedded Unity Status\n\n°\n\nTT IS-UNITY SETUP STATUS LIEBERT (ADMIN) &\n\nJE CATEGORY PROPERTY VALUE\n\n> Configuration\n\n> Protoco System Restart Required Normal\n\nDuplicate Velocity Protocol\nMSTP Node ID\n\nDuplicate BACnet MSTP\nNode ID\n\n> Support\n\nNormal\n\nNormal\n\nOEM Manuals Page 42",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 43,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "+ Service Menu > BMS & Teamwork Settings > IS-Unity Setup > Support > Active Networking\n+ View Active Networking\n\n+ This menu displays the\nEmbedded Unity active 1S-UNITY SETUP ACTIVE NETWORKING LIEBERT (ADMIN) ©\n\nnetwork information.\nCATEGORY PROPERTY VALUE\n+ This is especially useful » Configuration Ethernet MAC 00:02:99:22:c0:1d\nwhen customers want to i\nknow where they can see > Protocols 1Pv4 Addre 126.4.203.107\nwhat their DHCP server\nactually assigned the\nEmbedded Unity. ¥ Support 1Pv4 Primary DNS Server [IP ADDRESS REDACTED]\n\nStatus 1Pv4 Default Gateway 126.4.203.5\n\nActive Networking 1Pv4 Secondary DNS Server  [IP ADDRESS REDACTED]\n\nLast DHCP/BOOTP Address 126.4.203.1\n\n+ Service Menu > BMS & Teamwork Settings > IS-Unity Setup > Configuration > System\n+ View and Edit System Information\n\nIS-UNITY SETUP SYSTEM LIEBERT (ADMIN) ©\nCATEGORY PROPERTY\n\n~ Configuration System Name Uninitialized\nContact Information Uninitialized\nTime Service System Location Uninitialized\n\n» Users System Description Uninitialized\n\n> Authentication Display Temperature Units [SEIS\n\n» Network\n\nClose estart Cancel Save\n\nOEM Manuals Page 43",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 44,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "+ Configure Time Service\n\nIS-UNITY SETUP\nCATEGORY\n\n¥ Configuration\nv System\nTime Service\n> Users\n> Authentication\n\n> Network\n\nClose\n\nTIME SERVICE\nPROPERTY\n\nExternal Time Source\n\nPrimary NTP Time Server\n\nBackup NTP Time Server\n\nNTP Time Sync Rate\n\nTime Zone\n\nEnable Auto-Sync To\n\nService Menu > BMS & Teamwork Settings > I1S-Unity Setup > Configuration > System > Time Service\n\nLIEBERT (ADMIN) ©\nVALUE\n\nNTP Server\n\npool.ntp.org\n\n1 Hour\n(GMT) UTC\n\ndisabled enabled\n\nCancel Save\n\nService Menu > BMS & Teamwork Settings > IS-Unity Settings\n\n+ The usercan” \" the Embedded Unity portion of the air unit control independent of the\nair unit software environment.\n\n+ The user can * ” the Embedded UNITY from here.\n\n= ust SERVICE ADVANCED\n= Jiebscety\n\nIS-UNITY SETTINGS\n\nLIEBERT (ADMIN) ©\n\nOEM Manuals Page 44",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 45,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Service Menu > BMS & Teamwork Settings > IS-Unity Setup > Configuration > Network > IPv4\n\nThis menu is where you can\nset the network\nconfiguration of the\nEmbedded Unity.\n\nOEM Manuals Page 45\n\nIS-UNITY SETUP\n\nCATEGORY\n\n#{ v Configuration\n\n> Users\n\n> Authentication\n\nv Network\n\nView Licenses\n\nPV\n\nPROPERTY vaLue\n\nStatic IP Address [IP ADDRESS REDACTED]\n\nDefault Gateway [IP ADDRESS REDACTED]\nLJ.\n\nView Version below.\n\nBuild: 2021040\n\nCommit: 2d6bd\nLegal Notices:\n\n2020 Vertiv Corporation. Al rights\nVertis”, Liebert\" and ICOM™ are registered trademarks of Vertiv Corporation\n\nTouch View Licenses for open source license information.",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 46,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Connection to Unity Web-Interface\n\n+ You may connect to the Embedded Unity web-interface from any PC on the same\nnetwork that P74 port is connected to. This can be done by entering the IP address of\nthe Embedded Unity into a web browser.\n\n+ From the air unit local display navigate to Service Menu > BMS & Teamwork Settings\n> IS-Unity Setup > Support > Active Networking to see what Embedded Unity is\nconfigured for.\n\n+ Note that this could be a Static IP setting (manually entered and fixed) or a DHCP\nsetting assigned by a DHCP server on the customer’s network.\n\n+ DHCP is the default setting.\n\n+ The Embedded Unity web-interface can also be accessed by connecting a PC to\nport P74 whose Ethernet adapter Internet Protocol Version 4 (TCP/IPv4) settings are\nset to “Obtain an IP address automatically” (DHCP)\n\n+ Once connection is made the Embedded Unity web-interface can be found at its\ndefault Link Local Address by entering [IP ADDRESS REDACTED] in a web browser.\n\nUseful Links\n\n+ Found on Vertiv.com Public Internet:\n\nICOM2 Product Page: [LINK REDACTED - see original notebook]\nmanagement/thermal-control-and-monitoring/liebert-icom-cooling-unit-control/\n«Embedded Unity Quickstart Guide: [LINK REDACTED - see original notebook]\nicom-embedded-unity-setup-guide.pdf\n«+ ICOM2 (High Definition — another name for ICOM2) BACnet PICs Statement:\nhttps ://lwww.vertiv.com/4a00f1/globalassets/shared/bacnet-protocol-implementation-\nconformance-statement-reference-quide 00.pdf\n+ |ICOM2 Embedded Product Specification Datasheet:\n[LINK REDACTED - see original notebook]\ndatasheet-s|-70431.pdf\n\nOEM Manuals Page 46",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 47,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Latest Firmware\n\n« Latest ICOM2 firmware as of 04/03/23 is PA2.06.51.01R and changes often.\n\n+ Latest ICOM2 XDM Only firmware as of 07/06/23 is PA2.07.24R and\nchanges often.\n\n+ Latest Embedded Unity Firmware, same as CCF Version, is IS-\nUNITY_8.0.0.1-4.3.3 and is bundled with the ICOM2 firmware listed above.\n\n« Firmware is Upgraded by Thermal Engineer with ICOM Portal Access and\nVertiv Training using a USB and cannot be upgraded via the Web\nInterface/Browser.\n\nThe Liebert* iCOM™ firmware with Embedded Unity functionality may be updated by using the COM™ touchscreen display. Please refer to the Firmware\n\nUpdate section in the Liebert® iCOM™ Installer/User Guide (SL-31075). If you would like to request a software file, please contact our Service Technical\n\nSupport team at 1-800-543-2778 and select option #5 to speak with a Diagnostic Engineer. Users who have the proper login: [REDACTED] may visit\n\nhitps//apolications.liebert.com/ICOMv2/L0gin.aspx and download the software.\n\nIS-UNITY-DP Firmware\n\n« IS-UNITY-DP Firmware is different than the Embedded Firmware\n+ Difference 1: Separate Flash file that can be downloaded from the site below:\n\n[LINK REDACTED - see original notebook]\ninterface-cards/\n\n= Difference 2: It will always behind in updates compared to the ICOM2-Embedded Unity\nLatest Version of Embedded Unity as of 4/03/2023 is 8.0.0.1-4.3.3.\nLatest Version of IS-UNITY-DP as of 3/28/2023 is 8.3.0.0_00138.\n\nRelease notes for IS-UNITY-DP:\n[LINK REDACTED - see original notebook] unity card v8.3.0.0_3\n82237_0.pdf\n\nLatest Embedded Unity Firmware is “Bundled” with the ICOM2 PA2.xx.xxR Firmware, link below: mms\n\nOEM Manuals Page 47",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 48,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Troubleshooting\n\n“IS-Unity Service is Unavailable” Possible causes:\n\n+ Embedded Unity is not Enabled: Verify correct “Monitoring Protocol” is Selected in BMS Setup\n\n+ Embedded Unity still booting: Wait no more than 10 minutes to give enough time to reboot.\n\n+ Embedded Unity users are invalid: Update username: [REDACTED] under Service Menu > BMS &\nTeamwork Settings > IS-Unity Setup > Configuration > Users (Users 1 thru 10)\n\n+ Embedded Unity has crashed: Try to manually restart from I1S-Unity Settings > Restart IS-\n\nUnity. Wait at least 5 minutes to fully boot up\n\n+ Embedded Unity config is corrupt: Must factory default Embedded Unity Service Menu > BMS\n& Teamwork Settings > I1S-Unity Settings > Default IS-Unity Setup — Use this as the Last\n\nResort\n\nTroubleshooting 2\n\nBACnet — Segmentation is not Supported, please see\nBACnet PICS below:\n\n«  [LINK REDACTED - see original notebook]\n\nUncortemeacowarscaion\n\nChpct Access senioos\n\nimplementation-conformance-statement-reference-guide 00.pdf\n\nResropeny\n\nCommon problem BMS Vendors (JCI, Siemens, etc...) have is that they use\n\nRPM (ReadProperty Multiple), but they get errors reading the BACnet Point.\nRPM is supported. Solution is to either disable RPM on the BACnet Server or to limit\nthe RPM data to 1 packet.\n\nSB2101 in the ICOM Portal states, in which upgrading to\n\nPA2.06.51.11R, will resolve an unresponsive BACnet/MSTP |.\n\nconnection.\nSB2102 states IS-UNITY-LIFE, IS-UNITY-SNMP, IS-UNITY-DP, 417831G4, G3, G2 could have a\nfirmware loaded which could cause the comms card to reboot frequently (possibly every 30 seconds).\nThe firmware which experiences the reboot behavior is v7.9.1. Updating of the firmware is only on the\nUNITY cards and not main control boards.\n\nRomots Devoe Management Serves\n\nUrcTmesynenvenzzion\n\nOEM Manuals Page 45",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 49,
+      "Inferred Topic / Equipment": "Vertiv embedded card / iCOM",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Questions?\n\n& veanv\n\nOEM Manuals Page 49",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-012",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 50,
+      "Inferred Topic / Equipment": "DriSteem SGH humidifier",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Manufacturer-guided DriSteem SGH alarm verification was documented. The original energized-equipment connector-removal procedure is not reproduced. Contact DriSteem and follow an authorized LOTO/PPE procedure for the exact unit.",
+      "Sensitive or Unsafe Content Handling": "Potentially hazardous energized procedure replaced with safe escalation",
+      "Linked Note IDs": "RB-013",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 51,
+      "Inferred Topic / Equipment": "DriSteem SGH humidifier",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Alerts: 2\n\n{ Tank temp serdar Tales\n\n| Vid apen\n\nFrom <[LINK REDACTED - see original notebook] FEWEOAXmKXSziHpkGa%\n2FmILkkmAMQAGZDyitgAA?nativeVersion=1.2026.210.300>\n\n‘OEM Manuals Page 51",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-013",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 52,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "United Cool Air Bacnet points lists\n\nThursday, March 12,2026 10:00 PM\n\nPDF\n\nMARVEL S\nPOINT LIST\n\nPDF\n\nMarvel Plus\nVer10.0...\n\nPDF\n\nMarvel Plus\nVer10.0...\n\n‘OEM Manuals Page 52",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 53,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": null,
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 54,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "3 Reon Tose 3 ne 3 Sigal =) NOUNS\nFr) Go2on Water Bmp or Condenser Sower Stas o Digral =) NOUNITS\noy Srsconon Airside Economizer Status 5 Digital | Reaswris NOUNITS\n3 se on Vistas Economizer Status © Digital Read NOUNS\nbi) Temote jn Remote ON/OFF Status © Digtal Read NO.UNITS\ni mrp Lal Harm Compressor | High Pressure 5 Digital Resa NO. UNITS\nis mp cla am - Compressor | Low Bessie 0 Sita | Feaswiie NOUNITS\n16 mo, 2al Alarm Compressor 2 igh Pressure b Digital Reza NOUNITS\nTr mp.a Alarm - Compressor 2 Low Pressure © Digral Rasa NOUNITS\n5 mo, cLal Alarm - Compressor 3 High Pressure © Digital Read NOUNS\nbo) LTXzE] arm - Compressor 3 Low Pressure © gal Resa NO.UNITS\nEo ro cal Alarm Comprassor & High Pressure b Digral =) NO.UNITS\n2 mp.cis arm - Compressor d Low Pressure o Digral = NOUNITS\n2 hp Compressor 1 High Pressura Switch Pasion b Digital Reza NOUNITS\npi) Lon Compressor 1 Low Pressure Swich Postion © Digital Read NOUNS\na Then Compressor 7 High ressura Switch Position © Digtal Read NO.UNITS\n= lpn Compressor 2 Low Pressure Swich Postion 3 Digital Resa NO. UNITS\n2 Chen Compressor 3 High Pressure Switch Position o Digital =) NOUNITS\nTr loin Compressor 3 Low Pressure Swich Postion © Digital Reza NOUNITS\n= hen Compressor 4 High Pressure Swi Position b Digital Read NOUNITS\n5 on Compressor & Low Pressure Swich Postion © Digital Read NOUNS\nES Pron Alar - Loss of Aion. © Digital Resa NO.UNITS\nEY miter 3 Alarm Diy Ai Fitar 5 Digral =) NO.UNITS\n32 mre al Ram -Fre/Smote Suisun 0 Sigral | Feaswiie NOUNITS\nEo heater al Alarm - Raster High Limit b Digital Resa NO UNITS\n3 mDaianal Alarm - Drain Pan Overton b Digital Read NOUNITS\n= damper aim arm - OutSoor Damper Fal to Oger © Digral Read NO.UNITS\n£3 mano 3 im - Slower Motor Overoad (VarCool Un © Digital Resa NOUNS\nEl fan, ou Lal Harm Blower Motor | Overoad (25+ Single Modul 3 Digral =) NOUNITS\n3 imfan_ ou 2.2 Alarm - Blower Motor 2 Overcad (27+ Single Module] o Digital Reza NOUNITS\nEo mmo al Alarm - Bower Motor 1 Overoad (2:72 Dual Module] b Digital Resa NO UNITS\nEo mm ou al Alarm - Blows Mitor 2 Overioad (E21 Dual Module] b Digital Read NOUNITS\na mort ou al “Ham Blower Motor 3 Overioad E25 Dua Mosul) © Digal Resa NOUNS\n= ome ual “Alam Blower Motor & Overiosd E27 Dual Mosul) © Digal Resa NOUNS\n= mh statics al “Alam - igh Duct Pressurs Sretdon Geet at Unk) 3 Digral Resa NOUNITS\nrn) mies al Alarm - Compressors) OF By Freeze Stat. o Digs Reza NO UNITS\nas waterfowl Alarm - Loss of Water Flow b Digital Read NOUNITS\n% mal spol arm - Fgh Supply Ar Temperate © Digral Read NOUNITS\nri mal o_supoly Alarm ~ Low Supoly Ar Temperature © Digital Resa NOUNS\nrE] fra) Alarm ~ igh Return Ar Temperature 3 Soa =a NOUNS\nas malo re emp Alarm - Low Retum Ar Temperature © Dighal Reza NOUNITS\nEl mh staticors Ham - High Duct Static Pressure Reding b Digital Resa NO UNITS\n5 mio, staticors Alarm - Low Duc Satc Pressure Reading b Digital Read NOUNITS\n3 Taupo temp, fa Harr - upp) Ar Temperature Sensor Faure © Digal Resa NO.UNITS\n£5) vet tenga ‘Harm Rts Ai Temperature Sensor Faure © Digal Resa NOUNS\nEl vet hom fal lar -Retum A Hurigy Sensor Fllore © Digral Resa NOUNITS\n55 mea thal Alar - Outer A Tempsraturs Faure o Digital Reza NOUNITS\n56 Ton om 1 alarm - Outdoor Air Humidity Failure b Digital Read NO_UNITS\n5 mater Lai Alar - Water Temperature Faire b Digtal Read NOUNITS\nES) rat: press fa Ram - Sab Srazsre Transducer Fale © gal Resa NOUNS\n£3 TRefrgeran Pres Bl Harm - Reffigeraton Pressure Serr Faure © Soa =a NOUNS\n0 sifoun Aifiow Switch Postion © Dig Reza NOUNITS\no Gy fern Din Ai Fier Switch Postion b Digital Resa NO UNITS\nI fran Fra/Smoke Detector Swich Postion b Digital Read NO_UNITS\n3) Fhestin Hate High Limit Switch Postion b Digital [=] NOUNITS\nC3 an ater Drain Ban or Viatr Fon Switch Position © Sigal = NOUNS\nG3 Faron Motor Ovaroas Swich Position © Sigal [= NOUNITS\n3 Tan ouLin Nistor 2 Overoad (EF Single Module) Sich Posiion © Dig Resa NOUNITS\n& fan ovzn Motor 2 Overcad (Et Sings Modul) Sitch Poston b Digital Read NO_UNITS\n8 Fol Dink pos Motor Overcad 1 input Position Ed Uni) b Digital Read NO_UNITS\nE Ecol Dind pos Motor Overoad 2 Input Boston Ex Unis) b Digital Resa NO_UNITS\n7 Fol Dn pox Motor Oveross 3 Input Boson EF Unis) © Sigal [= NOUNS\ngil Eo Oin pos Motor Overoad & Input Postion EF Unis © Sigal 13 NOUNS\n7 high satic in High Duct Static Pressure Switch Postion © Digital Resa NO UNITS\n7 freeze jn Freeze Stat Switch Postion b Digital Read NO_UNITS\n7 Sched en Enable Schedule 0 Digtal | ReasWite NOUNITS\n7 gh Set aci/set Up Evable © Digtal | Reasirte. NOUNITS\n5 Unoccupied Over Enable © Sigal | Reavis NOUNS\ngid Unoccupiad Fn Operation (Fan ON/OFF suring Unecauped | 6 Sigal | Reawime NOUNS\nii) Norming Viarmup Ensbl by EMS 0 Digtal | Reacita NO_UNITS\n75 Cool Down bods Enable 5 Digital | Reasirte. NO_UNITS\nEF os warmup. eset Wiring Warmup Enable Reset by BNE 0 Digital | Reavis. NO_UNITS\n5 CompLan Compressor] Enable © Sigal | Reastirte. NOUNS\nEA CompZ.en Compressor TEnatle 3 Sigal | Rests NOUNS\nES Comp3.en Compressor Enable 0 Digital | Reais NO UNITS\nED Comp en Compressor 4 Enable 0 Digtal | React NO_UNITS\n£3) Fest ump 1 ON eat Pump Stage LON b Digital Resa NO UNITS\nE Hest Pump 20 Heat Pump Stage 20M b Digital [=] NOUNITS\n\n‘OEM Manuals Page 54",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 55,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "£1 Fes Pump 300 eat Pump Sage ON 3 Sigal =) NOUNS\naL Heat Pump £ ON Heat Pump Stage £ ON o Digral =) NOUNITS\n52 wie vale Gable Watersioe Economizer Valve Enable 0 Digital | Reaswris NOUNITS\n5 Tin won Nini Vier iow Enable 0 Digtal | Reacrte NOUNS\n5 WAM En VW Fish Mode Exable © Digtal | ReasWirte NO.UNITS\n£3 NEES Water Flush Mode Ensbls 0 Digital | Reasirte NO. UNITS\n£3 Rem WV, CTL Enable Remote Water Vahe Control (WEE 8 050 0 Digtal | Feast NOUNITS\n5 Hiduct ram Warming - igh Duct Presse b Digital Reza NOUNITS\n5 ret press al Waring - Refrigerant Pressure Too Figh © Digral Resa NOUNITS\n55 force vav box Forca VAV Boxes Open Digital Output 16 Interac © Digtal | ReaWiie NOUNS\npo) Pump ON Water Pump Stas © gal Rest NO.UNITS\n0 Congensar Fon Conensar Boner eats © Digral =) NO.UNITS\n02 VA Soc Temphve en Average Temperature rom VAV Boies 0 Sigral | Feaswiie NOUNITS\n05 VamupResete Enables Moming Warmup by VAV Box Average Temperature | 8 Digital | ReasWirta. NOUNITS\npy VSComg LON Variable Compressor Sats © Digital Read NOUNS\n5 Bum Rear Reset Audis Busser hers Gobel Alarm © Digtal | ReasWite NO.UNITS\n1% Compressors, ON Compressor 3 ON b Digital Read NO. UNITS\n07 Compresso2 ON Compressor 20N o Digital =) NOUNITS\n08 VSCompZ ON Variable Compressor 2 Sats © Digital Reza NOUNITS\n05 Compressort. ON Compressor $ ON b Digital Read NOUNITS\npi) Fresmoraion arm Fra/Smoke Input Stas © Digital Read NOUNS\npny E02 Din pos Wictor Gveroad Linput Poston EF UNE] 3) Digital Resa NO.UNITS\nRi} Compl press aim Compressor vigh/Low Pressure Input Stas Mana Sal) |b Digital =) NO.UNITS\nTe FighDucbressure am Figh Duct Pressure Input Status o Digral = NOUNITS\nBH Comp? Press am Compressor High/Low Pressure Input Stas Dana Smal) |b Digital Resa NO UNITS\nTe Comp2 HP aim. ‘Compressor 2 High Pressure Switch Status b Digital Read NOUNITS\njoj Comp2 15 am Compressor 2 Low Prassurs Switch Status 0) Digral Read NO.UNITS\nTE Ecsnomas OF Eesnomaer Sats 0 Digital Resa NOUNS\nis Compe aim. Compressor 1 High Pressure Swich Sau © Digral =) NOUNITS\nFro) CompLip aim Compressor T Low Pressure Switch Status o Digital Reza NOUNITS\n11 FWCol Pump, ON ot inter Col Purp Freaze Protect b Digital Resa NO UNITS\nwm OCC UNOCE bs Occupied/Unoczuped by BMS 0 Digtal | Reaswita NOUNITS\npr] C02 OffsetSerpont en C02 Se Pons By BMS Enable © Digtal | ReasWirte NOUNS\n\nT sas Compressor 1 Ss T Trisge =) NOUNS\nz sts Compressor 2 Stas i Intager =) NOUNITS\n\n3 3 sats Compressor 3 Sats i Integer Read NOUNITS\nE) ch sats Compressor 4 Sats i Integer Read NOUNITS\n\n5 Fo.clsus Digits Compressor 1 Stir T Trager Read NOUNITS\n0 Gg casts Digits Comrpessor 2 Sus T Trisger Resa NOUNS\n7 es Sem Sats 7 Tze =a NOUNS\nB mode dsp Mode of Operation 0 rege Read NOUNITS\n) ode satus Mode of Operation Status i Integer Read NOUNITS\nbr) stats Cooling Mods Stas i Intager Read NOUNITS\nI he stats Fasting Mods Stas T Triage: Resa NOUNS\n5) oem 55 Casing Demand ® Trisge = PERCENT\n= demand disp Heating Demand Intager =) PERCENT\n3 on dip Dehumidfeaton Demand Integer Read PERCENT\n15 hom dg Humid featon Demand Integer Read PERCENT\n16 Theat dsp Reheat Demand Intager Read NO_UNITS\nbia ate con cemand 35 Waterss Exonomzer Demand Trisger Resa PERCENT\nFo Si scon Semand_dsp rsd Economizer Demand Tisge =a PERCENT\n1s ste p up Stic pressure Intager Read NOUNITS\nFI) VD Set Static Pressure Set Pint Integer | Reacirie NOUNITS\n2 rvs Sut eset Duct Pressure Set Poin Reset by BUS Integer | Readiris NO_UNITS\n2 ductors setpt Actual Duct Presurs Set Poms (Reset Appied) 0 Integer | Readlirte NOUNITS\n= istics? High State Pressure Alarm SetPoint i} Trtsge | Reaavinte NOUNS\nFE} osc 57 Low Duct State Brassore Set ort is Trtsger | Reaaviree NOUNITS\nz= TNT.DEL stem Star Delay  - 50 Seconds] I Integer | Reacirie SECONDS\n2 on star hour] Nonssy Occupied Sart Hour fi] Integer | Readiris NO_UNITS\n2 tue sr howl Toesday Occupied Sart Hour i Integer | ReadVirte NO_UNITS\n® wed sar boul Wednesday Occupied Start Hour fi Integer | Readlirte NO_UNITS\nEF hu star howl Thursda, Occupes Sart Hour T Trisge | Reaavirce NOUNS\nEd srt hourl ida Occupied Star Hour T riage | Reaaviree NOUNS\n3 Sat start our] Saturisy Occupied Stat Hour [i rtsger | Reaavire NOUNITS\n32 Sun sar pour, Sunday Occupled Start Hour I Integer | Readiris NO_UNITS\nEo mon, star mind Monday Occupied Start Minute 1 Integer | Readlirte NOUNITS\nE3 esta min Toesday Occupied Sta Mite T Trtsge | Reaavinte NOUNS\nES wed sarin] Wednesday Occupes Stan Mite T riage | Reaavirce NOUNS\n3 hu start min Thursday Occupied Start Minute T tage | Reaaviree NOUNS\n3 fisar mind Friday Occupied San Minute fi Integer | Readiris NO_UNITS\n3 at stare inl Saturcay Occupied Sar Minute I Integer | ReadVirte NO_UNITS\n3 Sun start mind. Sunday Occupied Sart Minute Integer | Readlirte NO_UNITS\nE) mon_end Poul Wind, Occupes End Four T Trisge | Reaavirce NOUNS\nry tue anc hour] Toesday Occupied End Hour T Trteger | Reaaviree NOUNS\n7 “wed en hour] Wednesda, Occupied End Hour [i Integer | Readiris NO.UNITS\nr) tha end our] Thursday Occupied End Hour i Integer | Readiris NO_UNITS\nry fiend hour Fiday Occupied End Hour I Integer | Readlirte NO UNITS\n= Sat end hour] Saturday Occupied End Hour fi Integer | Reade NOUNITS\n\n‘OEM Manuals Page 55",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 56,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "% Sun, end pour] Sunday Occupied End Hour Fi Time | Resse NOUNS\nro mon, end mint Monday Occupied End Minute i] Integer | Reaalirie NOUNITS\n3 tue anc_mind Tuesday Occupied End Minute fi Integer | ReacWire NOUNITS\n) ed. ang. min Viednesda Occupied End Minute T Trtsge | Reaavirte NO_UNITS\n£3) hu end inl Thursday Occupied End Mints T Trtsge | Readiris NO.UNITS\n5 Fiend mn Fray Occupied xd Minute fl Trtsger | Readiris NO. UNITS\n53 Sat and min Saturday Occupied End Minute. i] Integer | Reaovirie NOUNITS\nEl sun-snd_ mint Sunday Occupied End Minute u integer | Reaavirte NOUNITS\nE3 mon ow hour Monday - Moming Warmup Start Four T Triage: | Readiris NOUNS\n£3 tue ro pour Tuesday ~Moming Warmup Stat Hour T Triage | Readiris NOUNS\n5 wed me hour Wednesda; - Moming Warmup Sart Hour T Trtsge | Readiris NO.UNITS\n5 tru abou Thursday -Moming Warmup Str Hour Fi Trtsger | Readiris NO.UNITS\n3 Fm hour Frisa; Morning Warmup Sar Hour T Integer | Reaalirie NOUNITS\n5 at mhour Saturday - Moming Warmup Sart Hour [i Integer | ReacWire NOUNITS\n3 Sun, hour Sunday Morin Warmup Start Hour T Trtager | Readiris NOUNS\n[3 on, ov. Wiondsy -Moming Warmup Start Minute T Trtsge | Readiris NO.UNITS\n[7 tue min Tuesday Moning Warmup Start Minute Fi Trtsger | Readiris NO. UNITS\n) “wed mo min Wesnesd; - Morning Warmup Stat Minute T Integer | Resale NOUNITS\n£3 ru main Thursca, - Morning Warmup Start Minute I Integer | Reaoirie NOUNITS\n5 Fm min Monday - Morming Warmup Sart Minute [i Integer | Readiris NOUNITS\n3 at amin Saturday ~Worming Warmup Start Minute T Triage | Readiris NOUNS\n& Sun mo min Sunda, -Moming Warmup Sart Minute T Trtsge | Readiris NO.UNITS\n5 evan Monday Morning Warmup End Hour Fi Trtsger | Readiris NO.UNITS\n] ue mang oe Tuesday - Morning Warmup £0 our I] Integer | Reaalirie NOUNITS\nEi) “wed, mend nv Wecnessny- Morming Warmup End Hour T Integer | Reacirie NOUNITS\n7 tha mwand ne Thursday - Morning Warmup End Hour fl Integer | Reacire NOUNITS\n7 Hw andr Frida; -Woming Warmup £nd Hour T Trtsge | Readiris NO.UNITS\n7 Sam end be Saturday - Morming Warmup End Four T Trtsge | Readiris NOUNS\ni) Sun mend hr Sunday Moming Warmup End Hour T Integer | Reaalirie NOUNITS\n= mon mw snd min Hons, - Morning Warmup End Minute T Integer | Reaolirie NOUNITS\n76 tue end in Tuesday - Moning Warmup End Minute fi Integer | Reais NOUNITS\nkid wed, ro ane mie Wednesday - Moring Warmup End Minute [i Integer | Readiris NOUNITS\n7 thu wend. min Thursda; -Morming Warmup End Minute T Trtsge | Readiris NOUNS\n7 Fn end_in Friday -Worming Warmup End Minute T Trtsge | Reaavinte NOUNS\nEF) Sat mo 2nd, min Sana; - Morning Warmup End Minute T Integer | Readiris NOUNITS\nEN Sur mundi Sunday - Moming Warmup xd Mints T ntsger | Reaavire NOUNITS\nEA mon, cool Gown pour Monday - Cool Down Start Hour fl Integer | Reacire NOUNITS\n£3 ue cool down hour Tuesday Cool Down Start Hour T Trtsge | Readiris NOUNITS\nE3 Ted, coal down hour Wednesda) - Cool Down Start Hour T Trisge | Readiris NOUNS\n= hu. 50. Gon pour Thursday Cool Down Str Four T Trtege | Readies NOUNS\nE3 F_cool sown hour Friday - Cool Down Sar Hour I Integer | Readlirie NOUNITS\nEd Sst coo down hour Satursa; Cool Down Star Hour fi Integer | Reais NOUNITS\n5 sun, cool down, hour Sunday Cool Down Start Hour u Integer | Readiris NOUNITS\n3 \"mon. 00 Gown min Wionday Cool Down Sart Minute T Trtsge | Readiris NO.UNITS\n£3 ue cool down Tuesday - Cool Down Sart Minute T Trisge | Readiris NOUNS\nEY wed, cool down, pin Wednesday - Cool Down Start Mite T Integer | Readiris NOUNITS\n32 thy 00, Son in Thursday Cool Down Stat Minute T Integer | Reacirie NOUNITS\n55 cool sown min Friday - Cool Down Start Minute fi] Integer | Readiris NO_UNITS\n5 52100) down min Saturday - Cool Down Sar Mints u Integer | Readirte NOUNITS\n£3 Sun. cool sown, min Sunday Cool Down Sta Minute T Trisge | Readiris NOUNS\n5 Tron. o0. Bown. ena Fr Monday - Cool Down End Hour T Trtege | Readies NOUNS\n5 contol rs Refrigerant Control Pressure aaa | nieger Read | POUNDS FORCE PER SQUARE INH\n35 ue cool down end hr Tuesday - Cool Down End Hour 1 Integer | Reacirie NOUNITS\n0) Twedcool sown, and hr Viednasday - Cool Down End Hour I Integer | Readiris NO_UNITS\nFe) thu cool down end hv Thursday -Cool Down End Hour 1 Integer | Readlirte NOUNITS\nFoy ¥_cool_down_and hr Fra; Cool Down End Hour T Trisge | Readiris NOUNS\n02 Sat. cooL down end hr Saturday - Cool Down End Hour T Trtsger | Reaaviree NOUNITS\n15 Sun cool down. sng pr Sunday ~ Cool Down End Hour T rtsger | Reaaviiee NO UNITS\n104 | mon cool down end min Monday Cool Down End Minute fi] Integer | Readiris NO_UNITS\n105 tue cooldown and_min Tuesday Cool Down End Minute I Integer | ReadVirte NO_UNITS\n106 | wed.cool_down_end. min Wednesday - Cool Down End Minute Integer | Readlirte NO_UNITS\npid ru coo down sndmin Thurs3ay Cool Down Exd Minute T Trtege | Readies NOUNS\ncl Fi_cool down. znd. min Pisa; - Cool Down Ena Mints T riage | Reaaviree NOUNS\n05 at cooldown end min Saturday Cool Down End Minute I Integer | Readiris NOUNITS\nBt) sun cool down_end min Sunday Cool Down End Minute I Integer | Readiris NO_UNITS\nmw VERIO Software Version Month 1 Integer | Readlirte NOUNITS\niv} Wy Flush Fr Water Fish Sat Four T Trtsge | Reaavinte HOURS\nBE Vi Push min Water Push Sar Minute T riage | Reaaviree VENTE\nne Present one Carers Mont Triage Read NOUNS\n10 Present Day Curens Day i Intager Read NO_UNITS\nRE) Present Year Current Year i Intager Read NOUNITS\n1s Present Hour Current Hour i Integer Resa HOURS\nmw Present Nin Torrent Minute Eo] Trisge =a WNTES\nEy Force DRC Force Discharge Pressure Control Vabe o Postion (eo) m Triage | Reaaviree PERCENT\nv7) WEE rin Mirimum Wiser Fiow Position mw rtsger | Reaavire PERCENT\npe) Vi Push time Length of ugh (minutes) I Integer | Readiris MINUTES\n1 force WSE Force Viate Economizer to Postion (oo) mw Integer | ReadWirte PERCENT\nFry Prasent Weekday Corrent Week Day i tage Resa NO. UNITS\n\n‘OEM Manuals Page 56",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 57,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": null,
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 58,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "PDF\n\nMARVEL S\nPOINT LIST\n\n‘OEM Manuals Page 58",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 59,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "United\n\ncc &oo 1A 1 corp» DESCRIPTION:\n_———\n\nDATE: FORM: REV:\nJ 7/11/13 MARVEL POINT LIST | 11.5\n\nMarvel Control Point List Version 11.5\n\nBacnet | Modbus | Carel\n\nBinay | igre | Dig | United Cool Air Description Value Range\n1 10002 1 RW | Keypad - System On/Off 0=0ff, 1=On\n2 10003 2 R | Operating Mode - Cooling 1=Cooling\n3 10004 3 R | Operating Mode - Heating 1=Heating\n4 10005 4 R | Operating Mode - Dehumidifying i\n5 10006 5 R__ | Operating Mode - Humidifying 1=Humidifying\n6 10007 6 R | Economizer Status 1=Economizing\n7 10008 7 R | Resets All Active Alams 1=Alam\n8 10009 8 R | Aiflow Alam 1=Alam\n9 10010 9 R | Diny Filter Alam 1=Alam\n10 10011 10 R | Drain Pan 1=Alam\n11 10012 11 R | Modulating Heat 0=0ff, 1=0n\n12 10013 12 R | Smoke Alarm 1=Alam\n13 10014 13 R | Compressor 1 High Pressure 1=Alam\n14 10015 14 R | Compressor 2 High Pressure 1=Alam\n15 10016 15 R | Compressor 3 High Pressure 1=Alam\n16 10017 16 R | Compressor 1 Low Pressure Alarm 1=Alam\n17 10018 17 R | Compressor 2 Low Pressure Alarm 1=Alam\n18 10019 18 R | Compressor 3 Low Pressure Alarm 1=Alam\n19 10020 19 R | Unit Blower Status 1=0n\n20 10021 20 R | Compressor 1 Status 1=0n\n21 10022 21 R | Compressor 2 Status 1=0n\n2 10023 2 R | Compressor 3 Status 1=0n\n23 10024 23 RW | Dehumidify Enable 1=Enabled\n24 10025 2 RW | Compressor 1 Enable 1=Enabled\n25 10026 25 RW | Compressor 2 Enable 1=Enabled\n2 10027 2 RW | Compressor 3 Enable 1=Enabled\n27 10028 27 RW | Heat Stage 1 Enable 1=Enabled\n2 10029 28 RW | Heat Stage 2 Enable 1=Enabled\n29 10030 29 R | Heater 1 Status n\n30 10031 30 R | Heater 2 Status 1=0n\n3 10032 31 R | Water Economizer Enable 1=Enabled\n2 10033 2 R | Global Alarm- An Alarm Is Currently Present In The Controller. 1=Alarm Present\n3 10034 ES R | Room/Retum High Temperature Alarm 1=Alam\n34 10035 34 R | Room/Retum Low Temperature Alarm 1=Alam\n35 10036 35 R | RoonvReturn Air High Humidity Alarm =Alarm\n36 10037 36 R | Room/Return Air Low Humidity Alarm 1=Alam\n37 10038 37 RW | Fan Enable 1=Enabled\n\n‘OEM Manuals Page 59",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 60,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "38 10039 38 RW | Supply Blower Continuous or On Demand 1=0n Demand\n39 10040 39 RW | Economizer Enable 1=Enabled\n40 10041 40 RW | Compressor Rotation Enable ‘=Enabled\n4 10042 4 R__| Smoke Alarm Input Status 1=Open\n\n42 10043 2 R | Smoke Alarm Input Status 1=Open\n43 10044 43 R_ | Input 12 — Compr 3 HP or Warmup Alarm Input Status 1=Open\n44 10045 44 Not Used\n\n45 10046 45 Not Used\n\n46 10047 4 R | Filter Pressure High Alarm 1=Alarm\n47 10048 47 R | Filter Pressure Low Alarm 1=Alam\n48 10049 48 RW | Remote On Enable 1=Enabled\n49 10050 49 RW | Humidity Control Type 0=P, 1=P+|\n50 10051 50 RW | Air Switch Fan Interlock 1=Yes\n\n51 10052 51 R | Digital Compressor 1 Alarm Input 0=Closed, 1=Open\n52 10053 52 R | Digital Compressor 2 Alarm Input 0=Closed, 1=Open\n53 10054 53 R | Compressor 1 Alarm 1=Alam\n54 10055 54 R | Compressor 2 Alarm 1=Alam\n55 10056 55 RW | Compressor 1 Low Pressure Enable 1=Enabled\n56 10057 56 RW | Compressor 1 High Pressure Enable 1=Enabled\n57 10058 57 RW | Compressor 2 Low Pressure Alarm Enable 1=Enabled\n58 10059 58 RW | Compressor 2 High Pressure Alarm Enable 1=Enabled\n59 10060 59 RW | Not Used NA\n\n60 10061 60 RW | Secondary Drain Pan Switch Enable 1=Enabled\n61 10062 61 RW | Water Side Economizer Valve End Switch Enable 1=Enabled\n62 10063 62 RW | Fan Motor Overload Enable 1=Enabled\n63 10064 63 RW | Retum Smoke Alam Enable 1=Enabled\n64 10065 64 RW | Compressor 1 Digital Scroll Module Alarm Enable 1=Enabled\n65 10066 65 RW | Compressor 2 Digital Scroll Module Alarm Enable 1=Enabled\n66 10067 66 R | Heater 3 Status 0=OFF; 1=ON\n67 10068 67 RW_| Remote ON/OFF Input Status\n\n68 10069 68 RW_| Supply Humidity Failure\n\n9 10070 9 R_| Heater 4 Status 0=OFF, 1=ON\n70 10071 70 R__| Compressor 3 Status 0=OFF, 1=ON\n7 10072 7 Not Used\n\n72 10073 72 R__| Pump Down Alam 1=Alam\n73 10074 73 R__| High Heat Limit Switch Input Status 0=Closed; 1=Open\n74 10075 74 R__| Heater High Limit Alam =Alarm\n75 10076 75 R_| High Humidity Alam Alarm\n76 10077 76 RW_| Space/Room/Retur Temperature Enable 1=Enabled\n77 10078 77 RW_| Space/Room/Return Humidity Enable 1=Enabled\n78 10079 78 RW_| Heat Stage 3 Enable 1=Enabled\n79 10080 79 RW _| Heat Stage 4 Enable 1=Enabled\n80 10081 80 RW _| Humidifier Enable 1=Enabled\n81 10082 81 RW _| Space/Room/Retum Temperature Control Type 0=P, 1=P+1\n82 10083 82 RW _| Humidifier Enable 1=Enabled\n83 10084 8 R__| Room Pressure High Alarm 1=Alam\n84 10085 84 R__| Room Pressure Low Alarm 1=Alam\n\n‘OEM Manuals Page 60",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 61,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "85 10086 85 RAW_| Night Humidity Control Enable\n36 10087 (3 RW_| Night Temperature Control Enable\n\n7 10088 87 R__| Smoke Alarm Input Status\n\n83 10089 83 R__| Remote On/Off Input Status\n\n89 10090 89 R__| Room/Retum Air Temperature Sensor Failure\n\n90 10091 9% R__| Supply Air Temperature Sensor Failure\n\n91 10092 91 R_| Compressor 1 High Pressure Switch Status 1=Open (doses on Compr Start)\n92 10093 92 R_| Compressor 1 Low Pressure Switch Status 1=Open\n\n93 10094 93 R_| Compressor 2 High Pressure Switch Status 1=Open (doses on Compr Start)\n94 10095 94 R_| Compressor 2 Low Pressure Switch Status 1=Open\n\n9% 10096 9% RIW_| Override On/Of 1=Override On\n\n9% 10097 % RW _| Monday Night Enable 1=Enabled\n\n97 10098 97 RW _| Tuesday Night Enable 1=Enabled\n\n9 10099 9 RW_| Wednesday Night Enable 1=Enabled\n\n99 10100 99 RW_| Thursday Night Enable 1=Enabled\n\n100 10101 100 RW _| Friday Night Enable 1=Enabled\n\n01 10102 101 RW _| Analog Output 1 Direction 0 = Direct. 1 = Reverse\n102 10103 102 RW _| Analog Output 2 Direction 0 = Direct. 1 = Reverse\n103 10104 103 RW _| Analog Output 3 Direction 0 = Direct. 1 = Reverse\n104 10105 104 RW _| Analog Output 4 Direction 0 = Direct, 1 = Reverse\n105 10106 105 RW _| Analog Output 5 Direction 0 = Direct. 1 = Reverse\n106 10107 106 RW _| Analog Output 6 Direction 0 = Direct. 1 = Reverse\n107 10108 107 Not Used\n\n108 10109 108 Not Used\n\n109 10110 109 R_| Space Humidity Sensor Failure Failed\n\n110 10111 110 RW _| Adjust Change Day Flag Change\n\n11 10112 111 RMW_| Adjust Change Hour Flag 1=Change\n\n112 10113 112 RW_| Adjust Change Minute Flag 1=Change\n\n113 10114 113 RW_| Adjust Change Month Flag 1=Change\n\n114 10115 114 RW_| Adjust Change Weekday Flag 1=Change\n\n115 10116 115 RIW_| Adjust Change Year Flag 1=Change\n\n116 10117 116 R__| Time Clock Installed 1=Clock Board Installed\n7 10118 17 Not Used\n\n18 10119 118 Not Used\n\n19 10120 119 Supply Air Temperature Sensor Enable =Enabled\n\n122 10123 122 Not Used\n\n123 10124 123 R__| Compressor 1 HP Alarm Input Status 0=Closed, 1=Open\n124 10125 124 R__| Compressor 1 LP Alarm Input Status josed, 1=Open\n125 10126 125 R_| Drain Pan Or Freeze Stat Alarm Input Status josed, 1=Open\n126 10127 126 R__| Compressor 2 HP Alarm Input Status. 0=Closed, 1=Open\n127 10128 127 R__| Compressor 2 LP Pressure Alarm Input Status 0=Closed, 1=Open\n128 10129 128 RW _| Saturday Night Enable 1=Enabled\n\n129 10130 129 RW _| Sunday Night Enable 1=Enabled\n\n130 10131 130 RIW_| Night Set Back Enable 1=Enabled\n\n131 10132 131 RIW_| Time Schedule Enable I=Enabled\n\n132 10133 132 R_| Current Clock Mode 1=Occupied\n\n133 10134 133 Not Used\n\n134 10135 134 R_| Override Status\n\n135 10136 135 R__| Eeprom Failure\n\n‘OEM Manuals Page 61",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 62,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "£3 [IE EES R__| Freeze Stat Alarm Input Status 0=Closed, 1=Open\n737 [IE IEE R__| Aflow Alarm Input Status 0=Closed, 1=Open\nE 7013 | 136 | RAW] Moming Warmup by BMS 0=OFF, 1=0N\n139 10140 139 | RAW_| Moming Warmup by BMS Enable 1=Enabled\n140 T0141 140 Not Used\nTat 10122 11 R | Buzzer On 1=Buzzer On\n2 ne |e R | Compressor 2 Figh Pressure Swich Status T=Open (closes on Compr Star)\n3 I RE R| Compressor 2 Low Pressure Swich Status T=Open\na 70185 | 144 | RW | BuzzerReset T=Resel Buzzer\n145 fois | 145 R__| OF By Keypad Variable =O By Keypad\n£3 T0147 £3 R__| OF By Air Flow Variable =O By Air Alarm\n7 Toe | a7 Not Used\n148 Tots | 1s Not Used\n149 10150 149 Not Used\n150 T0151 150 Not Used\n151 T0152 | 151 R__| Secondary Drain Pan Alarm No Alarm, 1 = Alam\n152 015 | 182 R__| Secondary Drain Pan Alarm Input 0= Open 1 = Closed\n753 Toi | 183 R__| VF DIBlower Motor Overload Alarm 0= No Alarm 1 = Alam\n754 [CE EE R__| VFD/Blower Motor Overload Alarm Input 0= Open 1 = Closed\n155 10156 | 155 R__| Retum Smoke Detector Alam 0=No Alarm; 1 = Alam\n156 10157 | 156 R__| Retum Smoke Detector Alarm Input 0= Open: 1 = Closed\n157 10158 | 157 | RW | Supply Temperature Pal Enable 0= Prop; 1 = Prop & Integr\n158 70159 | 158 | RAV_| Supply Humidity Pal Enable 0= Prop; 1 = Prop & Integr\n159 10160 159 | RAW _| Space/Retum Temperature P&I Enable 0= Prop, 1 = Prop & Integr\n160 10161 760 | RAW _| SpacelRetum Humid Pal Enable 0= Prop. 1= Prop & Integr\n61 T0162 761 R__| Cooling Required T= Cooling\n162 0163 | 162 R__| Heating Required 7= Heating\n163 10164 | 163 | RAW | CooliHeat Enable 0= Disabled; 1 = Enabled\n164 10165 164 RW Dighal Compass 1 Aulary Switch Status (closes when 0 = Open; 1= Closed\nps 0165 | 165 | rw | Dial Compressor Aan Such Sas Gases when PIT\nAnalog | Analog | Analog\n\n7 0002 7 R__| RoomRetum Ar Temperature 50 - 1850\n\n2 0003 2 R__| Outdoor Ar Temperature 50 - 1850\n\n3 0004 3 R__| Water Temperature Or Mixed Ar Temperature 50 - 1850\n\na 40005 [ R__| Supply Ar Temperature NA\n\n5 40006 5 R__| RoomRetum Air Humidity 0-1000\n\nG 40007 G R__| Room Pressure Or Duct Pressure\n\n7 0008 7 R__| Outdoor Ar Humidity\n\nA 20009 B R__| VFD Position\n\n5 20010 5 R__| Analog Output 1-Heat, Cool, Pc. Humidifier, Cg Damper, Ecws 0-1000\n\n70 0011 70 R__| Analog Output 2-Heat, Cool, Pc, Humidifier, Cg Damper, Ecws 0-1000\n\n1 0012 1 RW_| RoomRetum Ar Temperature High Alarm Set Paint 0-1000\n\n© 20013 © RW _| Low Night Temperature Set Point 0-1000\n\n3 0014 3 RW _| Economizer Outdoor Temp Set Point 0-100\n\n1 0015 1 RW_| Economizer Outdoor Temp Band Set Point 0-100\n\n15 20016 15 RAW_| RoomReturm Air Humid High Alarm Set Point 0-100\n\n76 20017 76 RAW _| Low Night Humidity Set Point 01000\n\n7 2018 7 RAW _| Supply Low Limit Set Point 0-1000\n\n18 2019 18 R__| Analog Output 3-Heat, Cool, Pc, Humidifier, Cg Damper, Ecws 0-100\n\n19 20020 19 R__| Analog Output &-Heat, Cool, Pc, Humidifier, Cg Damper, Ecws 0-100\n\n‘OEM Manuals Page 62",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 63,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "20 40021 20 R_| Analog Output 5-Heat, Cool, Pc, Humidifier, Cg Damper, Ecws 01000\n21 40022 21 RAW_| Room/Retum Air Temperature Low Alarm Set Point 01000\n2 40023 2 R__| Healing Output Applied 010 vic\n23 40024 23 R__| Reheat Output Applied 0=10vdc\n24 40025 24 R__| Humidfication Output Applied 010 vic\n2% 40026 2% RW _| Room/Retur Air Humidity Low Alarm Set Point 0-1000\n2 40027 2% RW_| High Night Temperature Set Point 0-1000\n27 40028 27 RW_| High Night Humidity Set Point 0-1000\n28 40029 28 R_| Airside Economizer Output 0_10vic\n29 40030 29 R_| Healing Output Applied 0_10vic\n30 40031 30 RW_| Room/Retum Air Temperature Cooling Set Point 0-1000\n3 40032 31 RW _| Room/Retum Air Temperature Cooling Band 1-99\n2 40033 2 R__| Maximum Room Temperature In Past 24 Hours\n\n3 40034 3 R_| Minimum Room Humidity in Past 24 Hours\n\n34 40035 34 Not Used\n\n35 40036 35 R_| Maximum Room Humidity In Past 24 Hours\n\n36 40037 36 R_| Digital Compressor 1 Output Applied 0-50 vdc\n37 40038 37 R_| Digital Compressor 2 Output Applied 0-50 vdc\n38 40039 38 R__| Minimum Room Temperature In Past 24 Hours NA\n\n39 40040 39 RW _| Room/Return Air Humidity Set Point 0-1000\n4 40041 40 RW _ | Room/Return Air Humidity Band 1-99\na 40042 4 RW _ | Number Of Unloaders 02\n\n2 40043 2 RW_| Room Temperature Offset 0100\n43 40044 43 RIW_| Outdoor Air Temperature Offset 0100\n[2 40045 a RW _| Free Cool Temperature Offset 0-100\n[3 40046 45 RMW_| Supply Temperature Offset 0-100\n[3 40047 % RMW_| Room Humidity Offset 0-100\na 40048 47 RW | Not Used\n\n43 40049 43 RIW_| Outdoor Air Humidity Offset 0-100\n49 40050 49 RIW_| VFD Position Offset 0-100\n50 40051 50 R__| Current Week Day “Mon” \"Sun\"\n51 40052 51 R__| Current Hour 0-23\n52 40053 52 R__| Current Minute 0-59\n53 40054 53 R__| Current Month 112\n54 40055 54 R__| Current Year 0-99\n55 40056 55 R__| Free Cool (Water) Temp Set Point NA\n56 40057 56 R__| Free Cool (Water) Temp Band NA\n\n57 40058 57 Not Used\n\n58 40059 53 Not Used NA\n\n59 40060 59 Not Used NA\n\n60 40061 60 R_| Current Day of the Month 0-31\n61 40062 61 Not Used\n\n62 40063 62 Not Used\n\n63 40064 63 Not Used\n\n64 40065 64 Not Used\n\n65 40066 65 Not Used\n\n66 40067 66 Not Used\n\n67 40068 67 Not Used\n\n68 40069 68 R__| Outside Air Temperature\n\n69 40070 69 Not Used\n\n70 40071 70 Not Used\n\n7 40072 7 Not Used\n\n‘OEM Manuals Page 63",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 64,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "72 40070 72 RAW_| Room/Duct Pressure Set Point\n73 40071 73 RAW_| Room/Duct Pressure Band Set Point\n74 40072 74 R__| Analog Output 5-Heat, Cool, Pc, Humidifier, Cg Damper, Ecws 0-1000\n75 40076 75 R__| Modulating Hot Gas Bypass Output Applied 0-10 vic\n76 40077 76 RIW_| Supply Humidity 0-100%\n77 40078 77 RIW_| Supply Humidity Set Point 50-90%\n78 40079 78 RW_| Supply Humidity Band Setpoint 4-20%\n79 40080 79 R_| Supply Humidity High Alarm Set Point 60 90%\n\nInteger | Integer | Integer\n1 40130 1 R__| Supply Blower Run Hours\n2 40131 2 R__| Compressor 1 Run Hours\n3 40132 3 R__| Compressor 2 Run Hours\n4 40133 4 R__| Compressor 3 Run Hours\n5 40134 5 R__| Heater 1 Run Hours\n6 40135 6 R__| Heater 2 Run Hours\n7 40136 7 R__| Heater 3 Run Hours\n8 40137 8 R__| Heater 4 Run Hours\n9 40138 9 R__| Cooling Demand 0-1000\n10 40139 10 R__| Heating Demand 0-1000\n11 40140 11 R__| Dehumidification Demand 0-1000\n2 40141 2 R__| Humidiication Demand 0-1000\n13 40122 13 R__| Software Version Month\n14 40143 14 R__| Software Version Day\n15 0144 15 R__| Not Used\n16 40145 16 R_| Humidifier Run Hour\n17 40146 17 R__| Modulating Heat Demand 0-100%\n18 40147 18 R__| Reheat Demand 0-100%\n19 40148 19 R__| NotUsed NA\n20 40149 20 R__| NotUsed NA\n21 40150 21 R__| Airside Economizer Demand 0-100%\n2 40151 2 R__| Not Used 0-999\n23 40152 23 R__| Not Used NA\n24 20153 24 R__| Not Used NA\n3 40154 2 R__| Not Used NA\n2% 40155 2% R__| NotUsed NA\n27 40156 27 R__| NotUsed NA\n2 40157 28 R__| NotUsed NA\n29 40158 29 R__| Number Of Compressors [\n30 40159 30 R__| Number Of Heat Stages 0-\n31 40160 31 R__| Compressor Low Pressure Delay NA\n2 40161 32 R_| Unoccupied Override Time NA\n3 40162 3 R__| Stan Delay NA\n34 40163 34 RW _| Night Set Back Mode Minimum On Time NA\n3% 40164 3 RW _| Duct/Room Pressure Offset NA\n36 40165 36 RW _| Pump Down Maximum Time NA\n37 40166 37 RW _| Time Between Compressors NA\n38 40167 38 RW_| Not Used NA\n39 40168 39 RW _| Time Between Two Starts Of The Same Compressor NA\n40 40169 40 RW_| Time Between Unloaders NA\ni 40170 a RAW_| Minimum OF Time For Compressors NA\n2 40171 2 RIW_| Pressure Set Point 0-500\n\n‘OEM Manuals Page 64",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 65,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "1 = High Pressure Alarm\n\n3 40172 43 R | Compressor 1 2 = Low Pressure Alam\n3 = Compressor Delay\n\nm 40173 4 R | Compressor2\n1 = High Pressure Alam\n\n4 40174 45 R | Compressor3 2= Low Pressure Alarm\n3 = Compressor Delay\n4=ON\n\n6 40175 4 RW_| Not Used NA\n\na7 40176 a7 RAW_| Fan Minimum Off Time 0-999\n\nWB 0177 [0 RAW_| Fan Minimum On Time 0.999\n\n[ 40178 a9 RW_| Not Used\n\n50 40179 50 RW_| Not Used\n\n51 40180 51 RIW_| Loss of Airflow Initial Delay\n\n52 40181 52 RW_| Not Used\n\n53 40182 53 RW_| Minute Adjustment Value\n\n54 40183 54 RIW_| Month Adjustment Value\n\n55 40184 55 RIW_| Weekday Adjustment Value\n\n56 40185 56 RAW_| Year Adjustment Value\n\n57 40186 57 RIW_| Day Adjustment Value\n\n58 40187 53 RW_| Hour Adjustment Value\n\n59 40188 59 RW_| Not Used\n\n60 40189 60 RW_| Not Used\n\n61 40190 61 RIW_| Password: [REDACTED]\n\n62 40191 62 RIW_| Password: [REDACTED]\n\n53 20192 53 R__| Present Minute Value\n\n64 20193 64 R__| Present Month Value\n\n65 20194 65 R__| Present Weekday Value\n\n66 40195 66 R__| Present Year Value\n\n67 4019 67 R__| Present Day Value\n\n63 40197 63 R__| Present Hour Value\n\n69 40198 69 R__| Software Version Year\n\n70 40199 70 RW_| Fan Delay Off\n\n7 40200 7 RIW_| Monday Occupied Hour\n\n72 40201 72 RIW_| Monday Occupied Minute\n\n73 40202 73 RIW_| Monday Unoccupied Hour\n\n74 40203 74 RIW_| Monday Unoccupied Minute\n\n75 20204 75 RIW_| Tuesday Occupied Hour\n\n76 20205 76 RW_| Tuesday Occupied Minute\n\n77 20206 77 RW | Tuesday Unoccupied Hour\n\n78 40207 78 RIW_| Tuesday Unoccupied Minute\n\n79 40208 79 RW _| Wednesday Occupied Hour\n\n80 40209 80 RIW_| Wednesday Occupied Minute.\n\n81 40210 81 RIW_| Wednesday Unoccupied Hour\n\n‘OEM Manuals Page 65",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 66,
+      "Inferred Topic / Equipment": "United CoolAir Marvel S / Plus point lists",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "82 021 82 Wednesday Unoccupied Minute 0-59\n\n[5 20212 5 Thursday Occupied Hour 0-23\n\n5 20213 4 Thursday Occupied Minute 0-59\n\n85 0214 5 Thursday Unoccupied Hour 0-23\n\n86 0215 3% Thursday Unoccupied Minute 0-59\n\na7 20216 7 Friday Occupied Hour 0-23\n\n8 0217 8 Friday Occupied Minute 0-59\n\n89 10218 89 Friday Unoccupled Hour 0-23\n\n9 0219 % Friday Unoccupled Minute 0-59\n\n91 10220 91 Saturday Occupied Hour 0-23\n\n2 20221 2 Saturday Occupied Minute 0-59\n\n9 10222 = Saturday Unoccupied Hour 0-23\n\n9 10223 9 Saturday Unoccupied Minute 0-59\n\n95 10224 95 Sunday Occupied Hour 0-23\n\n% 20225 % Sunday Occupied Minute 0-59\n\n97 20226 97 Sunday Unoccupied Hour 0-23\n\n% 20227 % Sunday Unoccupied Minute 0-59\n0=0OFF\n1 = Compressor Delay\n\n99 40228 99 Digital Compressor 1 2 Alarm on Module\n3 = High Pressure Alarm\n1= Low Pressure Alam\n\n100 40229 100 Digital Compressor 2 -\n3 = High Pressure Alam\n4= Low Pressure Alarm\n5=ON\n\n101 20230 101 Proof of Digital Compressor ON Delay 150 — 450 Seconds (180 Defaul)\n\n102 20231 102 Cooling Demand Digital Compressor Start Point 300 — 500 (30-50%) (300 Default)\n\n103 0232 103 Cooling Demand Digital Compressor Stop Point 150 — 300 (15-30%) (150 Default)\n\n104 40233 104 Supply Heat Set Point 200 (700-1300)\n\n105 40234 105 Supply Cool Set Point 350500 (450 - 80.)\n\n106 40235 106 Supply Heat Band 8 Sh E0-400)\n\n107 40236 107 Supply Cool Band Rr nEy-a0\n\n‘OEM Manuals Page 66",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-014",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 67,
+      "Inferred Topic / Equipment": "Mammoth AC BACnet setup",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Mammoth AC units\n\nFriday, May 1,2026 1:06 PM\n\nLogin: [REDACTED] is 0987 - for BACnet setup scroll down, go to system-module setup\n\n‘OEM Manuals Page 67",
+      "Sensitive or Unsafe Content Handling": "Credentials/network identifiers redacted",
+      "Linked Note IDs": "RB-015",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 68,
+      "Inferred Topic / Equipment": "Automation Server licensing",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Uploading AS license\n\nMonday, June 9, 2025 9:32 AM\n\nConnect with http not https\n\nUnder “entitlements” on the top dark green bar, click entitlements\nClick entitlements on the white bar\n\nAdd demo license\n\nAdd file from teams or SE website (BIN) file\n\nGo back to servers on the dark green bar\n\nConnect to server if you haven't already. Again USE HTTP not HTTPS\nCheck the check box for the server\n\nAssign license\n\nCheck demo at the top of the list and apply\n\n‘OEM Manuals Page 68",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-016",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 69,
+      "Inferred Topic / Equipment": "Strobic exhaust fan wiring",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Strobic exhaust-fan page contains site-specific transformer, terminal, CT, relay, annunciation-contact, VFD, and Airzone wiring notes. Exact terminal wiring is not reproduced; use the original approved drawing under LOTO.",
+      "Sensitive or Unsafe Content Handling": "Site-specific energized wiring details withheld from generic field instruction",
+      "Linked Note IDs": "RB-017",
+      "Source": "RBravo Shared notes.pdf"
+    },
+    {
+      "Page": 70,
+      "Inferred Topic / Equipment": "RP controller LED patterns",
+      "Extraction Method": "Rendered page + OCR; text export cross-check",
+      "Sanitized Extracted Text": "Image-based page. OCR produced no reliable text. Consult the original PDF page and the linked curated note.",
+      "Sensitive or Unsafe Content Handling": "No sensitive content identified; OCR must still be verified against original page.",
+      "Linked Note IDs": "RB-018",
+      "Source": "RBravo Shared notes.pdf"
+    }
+  ],
+  "knowledgeReviewQueue": [
+    {
+      "Item": "Image-only OEM screenshots",
+      "Reason for Review": "Many notebook pages are screenshots and OCR may transpose point names, addresses, values, or menu labels.",
+      "Required Verification": "Compare every operational value against the original image and current OEM manual before publishing to technicians.",
+      "Affected Notes / Pages": "RB-002, RB-004 to RB-014; pages 2-66",
+      "Priority": "High",
+      "Status": "Open"
+    },
+    {
+      "Item": "Credentials and network details",
+      "Reason for Review": "Notebook contains passwords, usernames, internal IP addresses, and private links.",
+      "Required Verification": "Move credentials to an approved secrets/password manager. Do not place them in Excel, JSON, HTML, or technician prompts.",
+      "Affected Notes / Pages": "Pages 29, 30, 51, 67",
+      "Priority": "Critical",
+      "Status": "Redacted"
+    },
+    {
+      "Item": "DriSteem alarm test",
+      "Reason for Review": "Original note describes interaction with energized equipment.",
+      "Required Verification": "Obtain a written OEM procedure for the exact SGH model and define LOTO/PPE/test authorization.",
+      "Affected Notes / Pages": "RB-013; pages 50-51",
+      "Priority": "Critical",
+      "Status": "Restricted"
+    },
+    {
+      "Item": "Strobic wiring",
+      "Reason for Review": "Terminal-level wiring is site/unit-generation specific.",
+      "Required Verification": "Verify against approved as-built, Yaskawa manual, transformer rating, and current unit architecture.",
+      "Affected Notes / Pages": "RB-017; page 69",
+      "Priority": "Critical",
+      "Status": "Restricted"
+    },
+    {
+      "Item": "Point-list version conflicts",
+      "Reason for Review": "Marvel Plus and Marvel S references span multiple versions.",
+      "Required Verification": "Match unit model, firmware, point-list revision, BACnet units, access level, and writeability.",
+      "Affected Notes / Pages": "RB-006, RB-014; pages 14-23, 52-66",
+      "Priority": "High",
+      "Status": "Open"
+    },
+    {
+      "Item": "Pressura AO2 range interpretation",
+      "Reason for Review": "Notebook records -1 to +1 but context may be pressure engineering span rather than electrical output.",
+      "Required Verification": "Verify current Pressura manual, configured units, AO electrical type/range, DPT reference, and EBO scaling.",
+      "Affected Notes / Pages": "RB-008; pages 25-26",
+      "Priority": "High",
+      "Status": "Open"
+    },
+    {
+      "Item": "Historical HTTP licensing note",
+      "Reason for Review": "Notebook says to use HTTP for a license workflow.",
+      "Required Verification": "Confirm current Schneider licensing instructions and cybersecurity approval before using an unencrypted connection.",
+      "Affected Notes / Pages": "RB-016; page 68",
+      "Priority": "High",
+      "Status": "Open"
+    }
+  ],
+  "metadata": {
+    "version": "7.0",
+    "schema": "q/r decision logic",
+    "questionPrefix": "q",
+    "resultPrefix": "r",
+    "questionCount": 146,
+    "resultCount": 83,
+    "knowledgeNoteCount": 18,
+    "archivePageCount": 70,
+    "validation": {
+      "duplicateIds": 0,
+      "missingAnswerTargets": 0,
+      "invalidQuestionNodes": 0,
+      "invalidResultNodes": 0
     }
   }
 }
