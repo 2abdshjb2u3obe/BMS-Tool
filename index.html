@@ -380,6 +380,12 @@
     }
 
     .nav-btn:hover { border-color: var(--border-bright); color: var(--text); }
+    .nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      border-color: var(--border);
+      color: var(--text-dim);
+    }
 
     /* Result styling */
     .result-box {
@@ -914,6 +920,41 @@ function renderFlow() {
 }
 
 // ─── Question panel ───────────────────────────────────────────────────────────
+function appendStepNavigation(panel) {
+  const divider = document.createElement('div');
+  divider.className = 'divider';
+  panel.appendChild(divider);
+
+  const row = document.createElement('div');
+  row.className = 'nav-row';
+
+  const backBtn = document.createElement('button');
+  backBtn.className = 'nav-btn';
+  backBtn.type = 'button';
+  backBtn.textContent = '← back';
+  backBtn.disabled = history.length === 0;
+  backBtn.onclick = () => {
+    if (history.length === 0) return;
+    const previous = history.pop();
+    current = previous.stepId;
+    render();
+  };
+  row.appendChild(backBtn);
+
+  const restartBtn = document.createElement('button');
+  restartBtn.className = 'nav-btn';
+  restartBtn.type = 'button';
+  restartBtn.textContent = '↺ restart';
+  restartBtn.onclick = () => {
+    history = [];
+    current = tree.start;
+    render();
+  };
+  row.appendChild(restartBtn);
+
+  panel.appendChild(row);
+}
+
 function renderQuestion() {
   const panel = document.getElementById('q-content');
   const trail = document.getElementById('history-trail');
@@ -966,30 +1007,7 @@ function renderQuestion() {
       panel.appendChild(btn);
     });
 
-    if (navA.length) {
-      const div = document.createElement('div');
-      div.className = 'divider';
-      panel.appendChild(div);
-      const row = document.createElement('div');
-      row.className = 'nav-row';
-      navA.forEach(([ans, nid]) => {
-        const btn = document.createElement('button');
-        btn.className = 'nav-btn';
-        btn.textContent = ans === 'back' ? '← back' : '↺ restart';
-        btn.onclick = () => {
-          if (ans === 'back') {
-            history.pop();
-            current = history.length > 0 ? history[history.length - 1].nextId : tree.start;
-          } else if (ans === 'Restart') {
-            history = [];
-            current = tree.start;
-          }
-          render();
-        };
-        row.appendChild(btn);
-      });
-      panel.appendChild(row);
-    }
+    appendStepNavigation(panel);
   } 
   // Else if it's a resolution/diagnosis step, trigger Supabase save
   else if (step.diagnosis !== undefined) {
@@ -1009,15 +1027,7 @@ function renderQuestion() {
     }
     panel.appendChild(box);
 
-    const rBtn = document.createElement('button');
-    rBtn.className = 'restart-btn';
-    rBtn.textContent = '↺ START NEW SESSION';
-    rBtn.onclick = () => {
-      history = [];
-      current = tree.start;
-      render();
-    };
-    panel.appendChild(rBtn);
+    appendStepNavigation(panel);
 
     // Call Supabase insertion automatically upon reaching conclusion node
     saveSession(step);
