@@ -1,6 +1,9 @@
 {
-  "version": "5.0",
+
+  
   "start": "q1",
+  "steps": {
+  "version": "5.0",
   "sections": [
     {
       "name": "BMS PANEL / AUTOMATION SERVER",
