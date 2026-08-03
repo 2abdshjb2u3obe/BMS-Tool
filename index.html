@@ -595,23 +595,37 @@ const SB_URL = "https://emkehdoofgaztuqmuyxw.supabase.co";
 const SB_KEY = "sb_publishable_I1VLxzwJrumRfOoAbdIyCw_ZEG4u2hl";
 
 async function sbInsert(row) {
-  const response = await fetch(`${SB_URL}/rest/v1/bms_sessions_logs`, 
+  const response = await fetch(
+    `${SB_URL}/rest/v1/bms_session_logs`,
     {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'apikey': SB_KEY,
-      'Prefer': 'return=representation'
-    },
-    body: JSON.stringify(row)
-  });
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SB_KEY,
+        "Prefer": "return=representation"
+      },
+      body: JSON.stringify(row)
+    }
+  );
 
   const responseText = await response.text();
+
   if (!response.ok) {
-    console.error('Supabase insert failed:', response.status, responseText);
-    throw new Error(`Supabase ${response.status}: ${responseText}`);
+    console.error(
+      "Supabase insert failed:",
+      response.status,
+      responseText
+    );
+
+    throw new Error(
+      `Supabase ${response.status}: ${responseText}`
+    );
   }
-  return responseText ? JSON.parse(responseText) : null;
+
+  return responseText
+    ? JSON.parse(responseText)
+    : null;
+}
 }
 
 // ─── Variables and Setup ──────────────────────────────────────────────────────
