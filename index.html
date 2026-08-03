@@ -595,7 +595,8 @@ const SB_URL = "https://emkehdoofgaztuqmuyxw.supabase.co";
 const SB_KEY = "sb_publishable_I1VLxzwJrumRfOoAbdIyCw_ZEG4u2hl";
 
 async function sbInsert(row) {
-  const response = await fetch(`${SB_URL}/rest/v1/bms_sessions`, {
+  const response = await fetch(`${SB_URL}/rest/v1/bms_sessions_logs`, 
+    {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
