@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BMS Troubleshooter</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -520,142 +520,6 @@
     .gem-send:hover { opacity: 0.85; }
     .gem-send:disabled { opacity: 0.4; cursor: default; }
 
-
-
-    /* Mobile and field-use enhancements */
-    html { -webkit-text-size-adjust: 100%; }
-    button, input { font: inherit; }
-    button { touch-action: manipulation; }
-    .mobile-tabs { display: none; }
-
-    @media (max-width: 820px) {
-      body { min-height: 100dvh; overflow: hidden; }
-      header {
-        min-height: 52px;
-        padding: 10px max(12px, env(safe-area-inset-right)) 10px max(12px, env(safe-area-inset-left));
-        gap: 8px;
-      }
-      header h1 { font-size: 13px; }
-      #user-chip { max-width: 34vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-      .main {
-        display: block;
-        height: calc(100dvh - 52px);
-        overflow: hidden;
-      }
-      .mobile-tabs {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        position: sticky;
-        top: 0;
-        z-index: 40;
-        height: 48px;
-        padding: 5px 8px;
-        gap: 6px;
-        background: var(--surface);
-        border-bottom: 1px solid var(--border);
-      }
-      .mobile-tab {
-        min-height: 38px;
-        border: 1px solid var(--border);
-        border-radius: 7px;
-        background: var(--surface2);
-        color: var(--text-muted);
-        font-family: var(--mono);
-        font-size: 10px;
-        cursor: pointer;
-      }
-      .mobile-tab.active {
-        border-color: var(--accent);
-        background: var(--accent-dim);
-        color: var(--accent);
-      }
-      .flow-panel, .right-panel { height: calc(100dvh - 100px); }
-      .flow-panel {
-        display: none;
-        border-right: 0;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      .right-panel {
-        display: flex;
-        overflow: hidden;
-      }
-      body.mobile-view-flow .flow-panel { display: block; }
-      body.mobile-view-flow .right-panel { display: none; }
-      body.mobile-view-chat .q-panel-label,
-      body.mobile-view-chat .history-trail,
-      body.mobile-view-chat .q-content,
-      body.mobile-view-chat .gem-panel-divider { display: none; }
-      body.mobile-view-chat .gemini-integrated-box { display: flex; height: 100%; }
-      body.mobile-view-step .gemini-integrated-box,
-      body.mobile-view-step .gem-panel-divider { display: none; }
-      .q-panel-label { padding: 7px 12px; }
-      .history-trail {
-        padding: 6px 12px;
-        min-height: 38px;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-      .q-content {
-        flex: 1 1 auto;
-        padding: 18px 14px calc(22px + env(safe-area-inset-bottom));
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      .q-text {
-        font-size: clamp(17px, 4.8vw, 21px);
-        line-height: 1.35;
-        margin-bottom: 18px;
-      }
-      .ans-btn {
-        min-height: 54px;
-        padding: 14px 14px;
-        margin-bottom: 10px;
-        border-radius: 9px;
-        font-size: 16px;
-        line-height: 1.25;
-      }
-      .ans-btn:active { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
-      .nav-row { position: sticky; bottom: 0; padding-top: 10px; background: var(--surface); }
-      .nav-btn, .restart-btn { min-height: 48px; font-size: 12px; }
-      .result-box { border-radius: 10px; }
-      .result-section { padding: 15px; }
-      .result-diag, .result-action { font-size: 16px; line-height: 1.5; }
-      .gemini-integrated-box { display: none; height: 100%; min-height: 0; }
-      .gem-header { min-height: 46px; padding: 10px 14px; }
-      .gem-messages { padding: 14px; gap: 10px; -webkit-overflow-scrolling: touch; }
-      .gem-msg { max-width: 94%; font-size: 15px; padding: 11px 13px; }
-      .gem-quick-btns { padding: 6px 12px 9px; flex-wrap: nowrap; }
-      .gem-quick-btn { min-height: 38px; padding: 7px 11px; font-size: 11px; }
-      .gem-input-row { padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); }
-      .gem-input { min-height: 46px; font-size: 16px; }
-      .gem-send { width: 46px; height: 46px; }
-      #save-toast {
-        left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom));
-        text-align: center;
-      }
-      #login-overlay {
-        padding: 14px max(14px, env(safe-area-inset-right)) calc(14px + env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
-        align-items: center;
-      }
-      .login-card { width: min(100%, 430px); max-height: 92dvh; overflow-y: auto; padding: 26px 20px; }
-      .login-field input { min-height: 50px; font-size: 16px; }
-      .login-submit { min-height: 50px; font-size: 13px; }
-      #flow-container { padding: 10px; }
-    }
-
-    @media (max-width: 390px) {
-      header h1 { display: none; }
-      .header-badge { font-size: 9px; }
-      .mobile-tab { font-size: 9px; }
-      .nav-row { flex-direction: column; }
-    }
-
-    @media (hover: none) {
-      .ans-btn:hover, .nav-btn:hover, .restart-btn:hover, .gem-quick-btn:hover { filter: none; }
-    }
-
   </style>
 </head>
 <body>
@@ -673,7 +537,7 @@
     </div>
     <div class="login-field">
       <label>Email</label>
-      <input type="email" id="login-email" placeholder="jane@company.com" autocomplete="email" />
+      <input type="email" id="login-email" placeholder="firstname.lastname@se.com" autocomplete="email" inputmode="email" pattern="^[^@\s]+@se\.com$" title="Enter your @se.com email address" />
     </div>
     <div class="login-error" id="login-error"></div>
     <button class="login-submit" id="login-btn" onclick="submitLogin()">start session →</button>
@@ -690,13 +554,6 @@
 </header>
 
 <div class="main">
-
-  <nav class="mobile-tabs" aria-label="Mobile workspace">
-    <button class="mobile-tab active" data-view="step" type="button">CURRENT STEP</button>
-    <button class="mobile-tab" data-view="flow" type="button">TREE</button>
-    <button class="mobile-tab" data-view="chat" type="button">COPILOT</button>
-  </nav>
-
   <div class="flow-panel">
     <div class="flow-panel-label">diagnostic tree</div>
     <div id="flow-container">
@@ -738,22 +595,22 @@ const SB_URL = "https://emkehdoofgaztuqmuyxw.supabase.co";
 const SB_KEY = "sb_publishable_I1VLxzwJrumRfOoAbdIyCw_ZEG4u2hl";
 
 async function sbInsert(row) {
-  const res = await fetch(`${SB_URL}/rest/v1/bms_sessions`, {
+  const response = await fetch(`${SB_URL}/rest/v1/bms_sessions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'apikey': SB_KEY,
-      'Authorization': `Bearer ${SB_KEY}`,
       'Prefer': 'return=representation'
     },
     body: JSON.stringify(row)
   });
-  if (!res.ok) {
-    const err = await res.text();
-    console.error("Supabase error:", err);
-    throw new Error(err);
+
+  const responseText = await response.text();
+  if (!response.ok) {
+    console.error('Supabase insert failed:', response.status, responseText);
+    throw new Error(`Supabase ${response.status}: ${responseText}`);
   }
-  return res.json();
+  return responseText ? JSON.parse(responseText) : null;
 }
 
 // ─── Variables and Setup ──────────────────────────────────────────────────────
@@ -815,18 +672,24 @@ function fetchTreeData() {
 
 // ─── User identity ────────────────────────────────────────────────────────────
 function submitLogin() {
-  const name  = document.getElementById('login-name').value.trim();
-  const email = document.getElementById('login-email').value.trim();
-  const err   = document.getElementById('login-error');
+  const name = document.getElementById('login-name').value.trim();
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
+  const err = document.getElementById('login-error');
 
-  if (!name) { err.textContent = 'name is required'; return; }
-  if (!email || !email.includes('@')) { err.textContent = 'valid email is required'; return; }
+  err.textContent = '';
+  if (!name) {
+    err.textContent = 'name is required';
+    return;
+  }
+  if (!/^[^@\s]+@se\.com$/i.test(email)) {
+    err.textContent = 'a valid @se.com email is required';
+    return;
+  }
 
-  currentUser  = { name, email };
+  currentUser = { name, email };
   sessionStart = new Date().toISOString();
   document.getElementById('login-overlay').classList.add('hidden');
   document.getElementById('user-chip').textContent = name;
-
   sessionStorage.setItem('bms_user', JSON.stringify(currentUser));
   checkAppReady();
 }
@@ -853,22 +716,27 @@ function showToast(msg, type = '') {
 // ─── Save session to Supabase ─────────────────────────────────────────────────
 async function saveSession(resultStep) {
   if (!currentUser) return;
+
   const deviceAnswer = history[0]?.answer || null;
+  const sessionRow = {
+    user_id: null,
+    user_name: currentUser.name.trim(),
+    user_email: currentUser.email.trim().toLowerCase(),
+    device_type: deviceAnswer,
+    diagnosis: resultStep.diagnosis || null,
+    action: resultStep.action || null,
+    result_id: current,
+    path: history,
+    step_count: history.length,
+    completed_at: new Date().toISOString()
+  };
+
+  console.log('Submitting BMS session:', sessionRow);
   try {
-    await sbInsert({
-      user_name:    currentUser.name,
-      user_email:   currentUser.email,
-      device_type:  deviceAnswer,
-      diagnosis:    resultStep.diagnosis || null,
-      action:       resultStep.action    || null,
-      result_id:    current,
-      path:         history,
-      step_count:   history.length,
-      completed_at: new Date().toISOString()
-    });
+    await sbInsert(sessionRow);
     showToast('✓ session saved', 'ok');
-  } catch (e) {
-    console.error('Supabase save failed:', e);
+  } catch (error) {
+    console.error('Supabase save failed:', error);
     showToast('⚠ save failed — check console', 'err');
   }
 }
@@ -1251,46 +1119,6 @@ function geminiAddMsg(role, text) {
   geminiMessages.push({ role, text });
   return el;
 }
-
-
-// Mobile workspace tabs: current step, diagnostic tree, and Copilot.
-function setMobileView(view) {
-  document.body.classList.remove('mobile-view-step', 'mobile-view-flow', 'mobile-view-chat');
-  document.body.classList.add('mobile-view-' + view);
-  document.querySelectorAll('.mobile-tab').forEach(btn => {
-    const active = btn.dataset.view === view;
-    btn.classList.toggle('active', active);
-    btn.setAttribute('aria-selected', String(active));
-  });
-  if (view === 'flow') {
-    setTimeout(() => {
-      const activeNode = document.querySelector('.flow-node');
-      if (activeNode && current) {
-        const container = document.getElementById('flow-container');
-        const currentGroup = [...document.querySelectorAll('.flow-node')].find(g =>
-          (g.getAttribute('onclick') || '').includes("'" + current + "'")
-        );
-        if (container && currentGroup) currentGroup.scrollIntoView({block:'center', inline:'center', behavior:'smooth'});
-      }
-    }, 40);
-  }
-}
-
-document.querySelectorAll('.mobile-tab').forEach(btn => {
-  btn.addEventListener('click', () => setMobileView(btn.dataset.view));
-});
-
-const mobileMedia = window.matchMedia('(max-width: 820px)');
-function syncMobileMode() {
-  if (mobileMedia.matches) {
-    if (![...document.body.classList].some(c => c.startsWith('mobile-view-'))) setMobileView('step');
-  } else {
-    document.body.classList.remove('mobile-view-step', 'mobile-view-flow', 'mobile-view-chat');
-  }
-}
-mobileMedia.addEventListener?.('change', syncMobileMode);
-syncMobileMode();
-
 </script>
 </body>
 </html>
