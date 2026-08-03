@@ -614,7 +614,7 @@ async function sbInsert(row) {
 }
 
 // ─── Variables and Setup ──────────────────────────────────────────────────────
-const DATA_URL = "https://raw.githubusercontent.com/2abdshjb2u3obe/BMS-Tool/main/output.json";
+const DATA_URL = "./output.json";
 const NAV_KEYS = ['back', 'Restart'];
 
 let currentUser = null;    
@@ -631,15 +631,37 @@ window.onload = function() {
 };
 
 function fetchTreeData() {
-  fetch(DATA_URL)
-    .then(r => r.json())
+  fetch(DATA_URL, { cache: 'no-store' })
+    .then(r => {
+      if (!r.ok) throw new Error(`JSON request failed: HTTP ${r.status}`);
+      return r.json();
+    })
     .then(data => {
+      // Supports either {start, steps} or the V5 {start, nodes} schema.
+      if (data.nodes && !data.steps) {
+        const steps = {};
+        Object.entries(data.nodes).forEach(([id, node]) => {
+          if (node.stepType === 'question' || node.question !== undefined) {
+            steps[id] = {
+              question: node.question || '',
+              answers: Object.fromEntries((node.options || []).map(o => [o.label, o.next]))
+            };
+          } else {
+            steps[id] = { diagnosis: node.diagnosis || '', action: node.action || '' };
+          }
+        });
+        data = { start: data.start || 'q1', steps };
+      }
+      if (!data.start || !data.steps || !data.steps[data.start]) {
+        throw new Error('Invalid troubleshooting JSON schema');
+      }
       tree = data;
       current = tree.start;
       render();
       checkAppReady();
     })
-    .catch(() => {
+    .catch((error) => {
+      console.error('Troubleshooting data load failed:', error);
       // Fallback fallback if external asset fails to load
       tree = {"start":"q1","steps":{"q1":{"question":"What are you working on?","answers":{"AS":"q2","UI16":"q101","DO8":"q201","AO8":"q301","OTHER":"q401"}},"q2":{"question":"Is the Panel on?","answers":{"yes":"q3","no":"r1","back":"q1","Restart":"q1"}},"q3":{"question":"Is the low voltage on?","answers":{"yes":"q4","no":"r2","back":"q2","Restart":"q1"}},"q4":{"question":"Any breakers tripped?","answers":{"no":"q5","yes":"r3","back":"q3","Restart":"q1"}},"q5":{"question":"Any fuses?","answers":{"no":"q6","yes":"r4","back":"q4","Restart":"q1"}},"q6":{"question":"Is the transformer tripped?","answers":{"no":"q7","yes":"r5","back":"q5","Restart":"q1"}},"q7":{"question":"Status light solid green?","answers":{"yes":"r6","no":"r6","back":"q6","Restart":"q1"}},"r1":{"diagnosis":"No power","action":"Check all breakers"},"r2":{"diagnosis":"Low voltage off","action":"Turn on low voltage breaker"},"r3":{"diagnosis":"Breakers tripped","action":"Confirm why with a multimeter"},"r4":{"diagnosis":"Fuses possibly bad","action":"Test and/or replace fuses"},"r5":{"diagnosis":"Transformer tripped","action":"Confirm VA and reset"},"r6":{"diagnosis":"AS appears normal","action":"Connect to the AS"},"q101":{"question":"Is the UI16 status light solid?","answers":{"yes":"q102","no":"r101","back":"q1","Restart":"q1"}},"q102":{"question":"What kind of point?","answers":{"DI":"q103","AI":"q107","TEMPERATURE":"q113","back":"q101","Restart":"q1"}},"q103":{"question":"Is your DI NO or NC?","answers":{"NO":"q104","NC":"q105","back":"q102","Restart":"q1"}},"q104":{"question":"Jump out DI — UI come in?","answers":{"yes":"q106","no":"r102","back":"q103","Restart":"q1"}},"q105":{"question":"Jump out DI — lose the UI?","answers":{"yes":"q106","no":"r102","back":"q104","Restart":"q1"}},"q106":{"question":"Splice/unsplice wires — see a change?","answers":{"yes":"r104","no":"r105","back":"q105","Restart":"q1"}},"q107":{"question":"What kind of signal?","answers":{"4-20mA":"q108","0/2-10VDC":"q114","back":"q105","Restart":"q1"}},"q108":{"question":"2-wire loop or 3-wire sensor?","answers":{"2 wire":"q109","3-wire":"q110","back":"q105","Restart":"q1"}},"q109":{"question":"Is DC power on?","answers":{"yes":"q110","no":"r106","back":"q1","Restart":"q1"}},"q110":{"question":"Device AC or DC powered?","answers":{"AC":"q111","DC":"q109","back":"q1","Restart":"q1"}},"q111":{"question":"AC power on from breakers/transformer?","answers":{"yes":"q112","no":"r107","back":"q1","Restart":"q1"}},"q112":{"question":"Signal at BMS panel when wire disconnected?","answers":{"yes":"r102","no":"r103","back":"q1","Restart":"q1"}},"q113":{"question":"What are we reading?","answers":{"32degF":"r108","slightly inaccurate":"r109","extremely high":"r110","back":"q1","Restart":"q1"}},"q114":{"question":"0/2-10VDC — coming soon","answers":{"back":"q107","Restart":"q1"}},"r101":{"diagnosis":"Check S-cable / module connections","action":"Inspect connections between modules"},"r102":{"diagnosis":"Confirm input is created","action":"Try simulating on a different UI input"},"r103":{"diagnosis":"Check field device","action":"If device can signal, tone out the wires"},"r104":{"diagnosis":"Issue with field device","action":"Confirm power, terminations, etc."},"r105":{"diagnosis":"Wrong device or wrong wires","action":"Tone out wires for the device you are working on"},"r106":{"diagnosis":"DC power off","action":"Turn on DC power, check breakers/fuses"},"r107":{"diagnosis":"AC power off","action":"Test with multimeter, restore power before continuing"},"r108":{"diagnosis":"Point not reading","action":"Confirm device is on correct UI and terminated in field"},"r109":{"diagnosis":"Slight inaccuracy","action":"Continuity test wires for shorts"},"r110":{"diagnosis":"Short on wire — false high reading","action":"Find short, test at panel and device"},"q201":{"question":"DO8 — coming soon","answers":{"back":"q1","Restart":"q1"}},"q301":{"question":"AO8 — coming soon","answers":{"back":"q1","Restart":"q1"}},"q401":{"question":"Other — coming soon","answers":{"back":"q1","Restart":"q1"}}}};
       current = tree.start;
