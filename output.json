@@ -1,3571 +1,1411 @@
 {
-
-  
   "start": "q1",
   "steps": {
-  "version": "5.0",
-  "sections": [
-    {
-      "name": "BMS PANEL / AUTOMATION SERVER",
-      "start": "q1"
-    },
-    {
-      "name": "UI16 / INPUTS / TEMPERATURE",
-      "start": "q101"
-    },
-    {
-      "name": "DO8 / DIGITAL OUTPUTS",
-      "start": "q201"
-    },
-    {
-      "name": "AO8 / ANALOG OUTPUTS",
-      "start": "q301"
-    },
-    {
-      "name": "OTHER / USER-DEFINED",
-      "start": "q401"
-    },
-    {
-      "name": "COMMUNICATIONS",
-      "start": "q501"
-    },
-    {
-      "name": "VAV",
-      "start": "q601"
-    },
-    {
-      "name": "AHU",
-      "start": "q701"
-    },
-    {
-      "name": "RTU",
-      "start": "q801"
-    },
-    {
-      "name": "PUMP",
-      "start": "q901"
-    },
-    {
-      "name": "BOILER",
-      "start": "q1001"
-    },
-    {
-      "name": "CHILLER",
-      "start": "q1101"
-    },
-    {
-      "name": "COOLING TOWER",
-      "start": "q1201"
-    },
-    {
-      "name": "EXHAUST FAN",
-      "start": "q1301"
-    },
-    {
-      "name": "SUPPLY FAN",
-      "start": "q1401"
-    },
-    {
-      "name": "UNIVERSAL RESULTS",
-      "start": null
-    }
-  ],
-  "nodes": {
     "q1": {
-      "id": "q1",
-      "stepType": "question",
       "question": "What are you working on?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "BMS Panel",
-          "next": "q2"
-        },
-        {
-          "label": "VAV",
-          "next": "q601"
-        },
-        {
-          "label": "RTU",
-          "next": "q801"
-        },
-        {
-          "label": "AHU",
-          "next": "q701"
-        },
-        {
-          "label": "Pump",
-          "next": "q901"
-        },
-        {
-          "label": "Boiler",
-          "next": "q1001"
-        },
-        {
-          "label": "Chiller",
-          "next": "q1101"
-        },
-        {
-          "label": "Cooling Tower",
-          "next": "q1201"
-        },
-        {
-          "label": "Exhaust Fan",
-          "next": "q1301"
-        },
-        {
-          "label": "Supply Fan",
-          "next": "q1401"
-        },
-        {
-          "label": "Communications",
-          "next": "q501"
-        },
-        {
-          "label": "Other",
-          "next": "q401"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "BMS Panel": "q2",
+        "VAV": "q601",
+        "RTU": "q801",
+        "AHU": "q701",
+        "Pump": "q901",
+        "Boiler": "q1001",
+        "Chiller": "q1101",
+        "Cooling Tower": "q1201",
+        "Exhaust Fan": "q1301",
+        "Supply Fan": "q1401",
+        "Communications": "q501",
+        "Other": "q401"
+      }
     },
     "q2": {
-      "id": "q2",
-      "stepType": "question",
       "question": "What BMS panel component are you troubleshooting?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Automation Server",
-          "next": "q3"
-        },
-        {
-          "label": "UI16 / Input",
-          "next": "q101"
-        },
-        {
-          "label": "DO8 / Digital Output",
-          "next": "q201"
-        },
-        {
-          "label": "AO8 / Analog Output",
-          "next": "q301"
-        },
-        {
-          "label": "Communications",
-          "next": "q501"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Automation Server": "q3",
+        "UI16 / Input": "q101",
+        "DO8 / Digital Output": "q201",
+        "AO8 / Analog Output": "q301",
+        "Communications": "q501"
+      }
     },
     "q3": {
-      "id": "q3",
-      "stepType": "question",
       "question": "Is the panel powered?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q4"
-        },
-        {
-          "label": "No",
-          "next": "r1"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q4",
+        "No": "r1"
+      }
     },
     "q4": {
-      "id": "q4",
-      "stepType": "question",
       "question": "Is 24 VAC control power present?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q5"
-        },
-        {
-          "label": "No",
-          "next": "r2"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q5",
+        "No": "r2"
+      }
     },
     "q5": {
-      "id": "q5",
-      "stepType": "question",
       "question": "Are any breakers tripped?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r3"
-        },
-        {
-          "label": "No",
-          "next": "q6"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r3",
+        "No": "q6"
+      }
     },
     "q6": {
-      "id": "q6",
-      "stepType": "question",
       "question": "Are fuses installed and good?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q7"
-        },
-        {
-          "label": "No",
-          "next": "r4"
-        },
-        {
-          "label": "No fuses installed",
-          "next": "q7"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q7",
+        "No": "r4",
+        "No fuses installed": "q7"
+      }
     },
     "q7": {
-      "id": "q7",
-      "stepType": "question",
       "question": "Is the transformer reset/trip condition normal?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q8"
-        },
-        {
-          "label": "No",
-          "next": "r5"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q8",
+        "No": "r5"
+      }
     },
     "q8": {
-      "id": "q8",
-      "stepType": "question",
       "question": "Is the Automation Server status light normal?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q9"
-        },
-        {
-          "label": "No",
-          "next": "r6"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q9",
+        "No": "r6"
+      }
     },
     "q9": {
-      "id": "q9",
-      "stepType": "question",
       "question": "Can you connect locally by USB?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r7"
-        },
-        {
-          "label": "No",
-          "next": "r8"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r7",
+        "No": "r8"
+      }
     },
     "r1": {
-      "id": "r1",
-      "stepType": "result",
       "diagnosis": "No panel power",
-      "action": "Verify source power, disconnect, breakers, and upstream electrical supply.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify source power, disconnect, breakers, and upstream electrical supply."
     },
     "r2": {
-      "id": "r2",
-      "stepType": "result",
       "diagnosis": "Low-voltage control power is missing",
-      "action": "Verify transformer primary and secondary voltage, low-voltage breaker, and wiring.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify transformer primary and secondary voltage, low-voltage breaker, and wiring."
     },
     "r3": {
-      "id": "r3",
-      "stepType": "result",
       "diagnosis": "Breaker tripped",
-      "action": "Determine cause with safe electrical testing before resetting. Inspect for shorts and overloads.",
-      "notes": "",
-      "priority": ""
+      "action": "Determine cause with safe electrical testing before resetting. Inspect for shorts and overloads."
     },
     "r4": {
-      "id": "r4",
-      "stepType": "result",
       "diagnosis": "Fuse open or missing",
-      "action": "Test fuses, inspect hidden fuse holders and Panduit, then replace only after finding the cause.",
-      "notes": "",
-      "priority": ""
+      "action": "Test fuses, inspect hidden fuse holders and Panduit, then replace only after finding the cause."
     },
     "r5": {
-      "id": "r5",
-      "stepType": "result",
       "diagnosis": "Transformer tripped or overloaded",
-      "action": "Confirm transformer VA loading, correct the overload, and reset if permitted.",
-      "notes": "",
-      "priority": ""
+      "action": "Confirm transformer VA loading, correct the overload, and reset if permitted."
     },
     "r6": {
-      "id": "r6",
-      "stepType": "result",
       "diagnosis": "Automation Server status is abnormal",
-      "action": "Record LED pattern, verify power quality, allow boot time, and follow controller recovery procedure.",
-      "notes": "",
-      "priority": ""
+      "action": "Record LED pattern, verify power quality, allow boot time, and follow controller recovery procedure."
     },
     "r7": {
-      "id": "r7",
-      "stepType": "result",
       "diagnosis": "Automation Server hardware appears accessible",
-      "action": "Continue with EBO status, application, bindings, and communications checks.",
-      "notes": "",
-      "priority": ""
+      "action": "Continue with EBO status, application, bindings, and communications checks."
     },
     "r8": {
-      "id": "r8",
-      "stepType": "result",
       "diagnosis": "Automation Server cannot be reached locally",
-      "action": "Verify USB cable/driver and controller boot state; escalate for recovery or replacement if needed.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify USB cable/driver and controller boot state; escalate for recovery or replacement if needed."
     },
     "q101": {
-      "id": "q101",
-      "stepType": "question",
       "question": "Is the UI16 status light normal?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q102"
-        },
-        {
-          "label": "No",
-          "next": "r101"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q102",
+        "No": "r101"
+      }
     },
     "q102": {
-      "id": "q102",
-      "stepType": "question",
       "question": "What kind of input are you troubleshooting?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Digital Input",
-          "next": "q103"
-        },
-        {
-          "label": "4-20 mA",
-          "next": "q107"
-        },
-        {
-          "label": "0-10 VDC",
-          "next": "q114"
-        },
-        {
-          "label": "Temperature 10k Type II",
-          "next": "q121"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Digital Input": "q103",
+        "4-20 mA": "q107",
+        "0-10 VDC": "q114",
+        "Temperature 10k Type II": "q121"
+      }
     },
     "q103": {
-      "id": "q103",
-      "stepType": "question",
       "question": "Is the digital input contact normally open or normally closed?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "NO",
-          "next": "q104"
-        },
-        {
-          "label": "NC",
-          "next": "q105"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "NO": "q104",
+        "NC": "q105"
+      }
     },
     "q104": {
-      "id": "q104",
-      "stepType": "question",
       "question": "With field wires removed, does jumpering the input change the UI state?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q106"
-        },
-        {
-          "label": "No",
-          "next": "r102"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q106",
+        "No": "r102"
+      }
     },
     "q105": {
-      "id": "q105",
-      "stepType": "question",
       "question": "With field wires removed, does opening/closing the input change the UI state as expected?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q106"
-        },
-        {
-          "label": "No",
-          "next": "r102"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q106",
+        "No": "r102"
+      }
     },
     "q106": {
-      "id": "q106",
-      "stepType": "question",
       "question": "At the field device, does simulating the contact change the controller state?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r104"
-        },
-        {
-          "label": "No",
-          "next": "r105"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r104",
+        "No": "r105"
+      }
     },
     "q107": {
-      "id": "q107",
-      "stepType": "question",
       "question": "Is the 4-20 mA transmitter two-wire or three/four-wire?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Two-wire loop",
-          "next": "q108"
-        },
-        {
-          "label": "Three/four-wire",
-          "next": "q109"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Two-wire loop": "q108",
+        "Three/four-wire": "q109"
+      }
     },
     "q108": {
-      "id": "q108",
-      "stepType": "question",
       "question": "Is loop DC power present with correct polarity?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q110"
-        },
-        {
-          "label": "No",
-          "next": "r106"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q110",
+        "No": "r106"
+      }
     },
     "q109": {
-      "id": "q109",
-      "stepType": "question",
       "question": "Is the transmitter power source present and correct?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q110"
-        },
-        {
-          "label": "No",
-          "next": "r107"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q110",
+        "No": "r107"
+      }
     },
     "q110": {
-      "id": "q110",
-      "stepType": "question",
       "question": "Is expected current measured at the controller terminals?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q111"
-        },
-        {
-          "label": "No",
-          "next": "q112"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q111",
+        "No": "q112"
+      }
     },
     "q111": {
-      "id": "q111",
-      "stepType": "question",
       "question": "Does measured mA correspond to the expected engineering value?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r120"
-        },
-        {
-          "label": "No",
-          "next": "r114"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r120",
+        "No": "r114"
+      }
     },
     "q112": {
-      "id": "q112",
-      "stepType": "question",
       "question": "Is expected current present at the field device output?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r109"
-        },
-        {
-          "label": "No",
-          "next": "r119"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r109",
+        "No": "r119"
+      }
     },
     "q114": {
-      "id": "q114",
-      "stepType": "question",
       "question": "Is correct supply voltage present at the 0-10 VDC device?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q115"
-        },
-        {
-          "label": "No",
-          "next": "r113"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q115",
+        "No": "r113"
+      }
     },
     "q115": {
-      "id": "q115",
-      "stepType": "question",
       "question": "Is expected signal voltage measured at the controller terminals?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q116"
-        },
-        {
-          "label": "No",
-          "next": "q119"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q116",
+        "No": "q119"
+      }
     },
     "q116": {
-      "id": "q116",
-      "stepType": "question",
       "question": "Does the voltage also fluctuate on the meter?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r115"
-        },
-        {
-          "label": "No",
-          "next": "r116"
-        },
-        {
-          "label": "Not fluctuating",
-          "next": "q117"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r115",
+        "No": "r116",
+        "Not fluctuating": "q117"
+      }
     },
     "q117": {
-      "id": "q117",
-      "stepType": "question",
       "question": "Does measured voltage correspond to the expected engineering value?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q118"
-        },
-        {
-          "label": "No",
-          "next": "r117"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q118",
+        "No": "r117"
+      }
     },
     "q118": {
-      "id": "q118",
-      "stepType": "question",
       "question": "When applying a known-good signal, does the input respond correctly?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r118"
-        },
-        {
-          "label": "No",
-          "next": "r102"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r118",
+        "No": "r102"
+      }
     },
     "q119": {
-      "id": "q119",
-      "stepType": "question",
       "question": "Is expected voltage present at the field device output?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r109"
-        },
-        {
-          "label": "No",
-          "next": "r119"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r109",
+        "No": "r119"
+      }
     },
     "q120": {
-      "id": "q120",
-      "stepType": "question",
       "question": "Does the displayed value match the field measurement and configured scale?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r120"
-        },
-        {
-          "label": "No",
-          "next": "r116"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r120",
+        "No": "r116"
+      }
     },
     "q121": {
-      "id": "q121",
-      "stepType": "question",
       "question": "At the sensor, is resistance open/OL?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r121"
-        },
-        {
-          "label": "No",
-          "next": "q122"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r121",
+        "No": "q122"
+      }
     },
     "q122": {
-      "id": "q122",
-      "stepType": "question",
       "question": "At the sensor, is resistance near 0 ohms?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r122"
-        },
-        {
-          "label": "No",
-          "next": "q123"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r122",
+        "No": "q123"
+      }
     },
     "q123": {
-      "id": "q123",
-      "stepType": "question",
       "question": "Does sensor resistance match the 10k Type II chart for actual temperature?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q124"
-        },
-        {
-          "label": "No",
-          "next": "r123"
-        }
-      ],
-      "notes": "Schneider and BAPI 10k Type II sensors are typical.",
-      "priority": ""
+      "answers": {
+        "Yes": "q124",
+        "No": "r123"
+      },
+      "notes": "Schneider and BAPI 10k Type II sensors are typical."
     },
     "q124": {
-      "id": "q124",
-      "stepType": "question",
       "question": "Does resistance measured at the controller match resistance at the sensor?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q125"
-        },
-        {
-          "label": "No",
-          "next": "r109"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q125",
+        "No": "r109"
+      }
     },
     "q125": {
-      "id": "q125",
-      "stepType": "question",
       "question": "Is the input configured as a 10k Type II thermistor in EBO?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q126"
-        },
-        {
-          "label": "No",
-          "next": "r125"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q126",
+        "No": "r125"
+      }
     },
     "q126": {
-      "id": "q126",
-      "stepType": "question",
       "question": "Is displayed temperature within 2 F of a calibrated thermometer?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r126"
-        },
-        {
-          "label": "No",
-          "next": "q127"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r126",
+        "No": "q127"
+      }
     },
     "q127": {
-      "id": "q127",
-      "stepType": "question",
       "question": "Is the sensor location or mounting affected by drafts, heat sources, wall cavity air, or poor contact?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r127"
-        },
-        {
-          "label": "No",
-          "next": "r123"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r127",
+        "No": "r123"
+      }
     },
     "r101": {
-      "id": "r101",
-      "stepType": "result",
       "diagnosis": "UI16 module connection or module-health issue",
-      "action": "Check S-cable/module connections, module power, status LEDs, and controller I/O bus status.",
-      "notes": "",
-      "priority": ""
+      "action": "Check S-cable/module connections, module power, status LEDs, and controller I/O bus status."
     },
     "r102": {
-      "id": "r102",
-      "stepType": "result",
       "diagnosis": "Input channel or configuration issue",
-      "action": "Verify the input object, physical channel, signal type, and test with a known-good input/channel.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify the input object, physical channel, signal type, and test with a known-good input/channel."
     },
     "r104": {
-      "id": "r104",
-      "stepType": "result",
       "diagnosis": "Controller and wiring respond to contact simulation",
-      "action": "Investigate the field contact/device, its power, setup, and mechanical operation.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate the field contact/device, its power, setup, and mechanical operation."
     },
     "r105": {
-      "id": "r105",
-      "stepType": "result",
       "diagnosis": "Field wiring or wrong-device issue",
-      "action": "Tone and identify conductors; verify terminations at the correct field device and panel input.",
-      "notes": "",
-      "priority": ""
+      "action": "Tone and identify conductors; verify terminations at the correct field device and panel input."
     },
     "r106": {
-      "id": "r106",
-      "stepType": "result",
       "diagnosis": "Loop power is missing",
-      "action": "Restore correct DC loop power after checking breakers, fuses, polarity, and supply rating.",
-      "notes": "",
-      "priority": ""
+      "action": "Restore correct DC loop power after checking breakers, fuses, polarity, and supply rating."
     },
     "r107": {
-      "id": "r107",
-      "stepType": "result",
       "diagnosis": "Transmitter power is missing",
-      "action": "Verify the separate power source and correct voltage type before continuing.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify the separate power source and correct voltage type before continuing."
     },
     "r109": {
-      "id": "r109",
-      "stepType": "result",
       "diagnosis": "Signal is present in field but absent/different at controller",
-      "action": "Check continuity, polarity, shorts, grounds, and terminations between device and controller.",
-      "notes": "",
-      "priority": ""
+      "action": "Check continuity, polarity, shorts, grounds, and terminations between device and controller."
     },
     "r113": {
-      "id": "r113",
-      "stepType": "result",
       "diagnosis": "Incorrect or missing device supply voltage",
-      "action": "Correct device power source, polarity, and nominal voltage.",
-      "notes": "",
-      "priority": ""
+      "action": "Correct device power source, polarity, and nominal voltage."
     },
     "r114": {
-      "id": "r114",
-      "stepType": "result",
       "diagnosis": "Field transmitter calibration or scaling mismatch",
-      "action": "Compare output signal to process condition; verify transmitter range and calibrate or replace.",
-      "notes": "",
-      "priority": ""
+      "action": "Compare output signal to process condition; verify transmitter range and calibrate or replace."
     },
     "r115": {
-      "id": "r115",
-      "stepType": "result",
       "diagnosis": "Unstable signal originates at field device",
-      "action": "Verify device stability, power quality, grounding, shielding, and nearby electrical noise.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify device stability, power quality, grounding, shielding, and nearby electrical noise."
     },
     "r116": {
-      "id": "r116",
-      "stepType": "result",
       "diagnosis": "Controller scaling, filtering, or point setup issue",
-      "action": "Verify input type, engineering range, units, filtering, and conversion.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify input type, engineering range, units, filtering, and conversion."
     },
     "r117": {
-      "id": "r117",
-      "stepType": "result",
       "diagnosis": "Measured signal does not match expected process value",
-      "action": "Verify transmitter configuration, sensing tubing/mechanics, calibration, and signal wiring.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify transmitter configuration, sensing tubing/mechanics, calibration, and signal wiring."
     },
     "r118": {
-      "id": "r118",
-      "stepType": "result",
       "diagnosis": "Controller input operates with a known-good signal",
-      "action": "Investigate the field device, its calibration, power, and wiring.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate the field device, its calibration, power, and wiring."
     },
     "r119": {
-      "id": "r119",
-      "stepType": "result",
       "diagnosis": "Field device is not generating the expected signal",
-      "action": "Verify device power, setup, process connection, and operation; repair or replace.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify device power, setup, process connection, and operation; repair or replace."
     },
     "r120": {
-      "id": "r120",
-      "stepType": "result",
       "diagnosis": "Input and displayed value appear normal",
-      "action": "Investigate sequence logic, bindings, graphics, trends, and system operation.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate sequence logic, bindings, graphics, trends, and system operation."
     },
     "r121": {
-      "id": "r121",
-      "stepType": "result",
       "diagnosis": "Open thermistor circuit",
-      "action": "Isolate sensor from wiring; repair open conductors/terminations or replace sensor.",
-      "notes": "",
-      "priority": ""
+      "action": "Isolate sensor from wiring; repair open conductors/terminations or replace sensor."
     },
     "r122": {
-      "id": "r122",
-      "stepType": "result",
       "diagnosis": "Shorted thermistor circuit",
-      "action": "Isolate sensor from wiring; locate the short or replace the sensor.",
-      "notes": "",
-      "priority": ""
+      "action": "Isolate sensor from wiring; locate the short or replace the sensor."
     },
     "r123": {
-      "id": "r123",
-      "stepType": "result",
       "diagnosis": "10k Type II sensor is out of tolerance",
-      "action": "Confirm with chart and calibrated reference; replace the sensor if required.",
-      "notes": "",
-      "priority": ""
+      "action": "Confirm with chart and calibrated reference; replace the sensor if required."
     },
     "r125": {
-      "id": "r125",
-      "stepType": "result",
       "diagnosis": "Incorrect sensor type configured",
-      "action": "Configure the EBO input as 10k Type II and verify the reading.",
-      "notes": "",
-      "priority": ""
+      "action": "Configure the EBO input as 10k Type II and verify the reading."
     },
     "r126": {
-      "id": "r126",
-      "stepType": "result",
       "diagnosis": "Temperature input hardware appears normal",
-      "action": "Continue with application logic, setpoints, operating mode, and equipment operation.",
-      "notes": "",
-      "priority": ""
+      "action": "Continue with application logic, setpoints, operating mode, and equipment operation."
     },
     "r127": {
-      "id": "r127",
-      "stepType": "result",
       "diagnosis": "Sensor installation/location issue",
-      "action": "Correct mounting, seal wall penetrations, improve thermal contact, or relocate the sensor.",
-      "notes": "",
-      "priority": ""
+      "action": "Correct mounting, seal wall penetrations, improve thermal contact, or relocate the sensor."
     },
     "q201": {
-      "id": "q201",
-      "stepType": "question",
       "question": "Is the DO8 module online and healthy?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q202"
-        },
-        {
-          "label": "No",
-          "next": "r203"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q202",
+        "No": "r203"
+      }
     },
     "q202": {
-      "id": "q202",
-      "stepType": "question",
       "question": "Is the output commanded ON in EBO?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q203"
-        },
-        {
-          "label": "No",
-          "next": "r201"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q203",
+        "No": "r201"
+      }
     },
     "q203": {
-      "id": "q203",
-      "stepType": "question",
       "question": "Is the output overridden, forced, or controlled by a higher priority?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r999"
-        },
-        {
-          "label": "No",
-          "next": "q204"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r999",
+        "No": "q204"
+      }
     },
     "q204": {
-      "id": "q204",
-      "stepType": "question",
       "question": "Is the DO LED illuminated when commanded ON?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q205"
-        },
-        {
-          "label": "No",
-          "next": "q206"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q205",
+        "No": "q206"
+      }
     },
     "q205": {
-      "id": "q205",
-      "stepType": "question",
       "question": "Is the expected switched voltage/contact state present at the DO terminals?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q207"
-        },
-        {
-          "label": "No",
-          "next": "r202"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q207",
+        "No": "r202"
+      }
     },
     "q206": {
-      "id": "q206",
-      "stepType": "question",
       "question": "Can the output be commanded manually after verifying safeties?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r995"
-        },
-        {
-          "label": "No",
-          "next": "r203"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r995",
+        "No": "r203"
+      }
     },
     "q207": {
-      "id": "q207",
-      "stepType": "question",
       "question": "Is the expected voltage/contact state present at the field device?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q208"
-        },
-        {
-          "label": "No",
-          "next": "r998"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q208",
+        "No": "r998"
+      }
     },
     "q208": {
-      "id": "q208",
-      "stepType": "question",
       "question": "Does the field device operate?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r204"
-        },
-        {
-          "label": "No",
-          "next": "r997"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r204",
+        "No": "r997"
+      }
     },
     "r201": {
-      "id": "r201",
-      "stepType": "result",
       "diagnosis": "Output is not being commanded",
-      "action": "Investigate enable logic, schedules, safeties, interlocks, operating mode, and setpoints.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate enable logic, schedules, safeties, interlocks, operating mode, and setpoints."
     },
     "r202": {
-      "id": "r202",
-      "stepType": "result",
       "diagnosis": "DO relay/contact is not switching correctly",
-      "action": "Verify wet/dry contact requirements and common wiring; test a known-good output, then repair/replace module.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify wet/dry contact requirements and common wiring; test a known-good output, then repair/replace module."
     },
     "r203": {
-      "id": "r203",
-      "stepType": "result",
       "diagnosis": "DO8 module or application is not responding",
-      "action": "Verify module status, I/O bus, application download, channel object, and controller health.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify module status, I/O bus, application download, channel object, and controller health."
     },
     "r204": {
-      "id": "r204",
-      "stepType": "result",
       "diagnosis": "Digital output path operates correctly",
-      "action": "Continue downstream to starter, relay, contactor, VFD, motor, or mechanical equipment.",
-      "notes": "",
-      "priority": ""
+      "action": "Continue downstream to starter, relay, contactor, VFD, motor, or mechanical equipment."
     },
     "q301": {
-      "id": "q301",
-      "stepType": "question",
       "question": "Is the AO8 module online and healthy?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q302"
-        },
-        {
-          "label": "No",
-          "next": "r303"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q302",
+        "No": "r303"
+      }
     },
     "q302": {
-      "id": "q302",
-      "stepType": "question",
       "question": "What signal type is configured?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "0-10 VDC",
-          "next": "q303"
-        },
-        {
-          "label": "4-20 mA",
-          "next": "q320"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "0-10 VDC": "q303",
+        "4-20 mA": "q320"
+      }
     },
     "q303": {
-      "id": "q303",
-      "stepType": "question",
       "question": "Is the output command changing as expected in EBO?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q304"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q304",
+        "No": "r995"
+      }
     },
     "q304": {
-      "id": "q304",
-      "stepType": "question",
       "question": "Does measured output voltage match the commanded percentage and configured scale?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q305"
-        },
-        {
-          "label": "No",
-          "next": "r301"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q305",
+        "No": "r301"
+      }
     },
     "q305": {
-      "id": "q305",
-      "stepType": "question",
       "question": "Does the same voltage reach the field device?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q306"
-        },
-        {
-          "label": "No",
-          "next": "r998"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q306",
+        "No": "r998"
+      }
     },
     "q306": {
-      "id": "q306",
-      "stepType": "question",
       "question": "Does the actuator or VFD respond across the command range?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r302"
-        },
-        {
-          "label": "No",
-          "next": "r997"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r302",
+        "No": "r997"
+      }
     },
     "q320": {
-      "id": "q320",
-      "stepType": "question",
       "question": "Is the output command changing as expected in EBO?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q321"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q321",
+        "No": "r995"
+      }
     },
     "q321": {
-      "id": "q321",
-      "stepType": "question",
       "question": "Can current be measured safely in series at the output?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q322"
-        },
-        {
-          "label": "No",
-          "next": "r303"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q322",
+        "No": "r303"
+      }
     },
     "q322": {
-      "id": "q322",
-      "stepType": "question",
       "question": "Does measured current match the commanded percentage and configured scale?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q323"
-        },
-        {
-          "label": "No",
-          "next": "r304"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q323",
+        "No": "r304"
+      }
     },
     "q323": {
-      "id": "q323",
-      "stepType": "question",
       "question": "Does the same current reach the field device and cause a response?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r302"
-        },
-        {
-          "label": "No",
-          "next": "r998"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r302",
+        "No": "r998"
+      }
     },
     "r301": {
-      "id": "r301",
-      "stepType": "result",
       "diagnosis": "0-10 V output does not match command",
-      "action": "Verify AO signal type, scale, common/reference, loading, point configuration, and module channel.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify AO signal type, scale, common/reference, loading, point configuration, and module channel."
     },
     "r302": {
-      "id": "r302",
-      "stepType": "result",
       "diagnosis": "Analog output path appears normal",
-      "action": "Investigate actuator setup, VFD parameters, linkage, sequence, or mechanical equipment.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate actuator setup, VFD parameters, linkage, sequence, or mechanical equipment."
     },
     "r303": {
-      "id": "r303",
-      "stepType": "result",
       "diagnosis": "AO8/module or current-loop test issue",
-      "action": "Verify module health, current-output configuration, loop wiring, and correct meter connection.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify module health, current-output configuration, loop wiring, and correct meter connection."
     },
     "r304": {
-      "id": "r304",
-      "stepType": "result",
       "diagnosis": "4-20 mA output does not match command",
-      "action": "Verify range, loop load, polarity, channel configuration, and test with a known-good device.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify range, loop load, polarity, channel configuration, and test with a known-good device."
     },
     "q401": {
-      "id": "q401",
-      "stepType": "question",
       "question": "This section is reserved for user-defined troubleshooting. Return to the main menu?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q1"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q1"
+      }
     },
     "q501": {
-      "id": "q501",
-      "stepType": "question",
       "question": "What communication issue are you experiencing?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Automation Server Offline",
-          "next": "q502"
-        },
-        {
-          "label": "MS/TP Device Offline",
-          "next": "q520"
-        },
-        {
-          "label": "BACnet/IP Device Offline",
-          "next": "q540"
-        },
-        {
-          "label": "Intermittent Communications",
-          "next": "q560"
-        },
-        {
-          "label": "Wrong Data Displayed",
-          "next": "q580"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Automation Server Offline": "q502",
+        "MS/TP Device Offline": "q520",
+        "BACnet/IP Device Offline": "q540",
+        "Intermittent Communications": "q560",
+        "Wrong Data Displayed": "q580"
+      }
     },
     "q502": {
-      "id": "q502",
-      "stepType": "question",
       "question": "Does the controller have correct power and normal status LEDs?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q503"
-        },
-        {
-          "label": "No",
-          "next": "r501"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q503",
+        "No": "r501"
+      }
     },
     "q503": {
-      "id": "q503",
-      "stepType": "question",
       "question": "Can you connect locally by USB?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q504"
-        },
-        {
-          "label": "No",
-          "next": "r502"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q504",
+        "No": "r502"
+      }
     },
     "q504": {
-      "id": "q504",
-      "stepType": "question",
       "question": "Are other controllers on the same Ethernet network reachable?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q505"
-        },
-        {
-          "label": "No",
-          "next": "r503"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q505",
+        "No": "r503"
+      }
     },
     "q505": {
-      "id": "q505",
-      "stepType": "question",
       "question": "Are IP address, subnet mask, gateway, and server associations correct?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r504"
-        },
-        {
-          "label": "No",
-          "next": "r505"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r504",
+        "No": "r505"
+      }
     },
     "q520": {
-      "id": "q520",
-      "stepType": "question",
       "question": "Are other devices on the same MS/TP trunk online?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q521"
-        },
-        {
-          "label": "No",
-          "next": "r520"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q521",
+        "No": "r520"
+      }
     },
     "q521": {
-      "id": "q521",
-      "stepType": "question",
       "question": "Is the device MAC address unique?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q522"
-        },
-        {
-          "label": "No",
-          "next": "r521"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q522",
+        "No": "r521"
+      }
     },
     "q522": {
-      "id": "q522",
-      "stepType": "question",
       "question": "Does baud rate match the trunk and is Max Master appropriate?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q523"
-        },
-        {
-          "label": "No",
-          "next": "r522"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q523",
+        "No": "r522"
+      }
     },
     "q523": {
-      "id": "q523",
-      "stepType": "question",
       "question": "Are RS-485 polarity, shield, topology, and end-of-line termination correct?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q524"
-        },
-        {
-          "label": "No",
-          "next": "r523"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q524",
+        "No": "r523"
+      }
     },
     "q524": {
-      "id": "q524",
-      "stepType": "question",
       "question": "Does disconnecting downstream segments identify a failing segment/device?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r524"
-        },
-        {
-          "label": "No",
-          "next": "r525"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r524",
+        "No": "r525"
+      }
     },
     "q540": {
-      "id": "q540",
-      "stepType": "question",
       "question": "Can the BACnet/IP device be pinged from the appropriate network?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q541"
-        },
-        {
-          "label": "No",
-          "next": "r540"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q541",
+        "No": "r540"
+      }
     },
     "q541": {
-      "id": "q541",
-      "stepType": "question",
       "question": "Are IP address, subnet, gateway, and VLAN correct and unique?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q542"
-        },
-        {
-          "label": "No",
-          "next": "r541"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q542",
+        "No": "r541"
+      }
     },
     "q542": {
-      "id": "q542",
-      "stepType": "question",
       "question": "Can BACnet objects be discovered locally on the same subnet?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q543"
-        },
-        {
-          "label": "No",
-          "next": "r542"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q543",
+        "No": "r542"
+      }
     },
     "q543": {
-      "id": "q543",
-      "stepType": "question",
       "question": "Does communication cross a subnet or require BBMD/foreign-device registration?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q544"
-        },
-        {
-          "label": "No",
-          "next": "r543"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q544",
+        "No": "r543"
+      }
     },
     "q544": {
-      "id": "q544",
-      "stepType": "question",
       "question": "Are BBMD/BDT/FDT settings and firewall UDP port rules correct?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r544"
-        },
-        {
-          "label": "No",
-          "next": "r545"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r544",
+        "No": "r545"
+      }
     },
     "q560": {
-      "id": "q560",
-      "stepType": "question",
       "question": "Do multiple devices drop offline at the same time?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q561"
-        },
-        {
-          "label": "No",
-          "next": "q563"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q561",
+        "No": "q563"
+      }
     },
     "q561": {
-      "id": "q561",
-      "stepType": "question",
       "question": "Do drops correlate with VFD/motor starts or electrical events?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r560"
-        },
-        {
-          "label": "No",
-          "next": "q562"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r560",
+        "No": "q562"
+      }
     },
     "q562": {
-      "id": "q562",
-      "stepType": "question",
       "question": "Are controller resets, voltage dips, or transformer overloads recorded?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r561"
-        },
-        {
-          "label": "No",
-          "next": "r562"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r561",
+        "No": "r562"
+      }
     },
     "q563": {
-      "id": "q563",
-      "stepType": "question",
       "question": "Is the issue isolated to one device or cable segment?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r563"
-        },
-        {
-          "label": "No",
-          "next": "r562"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r563",
+        "No": "r562"
+      }
     },
     "q580": {
-      "id": "q580",
-      "stepType": "question",
       "question": "Does the value at the controller match the field measurement?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q581"
-        },
-        {
-          "label": "No",
-          "next": "r580"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q581",
+        "No": "r580"
+      }
     },
     "q581": {
-      "id": "q581",
-      "stepType": "question",
       "question": "Does the supervisory server/graphic value match the controller value?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r581"
-        },
-        {
-          "label": "No",
-          "next": "r999"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r581",
+        "No": "r999"
+      }
     },
     "r501": {
-      "id": "r501",
-      "stepType": "result",
       "diagnosis": "Controller power or startup issue",
-      "action": "Restore correct power and resolve abnormal LED/startup condition before network troubleshooting.",
-      "notes": "",
-      "priority": ""
+      "action": "Restore correct power and resolve abnormal LED/startup condition before network troubleshooting."
     },
     "r502": {
-      "id": "r502",
-      "stepType": "result",
       "diagnosis": "Controller is not locally accessible",
-      "action": "Verify USB connection and boot state; perform approved recovery or replace hardware if required.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify USB connection and boot state; perform approved recovery or replace hardware if required."
     },
     "r503": {
-      "id": "r503",
-      "stepType": "result",
       "diagnosis": "Network-wide Ethernet infrastructure issue",
-      "action": "Check switch power/ports, cabling, VLAN, routing, firewall, and upstream network equipment.",
-      "notes": "",
-      "priority": ""
+      "action": "Check switch power/ports, cabling, VLAN, routing, firewall, and upstream network equipment."
     },
     "r504": {
-      "id": "r504",
-      "stepType": "result",
       "diagnosis": "Single-controller supervisory association issue",
-      "action": "Verify server association, certificates/time if applicable, controller name/address, and EBO communication settings.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify server association, certificates/time if applicable, controller name/address, and EBO communication settings."
     },
     "r505": {
-      "id": "r505",
-      "stepType": "result",
       "diagnosis": "Incorrect controller network configuration",
-      "action": "Correct IP, subnet, gateway, DNS/server association, and duplicate-address conditions.",
-      "notes": "",
-      "priority": ""
+      "action": "Correct IP, subnet, gateway, DNS/server association, and duplicate-address conditions."
     },
     "r520": {
-      "id": "r520",
-      "stepType": "result",
       "diagnosis": "Entire MS/TP trunk is offline",
-      "action": "Check trunk power, master controller port, polarity, topology, termination, shorts, and baud rate.",
-      "notes": "",
-      "priority": ""
+      "action": "Check trunk power, master controller port, polarity, topology, termination, shorts, and baud rate."
     },
     "r521": {
-      "id": "r521",
-      "stepType": "result",
       "diagnosis": "Duplicate MS/TP MAC address",
-      "action": "Assign a unique MAC address and recommission the device.",
-      "notes": "",
-      "priority": ""
+      "action": "Assign a unique MAC address and recommission the device."
     },
     "r522": {
-      "id": "r522",
-      "stepType": "result",
       "diagnosis": "MS/TP baud or token-management mismatch",
-      "action": "Set compatible baud rate and Max Master values across the trunk.",
-      "notes": "",
-      "priority": ""
+      "action": "Set compatible baud rate and Max Master values across the trunk."
     },
     "r523": {
-      "id": "r523",
-      "stepType": "result",
       "diagnosis": "MS/TP physical-layer issue",
-      "action": "Correct polarity, daisy-chain topology, shield grounding, end-of-line termination, shorts, and stubs.",
-      "notes": "",
-      "priority": ""
+      "action": "Correct polarity, daisy-chain topology, shield grounding, end-of-line termination, shorts, and stubs."
     },
     "r524": {
-      "id": "r524",
-      "stepType": "result",
       "diagnosis": "A downstream segment or device is disrupting the trunk",
-      "action": "Reconnect in sections to isolate the cable/device, then repair wiring or replace the failing transceiver.",
-      "notes": "",
-      "priority": ""
+      "action": "Reconnect in sections to isolate the cable/device, then repair wiring or replace the failing transceiver."
     },
     "r525": {
-      "id": "r525",
-      "stepType": "result",
       "diagnosis": "Individual device communication hardware or setup issue",
-      "action": "Verify device power, address, firmware, port configuration, then replace if it fails independently.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify device power, address, firmware, port configuration, then replace if it fails independently."
     },
     "r540": {
-      "id": "r540",
-      "stepType": "result",
       "diagnosis": "IP connectivity failure",
-      "action": "Verify physical link, switch port, cable, VLAN, subnet, gateway, duplicate IP, and device network settings.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify physical link, switch port, cable, VLAN, subnet, gateway, duplicate IP, and device network settings."
     },
     "r541": {
-      "id": "r541",
-      "stepType": "result",
       "diagnosis": "Incorrect or duplicate IP configuration",
-      "action": "Correct addressing/VLAN and coordinate network changes before recommissioning.",
-      "notes": "",
-      "priority": ""
+      "action": "Correct addressing/VLAN and coordinate network changes before recommissioning."
     },
     "r542": {
-      "id": "r542",
-      "stepType": "result",
       "diagnosis": "BACnet service/configuration issue on local subnet",
-      "action": "Verify BACnet/IP enabled state, UDP port, device instance, and local firewall.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify BACnet/IP enabled state, UDP port, device instance, and local firewall."
     },
     "r543": {
-      "id": "r543",
-      "stepType": "result",
       "diagnosis": "Local BACnet/IP communication appears functional",
-      "action": "Investigate bindings, object references, server discovery cache, and application configuration.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate bindings, object references, server discovery cache, and application configuration."
     },
     "r544": {
-      "id": "r544",
-      "stepType": "result",
       "diagnosis": "Routed BACnet/IP path appears configured",
-      "action": "Review packet captures/logs and server/device discovery settings for intermittent or application-level issues.",
-      "notes": "",
-      "priority": ""
+      "action": "Review packet captures/logs and server/device discovery settings for intermittent or application-level issues."
     },
     "r545": {
-      "id": "r545",
-      "stepType": "result",
       "diagnosis": "BBMD, foreign-device, routing, or firewall issue",
-      "action": "Correct BDT/FDT entries, broadcast distribution, UDP port rules, and routing.",
-      "notes": "",
-      "priority": ""
+      "action": "Correct BDT/FDT entries, broadcast distribution, UDP port rules, and routing."
     },
     "r560": {
-      "id": "r560",
-      "stepType": "result",
       "diagnosis": "Electrical noise/grounding issue is likely",
-      "action": "Check VFD grounding, shield practices, cable separation, and induced noise on communications/power.",
-      "notes": "",
-      "priority": ""
+      "action": "Check VFD grounding, shield practices, cable separation, and induced noise on communications/power."
     },
     "r561": {
-      "id": "r561",
-      "stepType": "result",
       "diagnosis": "Power-quality issue is causing resets",
-      "action": "Measure voltage during events, verify transformer loading, grounding, and power-supply health.",
-      "notes": "",
-      "priority": ""
+      "action": "Measure voltage during events, verify transformer loading, grounding, and power-supply health."
     },
     "r562": {
-      "id": "r562",
-      "stepType": "result",
       "diagnosis": "Intermittent network issue not yet isolated",
-      "action": "Review event logs and trends; inspect connectors, switch errors, trunk statistics, and environmental conditions.",
-      "notes": "",
-      "priority": ""
+      "action": "Review event logs and trends; inspect connectors, switch errors, trunk statistics, and environmental conditions."
     },
     "r563": {
-      "id": "r563",
-      "stepType": "result",
       "diagnosis": "Single device or segment is intermittent",
-      "action": "Inspect local power, terminals, transceiver, cable segment, address, and device logs.",
-      "notes": "",
-      "priority": ""
+      "action": "Inspect local power, terminals, transceiver, cable segment, address, and device logs."
     },
     "r580": {
-      "id": "r580",
-      "stepType": "result",
       "diagnosis": "Field value is incorrect at the controller",
-      "action": "Route to the applicable temperature, AI, or DI input workflow.",
-      "notes": "",
-      "priority": ""
+      "action": "Route to the applicable temperature, AI, or DI input workflow."
     },
     "r581": {
-      "id": "r581",
-      "stepType": "result",
       "diagnosis": "Communication values match end to end",
-      "action": "Investigate sequence logic, graphics presentation, alarms, units, and operator expectations.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate sequence logic, graphics presentation, alarms, units, and operator expectations."
     },
     "q601": {
-      "id": "q601",
-      "stepType": "question",
       "question": "What VAV symptom are you troubleshooting?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Space Too Hot",
-          "next": "q602"
-        },
-        {
-          "label": "Space Too Cold",
-          "next": "q610"
-        },
-        {
-          "label": "No/Low Airflow",
-          "next": "q620"
-        },
-        {
-          "label": "Damper Not Moving",
-          "next": "q630"
-        },
-        {
-          "label": "Reheat Not Working",
-          "next": "q640"
-        },
-        {
-          "label": "Offline",
-          "next": "q501"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Space Too Hot": "q602",
+        "Space Too Cold": "q610",
+        "No/Low Airflow": "q620",
+        "Damper Not Moving": "q630",
+        "Reheat Not Working": "q640",
+        "Offline": "q501"
+      }
     },
     "q602": {
-      "id": "q602",
-      "stepType": "question",
       "question": "Is the space-temperature reading accurate?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q603"
-        },
-        {
-          "label": "No",
-          "next": "q121"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q603",
+        "No": "q121"
+      }
     },
     "q603": {
-      "id": "q603",
-      "stepType": "question",
       "question": "Is the VAV occupied and cooling airflow setpoint above zero?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q604"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q604",
+        "No": "r995"
+      }
     },
     "q604": {
-      "id": "q604",
-      "stepType": "question",
       "question": "Is actual airflow below airflow setpoint?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q605"
-        },
-        {
-          "label": "No",
-          "next": "q606"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q605",
+        "No": "q606"
+      }
     },
     "q605": {
-      "id": "q605",
-      "stepType": "question",
       "question": "Is damper command high but measured airflow remains low?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q630"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q630",
+        "No": "r995"
+      }
     },
     "q606": {
-      "id": "q606",
-      "stepType": "question",
       "question": "Is reheat active or the discharge temperature high?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q640"
-        },
-        {
-          "label": "No",
-          "next": "r601"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q640",
+        "No": "r601"
+      }
     },
     "q610": {
-      "id": "q610",
-      "stepType": "question",
       "question": "Is the space-temperature reading accurate?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q611"
-        },
-        {
-          "label": "No",
-          "next": "q121"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q611",
+        "No": "q121"
+      }
     },
     "q611": {
-      "id": "q611",
-      "stepType": "question",
       "question": "Is cooling airflow/damper command higher than expected?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r995"
-        },
-        {
-          "label": "No",
-          "next": "q612"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r995",
+        "No": "q612"
+      }
     },
     "q612": {
-      "id": "q612",
-      "stepType": "question",
       "question": "Is reheat command present and discharge temperature increasing?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r601"
-        },
-        {
-          "label": "No",
-          "next": "q640"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r601",
+        "No": "q640"
+      }
     },
     "q620": {
-      "id": "q620",
-      "stepType": "question",
       "question": "Is airflow sensor reading believable compared with a field measurement?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q621"
-        },
-        {
-          "label": "No",
-          "next": "q107"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q621",
+        "No": "q107"
+      }
     },
     "q621": {
-      "id": "q621",
-      "stepType": "question",
       "question": "Is damper commanded open?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q630"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q630",
+        "No": "r995"
+      }
     },
     "q630": {
-      "id": "q630",
-      "stepType": "question",
       "question": "Is the damper command signal changing?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q301"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q301",
+        "No": "r995"
+      }
     },
     "q640": {
-      "id": "q640",
-      "stepType": "question",
       "question": "What type of reheat control is used?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Floating/Digital",
-          "next": "q201"
-        },
-        {
-          "label": "Modulating Analog",
-          "next": "q301"
-        },
-        {
-          "label": "Electric Stages",
-          "next": "q201"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Floating/Digital": "q201",
+        "Modulating Analog": "q301",
+        "Electric Stages": "q201"
+      }
     },
     "r601": {
-      "id": "r601",
-      "stepType": "result",
       "diagnosis": "VAV controls appear to be responding",
-      "action": "Investigate system supply-air temperature/pressure, balancing, box sizing, duct restrictions, and mechanical condition.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate system supply-air temperature/pressure, balancing, box sizing, duct restrictions, and mechanical condition."
     },
     "q701": {
-      "id": "q701",
-      "stepType": "question",
       "question": "What AHU symptom are you troubleshooting?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Fan Not Running",
-          "next": "q702"
-        },
-        {
-          "label": "No Cooling",
-          "next": "q710"
-        },
-        {
-          "label": "No Heating",
-          "next": "q720"
-        },
-        {
-          "label": "Static Pressure Issue",
-          "next": "q730"
-        },
-        {
-          "label": "Temperature Issue",
-          "next": "q121"
-        },
-        {
-          "label": "Offline",
-          "next": "q501"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Fan Not Running": "q702",
+        "No Cooling": "q710",
+        "No Heating": "q720",
+        "Static Pressure Issue": "q730",
+        "Temperature Issue": "q121",
+        "Offline": "q501"
+      }
     },
     "q702": {
-      "id": "q702",
-      "stepType": "question",
       "question": "Is the AHU enabled by schedule/occupancy?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q703"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q703",
+        "No": "r995"
+      }
     },
     "q703": {
-      "id": "q703",
-      "stepType": "question",
       "question": "Are all safeties and interlocks normal?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q704"
-        },
-        {
-          "label": "No",
-          "next": "r701"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q704",
+        "No": "r701"
+      }
     },
     "q704": {
-      "id": "q704",
-      "stepType": "question",
       "question": "Is the supply-fan command ON?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q201"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q201",
+        "No": "r995"
+      }
     },
     "q710": {
-      "id": "q710",
-      "stepType": "question",
       "question": "Are supply-air and mixed-air temperatures accurate?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q711"
-        },
-        {
-          "label": "No",
-          "next": "q121"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q711",
+        "No": "q121"
+      }
     },
     "q711": {
-      "id": "q711",
-      "stepType": "question",
       "question": "Is cooling enabled and the valve/compressor command increasing?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q712"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q712",
+        "No": "r995"
+      }
     },
     "q712": {
-      "id": "q712",
-      "stepType": "question",
       "question": "What cooling output type is used?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Modulating Valve",
-          "next": "q301"
-        },
-        {
-          "label": "Digital Stages",
-          "next": "q201"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Modulating Valve": "q301",
+        "Digital Stages": "q201"
+      }
     },
     "q720": {
-      "id": "q720",
-      "stepType": "question",
       "question": "Are supply-air and heating-water/air temperatures accurate?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q721"
-        },
-        {
-          "label": "No",
-          "next": "q121"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q721",
+        "No": "q121"
+      }
     },
     "q721": {
-      "id": "q721",
-      "stepType": "question",
       "question": "Is heating enabled and command increasing?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q722"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q722",
+        "No": "r995"
+      }
     },
     "q722": {
-      "id": "q722",
-      "stepType": "question",
       "question": "What heating output type is used?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Modulating Valve",
-          "next": "q301"
-        },
-        {
-          "label": "Digital Stages",
-          "next": "q201"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Modulating Valve": "q301",
+        "Digital Stages": "q201"
+      }
     },
     "q730": {
-      "id": "q730",
-      "stepType": "question",
       "question": "Is static-pressure reading accurate compared with a field measurement?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q731"
-        },
-        {
-          "label": "No",
-          "next": "q107"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q731",
+        "No": "q107"
+      }
     },
     "q731": {
-      "id": "q731",
-      "stepType": "question",
       "question": "Is fan-speed command changing to maintain setpoint?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q301"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q301",
+        "No": "r995"
+      }
     },
     "r701": {
-      "id": "r701",
-      "stepType": "result",
       "diagnosis": "AHU safety/interlock is preventing operation",
-      "action": "Identify freeze stat, smoke, high static, fire alarm, overload, proof, or other active safety; reset only after cause is corrected.",
-      "notes": "",
-      "priority": ""
+      "action": "Identify freeze stat, smoke, high static, fire alarm, overload, proof, or other active safety; reset only after cause is corrected."
     },
     "q801": {
-      "id": "q801",
-      "stepType": "question",
       "question": "What RTU symptom are you troubleshooting?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Fan Not Running",
-          "next": "q802"
-        },
-        {
-          "label": "No Cooling",
-          "next": "q810"
-        },
-        {
-          "label": "No Heating",
-          "next": "q820"
-        },
-        {
-          "label": "Temperature Issue",
-          "next": "q121"
-        },
-        {
-          "label": "Offline",
-          "next": "q501"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Fan Not Running": "q802",
+        "No Cooling": "q810",
+        "No Heating": "q820",
+        "Temperature Issue": "q121",
+        "Offline": "q501"
+      }
     },
     "q802": {
-      "id": "q802",
-      "stepType": "question",
       "question": "Is the RTU enabled by schedule/occupancy?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q803"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q803",
+        "No": "r995"
+      }
     },
     "q803": {
-      "id": "q803",
-      "stepType": "question",
       "question": "Are safeties and interlocks normal?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q804"
-        },
-        {
-          "label": "No",
-          "next": "r801"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q804",
+        "No": "r801"
+      }
     },
     "q804": {
-      "id": "q804",
-      "stepType": "question",
       "question": "Is the fan command ON?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q201"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q201",
+        "No": "r995"
+      }
     },
     "q810": {
-      "id": "q810",
-      "stepType": "question",
       "question": "Is space/supply-air temperature accurate and is cooling enabled?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q811"
-        },
-        {
-          "label": "No",
-          "next": "q121"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q811",
+        "No": "q121"
+      }
     },
     "q811": {
-      "id": "q811",
-      "stepType": "question",
       "question": "Is a compressor/cooling-stage command present?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q201"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q201",
+        "No": "r995"
+      }
     },
     "q820": {
-      "id": "q820",
-      "stepType": "question",
       "question": "Is temperature accurate and is heating enabled?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q821"
-        },
-        {
-          "label": "No",
-          "next": "q121"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q821",
+        "No": "q121"
+      }
     },
     "q821": {
-      "id": "q821",
-      "stepType": "question",
       "question": "Is a heating-stage or valve command present?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Digital Stage",
-          "next": "q201"
-        },
-        {
-          "label": "Modulating Valve",
-          "next": "q301"
-        },
-        {
-          "label": "No Command",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Digital Stage": "q201",
+        "Modulating Valve": "q301",
+        "No Command": "r995"
+      }
     },
     "r801": {
-      "id": "r801",
-      "stepType": "result",
       "diagnosis": "RTU safety/interlock is preventing operation",
-      "action": "Identify smoke, freeze, pressure switch, overload, condensate, proof, or manufacturer lockout; correct cause before reset.",
-      "notes": "",
-      "priority": ""
+      "action": "Identify smoke, freeze, pressure switch, overload, condensate, proof, or manufacturer lockout; correct cause before reset."
     },
     "q901": {
-      "id": "q901",
-      "stepType": "question",
       "question": "What pump symptom are you troubleshooting?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Not Running",
-          "next": "q902"
-        },
-        {
-          "label": "No Flow/Low DP",
-          "next": "q910"
-        },
-        {
-          "label": "Status Incorrect",
-          "next": "q920"
-        },
-        {
-          "label": "Speed Issue",
-          "next": "q930"
-        },
-        {
-          "label": "Offline",
-          "next": "q501"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Not Running": "q902",
+        "No Flow/Low DP": "q910",
+        "Status Incorrect": "q920",
+        "Speed Issue": "q930",
+        "Offline": "q501"
+      }
     },
     "q902": {
-      "id": "q902",
-      "stepType": "question",
       "question": "Is the pump enabled and required by sequence?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q903"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q903",
+        "No": "r995"
+      }
     },
     "q903": {
-      "id": "q903",
-      "stepType": "question",
       "question": "Are safeties/interlocks and lead-lag selection normal?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q904"
-        },
-        {
-          "label": "No",
-          "next": "r901"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q904",
+        "No": "r901"
+      }
     },
     "q904": {
-      "id": "q904",
-      "stepType": "question",
       "question": "Is start command ON?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q201"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q201",
+        "No": "r995"
+      }
     },
     "q910": {
-      "id": "q910",
-      "stepType": "question",
       "question": "Is differential-pressure/flow reading accurate?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q911"
-        },
-        {
-          "label": "No",
-          "next": "q107"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q911",
+        "No": "q107"
+      }
     },
     "q911": {
-      "id": "q911",
-      "stepType": "question",
       "question": "Is pump running and speed command high?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r902"
-        },
-        {
-          "label": "No",
-          "next": "q930"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r902",
+        "No": "q930"
+      }
     },
     "q920": {
-      "id": "q920",
-      "stepType": "question",
       "question": "Does the proof/contact change when the pump starts/stops?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r903"
-        },
-        {
-          "label": "No",
-          "next": "q103"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r903",
+        "No": "q103"
+      }
     },
     "q930": {
-      "id": "q930",
-      "stepType": "question",
       "question": "Is speed command changing as expected?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q301"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q301",
+        "No": "r995"
+      }
     },
     "r901": {
-      "id": "r901",
-      "stepType": "result",
       "diagnosis": "Pump interlock/selection is preventing operation",
-      "action": "Verify HOA, lead-lag selection, low-water/flow safeties, VFD fault, and permissives.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify HOA, lead-lag selection, low-water/flow safeties, VFD fault, and permissives."
     },
     "r902": {
-      "id": "r902",
-      "stepType": "result",
       "diagnosis": "Pump runs but system flow/DP is inadequate",
-      "action": "Investigate closed valves, air, strainer, rotation, impeller, bypass, sensor location, and hydronic conditions.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate closed valves, air, strainer, rotation, impeller, bypass, sensor location, and hydronic conditions."
     },
     "r903": {
-      "id": "r903",
-      "stepType": "result",
       "diagnosis": "Pump status input operates correctly",
-      "action": "Investigate display/logic expectations or intermittent mechanical operation.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate display/logic expectations or intermittent mechanical operation."
     },
     "q1001": {
-      "id": "q1001",
-      "stepType": "question",
       "question": "What boiler symptom are you troubleshooting?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Not Enabled",
-          "next": "q1002"
-        },
-        {
-          "label": "Not Firing",
-          "next": "q1010"
-        },
-        {
-          "label": "No Heat/Low Temperature",
-          "next": "q1020"
-        },
-        {
-          "label": "Temperature Issue",
-          "next": "q121"
-        },
-        {
-          "label": "Offline",
-          "next": "q501"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Not Enabled": "q1002",
+        "Not Firing": "q1010",
+        "No Heat/Low Temperature": "q1020",
+        "Temperature Issue": "q121",
+        "Offline": "q501"
+      }
     },
     "q1002": {
-      "id": "q1002",
-      "stepType": "question",
       "question": "Is there a valid heating demand and schedule enable?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q1003"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q1003",
+        "No": "r995"
+      }
     },
     "q1003": {
-      "id": "q1003",
-      "stepType": "question",
       "question": "Are flow proof, safeties, and manufacturer enable normal?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q201"
-        },
-        {
-          "label": "No",
-          "next": "r1001"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q201",
+        "No": "r1001"
+      }
     },
     "q1010": {
-      "id": "q1010",
-      "stepType": "question",
       "question": "Is the BMS enable command present at the boiler?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r1002"
-        },
-        {
-          "label": "No",
-          "next": "q201"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r1002",
+        "No": "q201"
+      }
     },
     "q1020": {
-      "id": "q1020",
-      "stepType": "question",
       "question": "Are supply/return temperatures accurate and pumps proven?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q1021"
-        },
-        {
-          "label": "No",
-          "next": "q121"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q1021",
+        "No": "q121"
+      }
     },
     "q1021": {
-      "id": "q1021",
-      "stepType": "question",
       "question": "Is firing-rate command increasing?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q301"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        },
-        {
-          "label": "Staged boiler",
-          "next": "q201"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q301",
+        "No": "r995",
+        "Staged boiler": "q201"
+      }
     },
     "r1001": {
-      "id": "r1001",
-      "stepType": "result",
       "diagnosis": "Boiler safety/permissive is not satisfied",
-      "action": "Identify flow, low-water, gas, vent, temperature, pressure, or manufacturer lockout. Escalate per site procedure.",
-      "notes": "",
-      "priority": ""
+      "action": "Identify flow, low-water, gas, vent, temperature, pressure, or manufacturer lockout. Escalate per site procedure."
     },
     "r1002": {
-      "id": "r1002",
-      "stepType": "result",
       "diagnosis": "BMS enable reaches boiler but boiler does not fire",
-      "action": "Review boiler controller status and safeties; refer to qualified boiler service personnel.",
-      "notes": "",
-      "priority": ""
+      "action": "Review boiler controller status and safeties; refer to qualified boiler service personnel."
     },
     "q1101": {
-      "id": "q1101",
-      "stepType": "question",
       "question": "What chiller symptom are you troubleshooting?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Not Enabled",
-          "next": "q1102"
-        },
-        {
-          "label": "Not Running",
-          "next": "q1110"
-        },
-        {
-          "label": "CHW Temperature Issue",
-          "next": "q1120"
-        },
-        {
-          "label": "Flow/DP Issue",
-          "next": "q1130"
-        },
-        {
-          "label": "Offline",
-          "next": "q501"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Not Enabled": "q1102",
+        "Not Running": "q1110",
+        "CHW Temperature Issue": "q1120",
+        "Flow/DP Issue": "q1130",
+        "Offline": "q501"
+      }
     },
     "q1102": {
-      "id": "q1102",
-      "stepType": "question",
       "question": "Is there a valid cooling demand and schedule enable?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q1103"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q1103",
+        "No": "r995"
+      }
     },
     "q1103": {
-      "id": "q1103",
-      "stepType": "question",
       "question": "Are CHW/CW pumps, flow proofs, and safeties satisfied?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q201"
-        },
-        {
-          "label": "No",
-          "next": "r1101"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q201",
+        "No": "r1101"
+      }
     },
     "q1110": {
-      "id": "q1110",
-      "stepType": "question",
       "question": "Does the chiller receive the BMS enable?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r1102"
-        },
-        {
-          "label": "No",
-          "next": "q201"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r1102",
+        "No": "q201"
+      }
     },
     "q1120": {
-      "id": "q1120",
-      "stepType": "question",
       "question": "Are entering/leaving CHW temperatures accurate?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q1121"
-        },
-        {
-          "label": "No",
-          "next": "q121"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q1121",
+        "No": "q121"
+      }
     },
     "q1121": {
-      "id": "q1121",
-      "stepType": "question",
       "question": "Is leaving-water setpoint/reset correct?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r1103"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r1103",
+        "No": "r995"
+      }
     },
     "q1130": {
-      "id": "q1130",
-      "stepType": "question",
       "question": "Is flow/DP reading accurate compared with field measurement?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r1104"
-        },
-        {
-          "label": "No",
-          "next": "q107"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r1104",
+        "No": "q107"
+      }
     },
     "r1101": {
-      "id": "r1101",
-      "stepType": "result",
       "diagnosis": "Chiller permissive is not satisfied",
-      "action": "Verify pump status, flow, condenser-water conditions, safeties, and manufacturer interlocks.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify pump status, flow, condenser-water conditions, safeties, and manufacturer interlocks."
     },
     "r1102": {
-      "id": "r1102",
-      "stepType": "result",
       "diagnosis": "Chiller receives enable but remains off",
-      "action": "Review chiller controller alarm/status and refer to qualified chiller service personnel.",
-      "notes": "",
-      "priority": ""
+      "action": "Review chiller controller alarm/status and refer to qualified chiller service personnel."
     },
     "r1103": {
-      "id": "r1103",
-      "stepType": "result",
       "diagnosis": "BMS temperatures and setpoint appear correct",
-      "action": "Investigate chiller capacity, staging, fouling, refrigerant/mechanical condition, and load.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate chiller capacity, staging, fouling, refrigerant/mechanical condition, and load."
     },
     "r1104": {
-      "id": "r1104",
-      "stepType": "result",
       "diagnosis": "Flow/DP instrumentation appears correct",
-      "action": "Investigate pump operation, valve position, strainers, air, bypass, and hydronic balance.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate pump operation, valve position, strainers, air, bypass, and hydronic balance."
     },
     "q1201": {
-      "id": "q1201",
-      "stepType": "question",
       "question": "What cooling-tower symptom are you troubleshooting?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Fan Not Running",
-          "next": "q1202"
-        },
-        {
-          "label": "High Condenser-Water Temperature",
-          "next": "q1210"
-        },
-        {
-          "label": "Low Temperature/Freeze Risk",
-          "next": "q1220"
-        },
-        {
-          "label": "Basin Level Issue",
-          "next": "q1230"
-        },
-        {
-          "label": "Offline",
-          "next": "q501"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Fan Not Running": "q1202",
+        "High Condenser-Water Temperature": "q1210",
+        "Low Temperature/Freeze Risk": "q1220",
+        "Basin Level Issue": "q1230",
+        "Offline": "q501"
+      }
     },
     "q1202": {
-      "id": "q1202",
-      "stepType": "question",
       "question": "Is the tower enabled and staged by sequence?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q201"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q201",
+        "No": "r995"
+      }
     },
     "q1210": {
-      "id": "q1210",
-      "stepType": "question",
       "question": "Are condenser-water temperatures accurate?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q1211"
-        },
-        {
-          "label": "No",
-          "next": "q121"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q1211",
+        "No": "q121"
+      }
     },
     "q1211": {
-      "id": "q1211",
-      "stepType": "question",
       "question": "Is fan-speed/stage command increasing?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Analog Speed",
-          "next": "q301"
-        },
-        {
-          "label": "Digital Stage",
-          "next": "q201"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Analog Speed": "q301",
+        "Digital Stage": "q201",
+        "No": "r995"
+      }
     },
     "q1220": {
-      "id": "q1220",
-      "stepType": "question",
       "question": "Are low-limit, heater, and bypass commands operating as designed?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r1201"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r1201",
+        "No": "r995"
+      }
     },
     "q1230": {
-      "id": "q1230",
-      "stepType": "question",
       "question": "Is basin-level input accurate?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r1202"
-        },
-        {
-          "label": "No",
-          "next": "q103"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r1202",
+        "No": "q103"
+      }
     },
     "r1201": {
-      "id": "r1201",
-      "stepType": "result",
       "diagnosis": "Tower controls appear to be responding",
-      "action": "Investigate weather conditions, bypass valve, fan capability, freeze-protection hardware, and water flow.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate weather conditions, bypass valve, fan capability, freeze-protection hardware, and water flow."
     },
     "r1202": {
-      "id": "r1202",
-      "stepType": "result",
       "diagnosis": "Basin-level input appears accurate",
-      "action": "Investigate makeup valve, float assembly, leaks, overflow, and water treatment equipment.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate makeup valve, float assembly, leaks, overflow, and water treatment equipment."
     },
     "q1301": {
-      "id": "q1301",
-      "stepType": "question",
       "question": "What exhaust-fan symptom are you troubleshooting?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Not Running",
-          "next": "q1302"
-        },
-        {
-          "label": "Status Incorrect",
-          "next": "q1310"
-        },
-        {
-          "label": "Speed/Airflow Issue",
-          "next": "q1320"
-        },
-        {
-          "label": "Offline",
-          "next": "q501"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Not Running": "q1302",
+        "Status Incorrect": "q1310",
+        "Speed/Airflow Issue": "q1320",
+        "Offline": "q501"
+      }
     },
     "q1302": {
-      "id": "q1302",
-      "stepType": "question",
       "question": "Is the fan enabled by schedule, occupancy, or interlock?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q1303"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q1303",
+        "No": "r995"
+      }
     },
     "q1303": {
-      "id": "q1303",
-      "stepType": "question",
       "question": "Is start command ON?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q201"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q201",
+        "No": "r995"
+      }
     },
     "q1310": {
-      "id": "q1310",
-      "stepType": "question",
       "question": "Does proof/status change with fan operation?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r1301"
-        },
-        {
-          "label": "No",
-          "next": "q103"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r1301",
+        "No": "q103"
+      }
     },
     "q1320": {
-      "id": "q1320",
-      "stepType": "question",
       "question": "Is speed command changing?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q301"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        },
-        {
-          "label": "Constant speed",
-          "next": "r1302"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q301",
+        "No": "r995",
+        "Constant speed": "r1302"
+      }
     },
     "r1301": {
-      "id": "r1301",
-      "stepType": "result",
       "diagnosis": "Fan status input operates correctly",
-      "action": "Investigate intermittent fan operation or display/sequence expectations.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate intermittent fan operation or display/sequence expectations."
     },
     "r1302": {
-      "id": "r1302",
-      "stepType": "result",
       "diagnosis": "Controls command path appears normal",
-      "action": "Investigate belts, rotation, dampers, duct restrictions, motor/VFD setup, and mechanical condition.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate belts, rotation, dampers, duct restrictions, motor/VFD setup, and mechanical condition."
     },
     "q1401": {
-      "id": "q1401",
-      "stepType": "question",
       "question": "What supply-fan symptom are you troubleshooting?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Not Running",
-          "next": "q1402"
-        },
-        {
-          "label": "Status Incorrect",
-          "next": "q1410"
-        },
-        {
-          "label": "Speed/Static Issue",
-          "next": "q1420"
-        },
-        {
-          "label": "Offline",
-          "next": "q501"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Not Running": "q1402",
+        "Status Incorrect": "q1410",
+        "Speed/Static Issue": "q1420",
+        "Offline": "q501"
+      }
     },
     "q1402": {
-      "id": "q1402",
-      "stepType": "question",
       "question": "Is the fan enabled and are safeties normal?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q1403"
-        },
-        {
-          "label": "No",
-          "next": "r1401"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q1403",
+        "No": "r1401"
+      }
     },
     "q1403": {
-      "id": "q1403",
-      "stepType": "question",
       "question": "Is start command ON?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q201"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q201",
+        "No": "r995"
+      }
     },
     "q1410": {
-      "id": "q1410",
-      "stepType": "question",
       "question": "Does proof/status change with fan operation?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "r1402"
-        },
-        {
-          "label": "No",
-          "next": "q103"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "r1402",
+        "No": "q103"
+      }
     },
     "q1420": {
-      "id": "q1420",
-      "stepType": "question",
       "question": "Is static-pressure reading accurate?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q1421"
-        },
-        {
-          "label": "No",
-          "next": "q107"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q1421",
+        "No": "q107"
+      }
     },
     "q1421": {
-      "id": "q1421",
-      "stepType": "question",
       "question": "Is speed command changing to maintain setpoint?",
-      "inputType": "multiple_choice",
-      "options": [
-        {
-          "label": "Yes",
-          "next": "q301"
-        },
-        {
-          "label": "No",
-          "next": "r995"
-        }
-      ],
-      "notes": "",
-      "priority": ""
+      "answers": {
+        "Yes": "q301",
+        "No": "r995"
+      }
     },
     "r1401": {
-      "id": "r1401",
-      "stepType": "result",
       "diagnosis": "Supply-fan safety or permissive is not satisfied",
-      "action": "Identify smoke, freeze, high-static, overload, proof, or other interlock; correct cause before reset.",
-      "notes": "",
-      "priority": ""
+      "action": "Identify smoke, freeze, high-static, overload, proof, or other interlock; correct cause before reset."
     },
     "r1402": {
-      "id": "r1402",
-      "stepType": "result",
       "diagnosis": "Supply-fan status input operates correctly",
-      "action": "Investigate display/logic expectations or intermittent fan operation.",
-      "notes": "",
-      "priority": ""
+      "action": "Investigate display/logic expectations or intermittent fan operation."
     },
     "r995": {
-      "id": "r995",
-      "stepType": "result",
       "diagnosis": "Programming / sequence issue",
-      "action": "Verify schedules, occupancy, modes, setpoints, safeties, interlocks, priorities, and application logic.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify schedules, occupancy, modes, setpoints, safeties, interlocks, priorities, and application logic."
     },
     "r996": {
-      "id": "r996",
-      "stepType": "result",
       "diagnosis": "Controller hardware issue",
-      "action": "Verify power/status, application, I/O bus, and known-good test signal; replace only after isolation.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify power/status, application, I/O bus, and known-good test signal; replace only after isolation."
     },
     "r997": {
-      "id": "r997",
-      "stepType": "result",
       "diagnosis": "Field device failure",
-      "action": "Verify correct power/configuration and mechanical freedom; repair or replace the device.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify correct power/configuration and mechanical freedom; repair or replace the device."
     },
     "r998": {
-      "id": "r998",
-      "stepType": "result",
       "diagnosis": "Field wiring issue",
-      "action": "Verify conductor identity, continuity, polarity, shorts/grounds, shield, and terminations.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify conductor identity, continuity, polarity, shorts/grounds, shield, and terminations."
     },
     "r999": {
-      "id": "r999",
-      "stepType": "result",
       "diagnosis": "Point configuration issue",
-      "action": "Verify object exists, correct controller/channel, signal type, bindings, download, online state, and overrides/forces.",
-      "notes": "",
-      "priority": ""
+      "action": "Verify object exists, correct controller/channel, signal type, bindings, download, online state, and overrides/forces."
     }
   }
 }
