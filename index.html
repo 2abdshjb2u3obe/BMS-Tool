@@ -719,7 +719,6 @@ async function saveSession(resultStep) {
 
   const deviceAnswer = history[0]?.answer || null;
   const sessionRow = {
-    user_id: null,
     user_name: currentUser.name.trim(),
     user_email: currentUser.email.trim().toLowerCase(),
     device_type: deviceAnswer,
