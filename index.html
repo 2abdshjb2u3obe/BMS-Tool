@@ -698,6 +698,7 @@ function fetchTreeData() {
 function submitLogin() {
   const name = document.getElementById('login-name').value.trim();
   const email = document.getElementById('login-email').value.trim().toLowerCase();
+  const password = document.getElementById('login-password').value;
   const err = document.getElementById('login-error');
 
   err.textContent = '';
@@ -707,6 +708,10 @@ function submitLogin() {
   }
   if (!/^[^@\s]+@se\.com$/i.test(email)) {
     err.textContent = 'a valid @se.com email is required';
+    return;
+  }
+  if (password !== 'betatest1!') {
+    err.textContent = 'incorrect password';
     return;
   }
 
