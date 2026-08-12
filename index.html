@@ -545,10 +545,6 @@
       <label>Email</label>
       <input type="email" id="login-email" placeholder="firstname.lastname@se.com" autocomplete="email" inputmode="email" pattern="^[^@\s]+@se\.com$" title="Enter your @se.com email address" />
     </div>
-    <div class="login-field">
-      <label>Password</label>
-      <input type="password" id="login-password" placeholder="Enter password" autocomplete="current-password" />
-    </div>
     <div class="login-error" id="login-error"></div>
     <button class="login-submit" id="login-btn" onclick="submitLogin()">start session →</button>
   </div>
@@ -698,7 +694,6 @@ function fetchTreeData() {
 function submitLogin() {
   const name = document.getElementById('login-name').value.trim();
   const email = document.getElementById('login-email').value.trim().toLowerCase();
-  const password = document.getElementById('login-password').value;
   const err = document.getElementById('login-error');
 
   err.textContent = '';
@@ -708,10 +703,6 @@ function submitLogin() {
   }
   if (!/^[^@\s]+@se\.com$/i.test(email)) {
     err.textContent = 'a valid @se.com email is required';
-    return;
-  }
-  if (password !== 'betatest1!') {
-    err.textContent = 'incorrect password';
     return;
   }
 
